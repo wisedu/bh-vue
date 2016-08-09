@@ -71,7 +71,6 @@
      *  }
      */
 
-    import Vue from 'vue';
     import BhNavItem from './bhNavItem';
 
     var setProperty = (data, propName, value) => {
