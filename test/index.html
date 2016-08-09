@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>测试页面</title>
+    <link rel="stylesheet" href="http://res.wisedu.com/fe_components/jqwidget/blue/bh.min.css" />
+    <link rel="stylesheet" href="http://res.wisedu.com/fe_components/jqwidget/blue/bh-scenes.min.css" id="bhThemes" />
+    <link rel="stylesheet" href="http://res.wisedu.com/bower_components/fontawesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="http://res.wisedu.com/fe_components/iconfont/iconfont.css">
+</head>
+<body>
+    <div>
+        {{message}}
+    </div>
+    <!-- 组件 -->
+    <bh-button>测试按钮</bh-button>
+
+    <script src="http://res.wisedu.com/bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src='./vue.min.js'></script>
+    <script type="text/javascript" src='../dist/bh-vue.min.js'></script>
+    <script type="text/javascript">
+        new Vue({
+          el: 'body',
+          data: {
+              message: 'Hello Vue.js!'
+          }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+    "plugins": ["node_modules/vue-doc"],
+    "source": {
+        "include": ["src"],
+        "includePattern": "\\.(vue|js)$"
+    },
+    "opts": {
+        "encoding": "utf8",
+        "destination": "docs/",
+        "recurse": true,
+        "readme": "./src/README.md"
+    },
+    "allowUnknownTags": true
+}

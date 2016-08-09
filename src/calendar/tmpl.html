@@ -1,0 +1,42 @@
+<div class="clndr-controls">
+    <div class="clndr-previous-button">&lt;</div>
+    <div class="clndr-next-button">&gt;</div>
+    <div class="current-month"><%= month %> <%= year %></div>
+</div>
+<div class="clndr-grid">
+    <div class="days-of-the-week clearfix">
+        <% _.each(daysOfTheWeek, function(day) { %>
+            <div class="header-day">
+              <%= day %>
+            </div>
+        <% }); %>
+    </div>
+    <div class="days">
+        <% _.each(days, function(day) { %>
+            <div class="<%= day.classes %>" id="<%= day.id %>"><span class="day-number">
+              <%= day.day %></span>
+              <% var md = (day.date.month() + 1) + '-' + day.day; if(extras.festivals[md]) { %>
+                  <div class='festival'><%= extras.festivals[md] %></div>
+              <% } %>
+            </div>
+        <% }); %>
+    </div>
+</div>
+<!-- <div class="event-listing">
+    <div class="event-listing-title">自定义事件</div>
+    <% _.each(eventsThisMonth, function(event) { %>
+        <% if (event.date) { %>
+            <div class="event-item data-date='<%= moment(event.date).format('YYYY-MM-DD') %>'>
+                <div class="event-item-date"><%= event.date %></div>
+                <div class="event-item-name"><%= event.title %></div>
+                <div class="event-item-location"><%= event.location %></div>
+            </div>
+        <% } else { %>
+            <div class="event-item" data-start="<%= moment(event.start).format('YYYY-MM-DD') %>" data-end="<%= moment(event.end).format('YYYY-MM-DD') %>">
+                <div class="event-item-date"><%= event.start %> ~ <%= event.end %></div>
+                <div class="event-item-name"><%= event.title %></div>
+                <div class="event-item-location"><%= event.location %></div>
+            </div>
+        <% }%>
+    <% }); %>
+</div> -->
