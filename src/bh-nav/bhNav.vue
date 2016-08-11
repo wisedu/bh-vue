@@ -71,6 +71,7 @@
      *  }
      */
 
+    import Vue from 'vue';
     import BhNavItem from './bhNavItem';
 
     var setProperty = (data, propName, value) => {
@@ -123,7 +124,7 @@
 
     var activeMenu = (tree, key, value, cacheMap, vm) => {
         loopTree(tree, (item) => {
-            var bActive = (item[key] === value);
+            var bActive = (value.indexOf(item[key]) === 0);
             // setActive(item, bActive);
 
             // extend parents

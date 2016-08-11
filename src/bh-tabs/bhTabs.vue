@@ -68,6 +68,31 @@
                 default: 'top'
             }
         },
+        methods: {
+            /**
+             * 选择某一个tab页
+             * @param  {Number} index tab页的索引
+             */
+            select (index) {
+                $(this.$el).jqxTabs('select', index);
+            },
+            /**
+             * 增加一个tab页
+             * @param {Number} index   增加到的位置
+             * @param {String} title   tab页标题
+             * @param {String} content tab页内容
+             */
+            add (index, title, content) {
+                $(this.$el).jqxTabs('addAt', index, title, content);
+            },
+            /**
+             * 删除一个tab页
+             * @param  {Number} index tab页的索引
+             */
+            remove (index) {
+                $(this.$el).jqxTabs('removeAt', index);
+            }
+        },
         ready () {
             var self = this;
             var el = $(self.$el);
@@ -92,6 +117,7 @@
             var el = $(this.$el);
             el.off('unselected');
             el.off('selected');
+            el.jqxTabs('destroy');
         }
     };
 </script>
