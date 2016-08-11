@@ -184,6 +184,7 @@
                 opts.data = datamodel;
                 $(this.$el).emapForm(opts);
                 this.reloadValidate();
+                this.$dispatch('inited');
             },
             initOutline () {
                 if (this.outline) {
