@@ -1,5 +1,5 @@
 <template>
-    <div class="nav" style="height: {{height}}; width: {{width}}">
+    <div class="nav" :style="{height: height; width: width}">
         <ul class="bh-nav bh-card bh-card-lv1" style="height: 100%">
             <bh-nav-item v-for='item in compiledSource' :nav-item.sync='item' :active-item-id='activeItemId' @trigger="activeItem"></bh-nav-item>
         </ul>

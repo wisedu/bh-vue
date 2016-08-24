@@ -74,14 +74,14 @@
      *      }
      */
 
-    var defaultOpts = {
+    var _defaultOpts = {
         height: null, // fix scrollbar defect
         checkable: false,
         customColumns: [],
         operations: null
     };
 
-    var getOptItem = (row, item) => {
+    var _getOptItem = (row, item) => {
         if (item.type === 'button') {
             return "<button data-name='" + item.name + "' data-row='" + row + "' class='opt-button'> style='padding: 0 5px;'" + item.title + '</button>';
         } else {
@@ -89,7 +89,7 @@
         }
     };
 
-    var getOptColumn = (vm) => {
+    var _getOptColumn = (vm) => {
         return {
             colIndex: 'last',
             type: 'tpl',
@@ -106,7 +106,7 @@
 
                     var html = '';
                     $.each(items, (i, item) => {
-                        html += getOptItem(row, item);
+                        html += _getOptItem(row, item);
                     });
 
                     return html;
@@ -115,9 +115,51 @@
         };
     };
 
+    var _init = (vm) => {
+        if (vm.inited) {
+            return;
+        }
+
+        var el = $(vm.$el);
+
+        var opts = $.extend({}, _defaultOpts, vm.options);
+        var customColumns = opts.customColumns;
+        var operations = opts.operations;
+
+        if (opts.checkable) { // 增加多选框列
+            customColumns.unshift({
+                colIndex: 0,
+                showCheckAll: true,
+                width: 32,
+                type: 'checkbox'
+            });
+        }
+
+        if (operations) { // 增加操作列
+            customColumns.push(_getOptColumn(vm));
+        }
+
+        opts.checkable = undefined;
+        opts.operations = undefined;
+        opts.lazyInit = undefined;
+
+        el.emapdatatable(opts);
+
+        el.on('click', '.opt-button', function (e) {
+            var _this = $(this);
+            var row = _this.attr('data-row');
+            var name = _this.attr('data-name');
+
+            vm.$dispatch(name, vm.cachedMap[row]);
+        });
+
+        vm.inited = true;
+    };
+
     export default {
         data () {
             return {
+                inited: false,
                 cachedMap: {}
             };
         },
@@ -149,45 +191,23 @@
          * @property {String} options.operations.items.title 操作按钮显示名称
          * @property {String} options.operations.items.name 操作按钮标识，可在组件上监听此 dispatch 事件
          * @property {String} options.operations.items.type 操作按钮类型，指定'button'为按钮，否则为链接
+         * @property {Boolean} options.lazyInit 是否延迟控件实例初始化，为true则需要使用init方法触发控件初始化。
          */
         props: {
             options: Object
         },
         ready () {
-            var self = this;
-            var el = $(self.$el);
-
-            var opts = $.extend({}, defaultOpts, self.options);
-            var customColumns = opts.customColumns;
-            var operations = opts.operations;
-
-            if (opts.checkable) { // 增加多选框列
-                customColumns.unshift({
-                    colIndex: 0,
-                    showCheckAll: true,
-                    width: 32,
-                    type: 'checkbox'
-                });
+            if (!this.options.lazyInit) {
+                _init(this);
             }
-
-            if (operations) { // 增加操作列
-                customColumns.push(getOptColumn(self));
-            }
-
-            opts.checkable = undefined;
-            opts.operations = undefined;
-
-            el.emapdatatable(opts);
-
-            el.on('click', '.opt-button', function (e) {
-                var _this = $(this);
-                var row = _this.attr('data-row');
-                var name = _this.attr('data-name');
-
-                self.$dispatch(name, self.cachedMap[row]);
-            });
         },
         methods: {
+            /**
+             * 初始化控件，若设置lazyInit参数为true则需要调用此方法进行初始化
+             */
+            init () {
+                _init(this);
+            },
             /**
              * 刷新表格数据
              * @param  {Object} params 刷新表格时需要传递的参数
@@ -269,6 +289,7 @@
             }
         },
         beforeDestroy () {
+            this.inited = false;
             this.cachedMap = null;
         }
     };
