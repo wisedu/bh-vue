@@ -8,7 +8,7 @@
                 <h3 class="scenes-cbrt-title">{{title}}</h3>
                 <a href="javascript:void(0);" class="bh-tag bh-tag-primary no-active">{{tag}}</a>
                 <div class="bh-text-caption bh-caption-default">{{caption}}</div>
-                <div class="scenes-cbrt-toolbar">
+                <div class="scenes-cbrt-toolbar" v-if='showExpand'>
                     <a href="javascript:void(0);" class="bh-btn-link" sc-cbrt-flag="switch" sc-cbrt-role="extend" @click='toggle'>
                         {{toggleText}}
                     </a>
@@ -35,7 +35,6 @@
         data () {
             return {
                 isShow: true,
-                active: false,
                 originHeight: 0,
                 currentHeight: 'auto'
             };
@@ -64,6 +63,8 @@
          * @property {String} [tag] 标签 html（容器为panel时有效）
          * @property {String} [toolbar] 标签 html（容器为panel时有效）
          * @property {Boolean} [expanded=false] 是否默认展开
+         * @property {Boolean} [showExpand=true] 是否显示‘展开/收起’操作
+         * @property {Boolean} [active=false] 是否为激活状态
          * @property {Boolean} [autoHide=false] 是否默认隐藏
          */
         props: {
@@ -75,9 +76,17 @@
             caption: String,
             tag: String,
             toolbar: String,
+            active: {
+                type: Boolean,
+                default: false
+            },
             expanded: {
                 type: Boolean,
                 default: false
+            },
+            showExpand: {
+                type: Boolean,
+                default: true
             },
             autoHide: {
                 type: Boolean,

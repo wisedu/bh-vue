@@ -66,9 +66,13 @@
      *     }
      */
     export default {
+        data: () => ({
+            inited: false
+        }),
         /**
          * @property {Object} options 构造表单的选项设置
          * @property {Boolean} options.pagePath 模型请求地址
+         * @property {Object} options.queryParams 模型请求参数
          * @property {Boolean} options.modelName 模型名称
          * @property {Boolean} [options.readonly=false] 是否只读
          * @property {String} [options.model=h] 表单样式'h'/'v'(水平/垂直)
@@ -153,6 +157,15 @@
                 $(this.$el).emapForm('setValue', val);
             },
             /**
+             * 设置标签颜色变化
+             * @example
+             *     $('#JBXX').emapForm('changeLabelColor', {'success': 'WID'})
+             * @param {Object} colors 标签颜色对象
+             */
+            setLabelColor (colors) {
+                $(this.$el).emapForm('changeLabelColor', colors);
+            },
+            /**
              * 校验重载，校验规则发生变化时会自动触发，一般不需要调用
              */
             reloadValidate () {
@@ -180,10 +193,11 @@
                 return $(this.$el).emapForm('clear', val);
             },
             initForm (opts) {
-                var datamodel = WIS_EMAP_SERV.getModel(opts.pagePath, opts.modelName, 'form');
+                var datamodel = WIS_EMAP_SERV.getModel(opts.pagePath, opts.modelName, 'form', opts.queryParams, {'content-type': 'json'});
                 opts.data = datamodel;
                 $(this.$el).emapForm(opts);
                 this.reloadValidate();
+                this.inited = true;
                 this.$dispatch('inited');
             },
             initOutline () {
@@ -210,22 +224,47 @@
                     });
                 }
             },
+            destroyOutline () {
+                if (this.outline) {
+                    $.bhFormOutline.hide({
+                        insertContainer: $(this.container),
+                        destory: true
+                    });
+                }
+            },
+            init () {
+                if (!this.options) {
+                    return;
+                }
+
+                this.initForm(this.options);
+                this.initOutline();
+            },
+            /**
+             * 重新生成form，当meta等信息有变化需要重新创建时使用此方法
+             */
+            reload () {
+                this.inited && this.destroy();
+                this.init();
+            },
             /**
              * 销毁
              */
             destroy () {
                 $(this.$el).emapForm('destroy');
+                this.destroyOutline();
             }
         },
         ready () {
-            var opts = this.options;
-            this.initForm(opts);
-            this.initOutline();
+            this.init();
 
             this.$watch('options.readonly', (newVal, oldVal) => {
-                this.destroy();
-                this.initForm(opts);
+                this.reload();
             });
+        },
+        beforeDestory () {
+            this.destroy();
+            this.inited = false;
         }
     };
 </script>

@@ -89,6 +89,7 @@
     .search-box input {
         text-indent: 33px;
         flex-grow: 1;
+        width: auto;
     }
     .search-box .icon-search {
         left: 0;

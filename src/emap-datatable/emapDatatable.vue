@@ -7,6 +7,8 @@
      * 表格控件（基于EMAP）
      * @module EmapDatatable
      *
+     * @fires ready -列表渲染完成后触发此事件，参数为当前控件vm对象
+     *
      * @example
      *     <caption>html</caption>
      *     <emap-datatable :options='options' @edit='edit' @del='del'></emap-datatable>
@@ -96,6 +98,8 @@
             column: {
                 width: vm.options.operations.width,
                 text: vm.options.operations.title,
+                align: 'center',
+                cellsAlign: 'center',
                 cellsRenderer (row, column, value, rowData) {
                     vm.cachedMap[row] = rowData;
                     var items = vm.options.operations.items;
@@ -142,6 +146,9 @@
         opts.checkable = undefined;
         opts.operations = undefined;
         opts.lazyInit = undefined;
+        opts.ready = () => {
+            vm.$dispatch('ready', vm);
+        };
 
         el.emapdatatable(opts);
 

@@ -95,8 +95,10 @@
 
         return new $.jqx.dataAdapter(source, {
             formatData: function (data) {
-                data[vm.pageNumberField] = data.pagenum + 1;
-                data[vm.pageSizeField] = data.pagesize;
+                if (vm.pageable) {
+                    data[vm.pageNumberField] = data.pagenum + 1;
+                    data[vm.pageSizeField] = data.pagesize;
+                }
 
                 if (vm.pageNumberField !== 'pagenum') {
                     delete data.pagenum;

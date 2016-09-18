@@ -1,7 +1,7 @@
 <template>
     <div class='bh-window' :class='{"has-button": btns.length > 0}'>
         <div class='head'>
-            <h3>{{title}}</h3>
+            <h3>{{{title}}}</h3>
         </div>
         <div class='content'>
             <slot name='content'></slot>
