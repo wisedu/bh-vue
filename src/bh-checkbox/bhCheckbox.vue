@@ -20,7 +20,7 @@
      * @fires change - 选择状态发生变化时触发，参数为数据对象：{value: 1, checked: true, el: dom, extra: {a:1, b:2}}
      *
      * @example
-     *     <bh-checkbox ischeck='false' :disabled='flag'></bh-checkbox>
+     *     <bh-checkbox ischeck='false' :disabled='flag'>选项一</bh-checkbox>
      */
     export default {
         data () {
