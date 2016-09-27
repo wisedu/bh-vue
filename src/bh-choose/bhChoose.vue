@@ -169,6 +169,7 @@
          * @property {Boolean} [showHeader=false] 是否显示列头
          * @property {Function} leftcellsRenderer 左侧单元格渲染方法
          * @property {Function} rightcellsRenderer 右侧单元格渲染方法
+         * @property {Boolean} [nicescroll=true] 是否优化滚动条样式
          */
         props: {
             id: {
@@ -220,7 +221,11 @@
                 default: true
             },
             leftcellsRenderer: Function,
-            rightcellsRenderer: Function
+            rightcellsRenderer: Function,
+            nicescroll: {
+                type: Boolean,
+                default: true
+            }
         },
         methods: {
             /**
@@ -264,7 +269,9 @@
              * @inner
              */
             rightListRendered () {
-                $(this.$el).find('.right-list').niceScroll();
+                if (this.nicescroll) {
+                    $(this.$el).find('.right-list').niceScroll();
+                }
             },
             /**
              * 执行查询
