@@ -271,10 +271,8 @@
              * @param {String} params.filename 自定义的导出文件名，选填
              */
             selectColumnsExport (params) {
-                return $(this.$el).emapdatatable('selectColumnsExport', {
-                    type: 'export',
-                    params: params
-                });
+                let options = $.extend({type: 'export'}, params);
+                return $(this.$el).emapdatatable('selectColumnsExport', options);
             },
             /**
              * 展开选择列窗口

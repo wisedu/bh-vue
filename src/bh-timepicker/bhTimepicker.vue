@@ -18,7 +18,7 @@
      */
     var _init = (vm) => {
         var opts = {
-            defaultType: 'all',
+            defaultType: vm.type,
             format: vm.format,
             isDisable: vm.disabled,
             ready: () => {
@@ -85,6 +85,10 @@
             disabled: {
                 default: false,
                 type: Boolean
+            },
+            type: {
+                type: String,
+                default: 'all'
             }
         },
         methods: {

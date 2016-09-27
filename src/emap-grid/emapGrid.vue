@@ -1,7 +1,7 @@
 <template>
     <div class='bh-grid-container'>
         <div class='bh-switch-card-view'>
-            <span v-if='columnSetting' class='bh-switch-item bh-switch-setting bh-mr-8' @click='openSetting'>
+            <span v-if='columnSetting && type=="list"' class='bh-switch-item bh-switch-setting bh-mr-8' @click='openSetting'>
                 <i class='iconfont icon-settings'></i>
                 <span>设置</span>
             </span>
