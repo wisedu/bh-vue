@@ -147,7 +147,7 @@
         opts.operations = undefined;
         opts.lazyInit = undefined;
         opts.ready = () => {
-            vm.$dispatch('ready', vm);
+            vm.$dispatch(vm.readyName, vm);
         };
 
         el.emapdatatable(opts);
@@ -167,6 +167,7 @@
         data () {
             return {
                 inited: false,
+                readyName: 'ready',
                 cachedMap: {}
             };
         },
@@ -199,11 +200,17 @@
          * @property {String} options.operations.items.name 操作按钮标识，可在组件上监听此 dispatch 事件
          * @property {String} options.operations.items.type 操作按钮类型，指定'button'为按钮，否则为链接
          * @property {Boolean} options.lazyInit 是否延迟控件实例初始化，为true则需要使用init方法触发控件初始化。
+         * @property {String} [options.readyName='ready'] 初始化完成后触发的事件名称
          */
         props: {
             options: Object
         },
         ready () {
+            if (this.options.readyName) {
+                this.readyName = this.options.readyName;
+                this.options.readyName = undefined;
+            }
+
             if (!this.options.lazyInit) {
                 _init(this);
             }

@@ -151,17 +151,17 @@
                     // }
 
                     self.isOpen && (self.isOpen = false);
-                    $('body').niceScroll();
+                    // $('body').niceScroll();
                     self.$dispatch('close');
                 });
 
                 el.on('open', function (event) {
-                    $('body').getNiceScroll().remove();
-                    $('body').css({
-                        'overflow': 'hidden',
-                        'overflow-x': 'hidden',
-                        'overflow-y': 'hidden'
-                    });
+                    // $('body').getNiceScroll().remove();
+                    // $('body').css({
+                    //     'overflow': 'hidden',
+                    //     'overflow-x': 'hidden',
+                    //     'overflow-y': 'hidden'
+                    // });
 
                     self.$dispatch('open');
                 });
