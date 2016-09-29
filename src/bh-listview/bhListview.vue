@@ -28,6 +28,8 @@
      *          列表为空的时候展示这句话
      *      </div>
      *  </list-view>
+     *
+     * @example
      *  <caption>javascript</caption>
      *  // index.js
      *  import TaskItem from './taskItem.vue';
