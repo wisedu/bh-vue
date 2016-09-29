@@ -70,6 +70,10 @@
             this.jqxObj = el.jqxInput({
                 source: this.source
             });
+
+            this.$nextTick(() => {
+                el.find('input.jqx-input-group-addon').css('border-right-width', '1px');
+            });
         },
         beforeDestroy () {
             var el = $(this.$el);

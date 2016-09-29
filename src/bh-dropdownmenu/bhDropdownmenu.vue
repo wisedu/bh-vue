@@ -6,7 +6,7 @@
         </button>
         <ul class="bh-dropdown-menu" bh-dropdown-role="bhDropdownMenu">
             <li v-for="item in source" :class="{'bh-disabled': item.disable}" >
-                <a :href="type==='button' ? '#' : item.hreff" @click="click">{{item[displayMember]}}</a>
+                <a :href="type==='button' ? '#' : item.url" @click="click">{{item[displayMember]}}</a>
             </li>
 
             <!--<li class="bh-dropdown-divider"></li> 暂不支持divider -->
@@ -16,39 +16,31 @@
 
 <script>
     /**
-     * 简单下拉列表组件
-     * @module BhDropdown
+     * 简单下拉按钮组件
+     * @module BhDropdownmenu
      *
-     * @fires change - 选择项发生变化的时候触发，参数为数据对象
+     * @fires clickitem - 单击某个下拉按钮时触发
      *
      * @example
      *     <caption>html</caption>
-     *     <bh-dropdown :source='words' :current.sync='dditem' display-member='name' value-member='sid' @change='onselect'></bh-dropdown>
+     *     <bh-dropdownmenu :source='btns' type='button' icon='clouddownload' title='批量下载' display-member='name' value-member='sid' @clickitem='openMultiDownload'></bh-dropdownmenu>
      * @example
      *     <caption>javascript</caption>
-     *     var words = [{name: 'allow', sid: 1}, {name: 'abc', sid: 2}, {name: 'badf', sid: 3}, {name: 'best world', sid: 4}, {name: 'car', sid: 5}, {name: 'choice', sid: 6}];
+     *     var btns = [{name: 'allow', sid: 1}, {name: 'abc', sid: 2}, {name: 'badf', sid: 3}, {name: 'best world', sid: 4}, {name: 'car', sid: 5}, {name: 'choice', sid: 6}];
      *     export default {
      *         data: function() {
      *             return {
-     *                 words: words,
-     *                 dditem: 3
+     *                 btns: btns
      *             }
      *         },
      *         methods: {
-     *             onselect: function(item) {
+     *             openMultiDownload: function(item) {
      *                 console.log(item);
      *             }
      *         }
      *     }
      */
 
-//    var createAdapter = (vm) => {
-//        return new $.jqx.dataAdapter({
-//            url: vm.url,
-//            root: vm.root,
-//            datatype: 'json'
-//        });
-//    };
 
     export default {
         data () {
@@ -57,17 +49,12 @@
             };
         },
         /**
-         * @property {Object} [current] 默认选择项（对象，优先级高于 selectedIndex），此属性变化会触发选择项改变
-         * @property {Number} [selectedIndex] 默认选择项（索引）
-         * @property {Object} source 数据源，可以为普通对象数组，此属性变化会触发重新渲染
-         * @property {String} [placeholder=请选择] 提示输入文字
-         * @property {Number} [width] 宽度
-         * @property {Number} [height] 高度
+         * @property {String} title 外部按钮显示文字
+         * @property {Array} source 数据源，可以为普通对象数组，此属性变化会触发重新渲染；{name: 'add', sid: 4, disable: false, url: 'http://www.baidu.com'}
          * @property {String} [displayMember] 显示字段的名称
          * @property {String} [valueMember] 取值字段的名称
-         * @property {Boolean} [checkable=false] 是否允许多选
-         * @property {Array} [checkedIndexes] 默认选择的索引列表[多选]
-         * @property {String} [url] 从服务器加载数据时需要设置此属性，则不需要设置source属性
+         * @property {String} [type] 下拉按钮类型，分button和link两种类型，为button时表示普通按钮，单击触发clickitem事件；为link时表示超链接，单击跳转到相应url
+         * @property {String} [icon] 外部按钮左侧显示的图标，默认不显示
          */
         props: {
             title: String,
@@ -85,19 +72,10 @@
             },
             icon: {
                 default: ''
-            },
-
-            url: String,
-            root: String,
-            width: Number,
-            height: Number
+            }
         },
         methods: {
-            /**
-             * 单击事件
-             *
-             */
-            click(e) {
+            click (e) {
                 let index = $(e.target).parent('li').index();
                 let item = this.source[index];
                 if(item.disable === true){
@@ -109,44 +87,18 @@
                     this.$dispatch('clickitem', item);
                     e.preventDefault();
                 }else{
-                    window.location.href = item.hreff;
+                    if(!item.url){
+                        console.error('bh-dropdownmenu error: url must be given when the type is not button');
+                    }
+                    window.location.href = item.url;
                 }
             }
         },
         ready () {
-//            var self = this;
-//            var el = $(this.$el);
-//
-//            var opts = {
-//                source: this.source ? this.source : createAdapter(self),
-//                width: this.width,
-//                height: this.height,
-//            };
-//
-//            if (this.displayMember || this.valueMember) {
-//                $.extend(opts, {
-//                    displayMember: this.displayMember,
-//                    valueMember: this.valueMember
-//                });
-//            }
         },
         beforeDestroy () {
-//            var el = $(this.$el);
-//            el.jqxDropDownList('destroy');
         },
         computed: {
-//            iconClassObj () {
-//                var cls = {
-//                    'bh-btn': true,
-//                    'bh-btn-small': this.small,
-//                    'waves-effect': this.waves,
-//                    'icon-right': this.iconDir !== 'left'
-//                };
-//
-//                cls['bh-btn-' + this.type] = true;
-//
-//                return cls;
-//            }
         }
     };
 </script>
