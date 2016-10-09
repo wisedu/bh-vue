@@ -1,6 +1,11 @@
 /**
  * 页面相关操作的util方法集合
- * @module pageUtil
+ * @module utils/pageUtil
+ * @example
+ * //引入
+ * import pageUtil from 'bh-vue/utils/pageUtil'
+ * // 使用
+ * pageUtil.alert('警告信息');
  */
 export default {
     /**
