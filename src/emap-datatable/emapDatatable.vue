@@ -119,6 +119,19 @@
         };
     };
 
+    // 根据 hiddenColumns 设置隐藏某些列
+    var _hideCols = (vm) => {
+        var hiddenColumns = vm.hiddenColumns;
+        var el = $(vm.$el);
+
+        if (hiddenColumns && hiddenColumns.length > 0) {
+            // 处理需要隐藏的列表
+            hiddenColumns.forEach((colName) => {
+                el.jqxDataTable('hideColumn', colName);
+            });
+        }
+    };
+
     var _init = (vm) => {
         if (vm.inited) {
             return;
@@ -129,6 +142,9 @@
         var opts = $.extend({}, _defaultOpts, vm.options);
         var customColumns = opts.customColumns;
         var operations = opts.operations;
+
+        vm.hiddenColumns = opts.hiddenColumns;
+        opts.hiddenColumns = undefined;
 
         if (opts.checkable) { // 增加多选框列
             customColumns.unshift({
@@ -147,6 +163,7 @@
         opts.operations = undefined;
         opts.lazyInit = undefined;
         opts.ready = () => {
+            _hideCols(vm); // 隐藏列
             vm.$dispatch(vm.readyName, vm);
         };
 
@@ -168,7 +185,8 @@
             return {
                 inited: false,
                 readyName: 'ready',
-                cachedMap: {}
+                cachedMap: {},
+                hiddenColumns: []
             };
         },
         /**
@@ -192,6 +210,7 @@
          * @property {Boolean} [options.schema=true] 是否启用schema，为 true则必须定义contextPath;未定义contextPath时,schema 不生效
          * @property {String} options.contextPath 请求上下文
          * @property {Number} options.minLineNum 表格最小行数
+         * @property {Array} [options.hiddenColumns=[]] 默认需要隐藏的字段, Emap组件暂时不支持此属性，所以新增此处理
          * @property {Array} [options.alwaysHide=['WID', 'TBRQ', 'TBLX', 'CZRQ', 'CZZ', 'CZZXM']] 自定义显示列的隐藏字段
          * @property {Object} [options.operations] 操作按钮列表，显示在最后一列
          * @property {String} options.operations.title 操作列头名称
@@ -225,9 +244,13 @@
             /**
              * 刷新表格数据
              * @param  {Object} params 刷新表格时需要传递的参数
+             * @param {Function} [callback] 刷新后的回调函数
              */
-            reload (params) {
-                $(this.$el).emapdatatable('reload', params);
+            reload (params, callback) {
+                $(this.$el).emapdatatable('reload', params, (...args) => {
+                    _hideCols(this);
+                    callback && callback(args);
+                });
             },
             /**
              * 表格带checkbox时，可以调用该方法返回已经选中的记录
@@ -239,9 +262,14 @@
             },
             /**
              * 默认刷新表格并回到首页
+             * @param  {Object} params 刷新表格时需要传递的参数
+             * @param {Function} [callback] 刷新后的回调函数
              */
-            reloadFirstPage () {
-                return $(this.$el).emapdatatable('reloadFirstPage');
+            reloadFirstPage (params, callback) {
+                return $(this.$el).emapdatatable('reloadFirstPage', params, (...args) => {
+                    _hideCols(this);
+                    callback && callback(args);
+                });
             },
             /**
              * 获取数据条数
