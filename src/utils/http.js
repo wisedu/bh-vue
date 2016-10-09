@@ -1,3 +1,8 @@
+/**
+ * 通用 http 请求方法
+ * @module http
+ */
+
 let http = Vue.http;
 
 // 封装一些通用处理，更方便的解析返回数据格式
@@ -38,6 +43,7 @@ let _firstRow = (data) => {
 };
 
 /**
+ * @memberof module:http
  * 简化一下ajax调用，基于 [vue resource]
  */
 export const postJson = (url, params, processFunc) => {
@@ -47,6 +53,7 @@ export const postJson = (url, params, processFunc) => {
 };
 
 /**
+ * @memberof module:http
  * 简化一下ajax调用，基于 [vue resource]，使用form-urlencoded方式
  */
 export const postForm = (url, params, processFunc) => {
@@ -59,6 +66,7 @@ export const postForm = (url, params, processFunc) => {
 };
 
 /**
+ * @memberof module:http
  * 简化一下ajax调用，基于 [vue resource]，使用get方式发送请求
  */
 export const getJson = (url, params, processFunc) => {
@@ -68,6 +76,7 @@ export const getJson = (url, params, processFunc) => {
 };
 
 /**
+ * @memberof module:http
  * 简化一下ajax调用，基于bh_util中封装的方法
  */
 export const promiseReq = (url, params, processFunc) => {
