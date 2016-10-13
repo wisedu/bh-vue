@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: calendar/calendar.vue</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: calendar/calendar.vue</h1>
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>&lt;template>
+    &lt;div class='full-clndr'>&lt;/div>
+&lt;/template>
+
+&lt;script>
+    /**
+     * 日历控件
+     * @module Calendar
+     *
+     * @fires item-click -点击日期的时候触发
+     * @fires next-month -切换到下月时候触发
+     * @fires last-month -切换到上月时候触发
+     * @fires month-change -切换到其他月分时候触发
+     * @fires today -切换到当日时候触发
+     *
+     * @example
+     *     &lt;caption>html&lt;/caption>
+     *     &lt;calendar :events='events'>&lt;/calendar>
+     * @example
+     *     &lt;caption>javascript&lt;/caption>
+     *     import Calendar from 'components/calendar/calendar'
+     *     export default {
+     *        data: function() {
+     *            return {
+     *                events: [
+     *                    {start:'2016-07-06', end:'2016-07-06', title:'CLNDR GitHub Page Finished', url:'http://github.com/kylestetz/CLNDR'},
+     *                    {start:'2016-07-11', end:'2016-07-30', title:'CLNDR GitHub Page Finished', url:'http://github.com/kylestetz/CLNDR'}
+     *                ]
+     *            };
+     *        },
+     *        components: {Calendar}
+     *     }
+     */
+
+    import Festivals from './festivals';
+
+    var defaultTmpl = require('./tmpl.html');
+
+    export default {
+        data: () => {
+            return {
+                _instance: null
+            };
+        },
+        /**
+         * @property {Array} [events] 事件列表
+         * @property {String} [template] 自定义模板，模板实现方法参照'http://kylestetz.github.io/CLNDR/'
+         */
+        props: {
+            events: Array,
+            template: {
+                type: String,
+                default: defaultTmpl
+            }
+        },
+        methods: {
+            /**
+             * 切换到后一个月
+             */
+            forward () {
+                this._instance.forward();
+            },
+            /**
+             * 切换到前一个月
+             */
+            back () {
+                this._instance.back();
+            },
+            /**
+             * 切换到月份
+             * @param {Number/String} month 月份，可以用整数(0-11)或字符串('February')表示
+             */
+            setMonth (month) {
+                this._instance.setMonth(month);
+            },
+            /**
+             * 切换到下一年
+             */
+            nextYear () {
+                this._instance.nextYear();
+            },
+            /**
+             * 切换到上一年
+             */
+            previousYear () {
+                this._instance.previousYear();
+            },
+            /**
+             * 切换到年份
+             * @param {Number} year 年份
+             */
+            setYear (year) {
+                this._instance.setYear(year);
+            },
+            /**
+             * 设置事件列表，调用此方法会重新渲染控件
+             * @param {Array} events 事件列表
+             */
+            setEvents (events) {
+                var data = JSON.parse(JSON.stringify(events));
+                this._instance.setEvents(data);
+            },
+            /**
+             * 增加事件列表，调用此方法会重新渲染控件
+             * @param {Array} events 事件列表
+             */
+            addEvents (events) {
+                this._instance.addEvents(events);
+            }
+        },
+        ready () {
+            var vm = this;
+            var el = $(vm.$el);
+
+            vm._instance = el.clndr({
+                template: this.template,
+                multiDayEvents: {
+                    startDate: 'start',
+                    endDate: 'end'
+                },
+                events: this.events,
+                extras: {
+                    festivals: Festivals
+                },
+                clickEvents: {
+                    click (target) {
+                        var elem = target.element;
+                        $(elem).siblings().removeClass('selected');
+                        $(elem).addClass('selected');
+                        vm.$dispatch('item-click', target);
+                        return false;
+                    },
+                    nextMonth (month) {
+                        vm.$dispatch('next-month', month);
+                    },
+                    previousMonth (month) {
+                        vm.$dispatch('last-month', month);
+                    },
+                    onMonthChange (month) {
+                        vm.$dispatch('month-change', month);
+                    },
+                    today (month) {
+                        vm.$dispatch('today', month);
+                    }
+                }
+            });
+
+            vm.$watch('events', (vals) => {
+                vm.setEvents(vals);
+            });
+        }
+    };
+&lt;/script>
+
+&lt;style lang='less'>
+    @bg-color: #ebebeb;
+    @full-shadow: #343434;
+    @festival-color: ##111;
+    @bg-title: #414141;
+    @bg-days: #3883a3;
+    @day-color: #4f4f4f;
+    @select-border: #a55;
+
+    .full-clndr {
+        width: 100%;
+        background-color: @bg-color;
+        font-weight: 700;
+        -moz-box-shadow: 0px 4px 0 @full-shadow;
+        -webkit-box-shadow: 0px 4px 0 @full-shadow;
+        box-shadow: 0px 4px 0 @full-shadow;
+
+        .festival {
+            color: @festival-color;
+        }
+
+        .clndr-controls {
+            padding: 14px;
+            background-color: @bg-title;
+            color: white;
+            text-align: center;
+
+            .clndr-previous-button {
+                float: left;
+                text-align: left;
+            }
+
+            .clndr-next-button {
+                float: right;
+                text-align: right;
+            }
+
+            .clndr-previous-button, .clndr-next-button {
+                width: 30px;
+                cursor: pointer;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+            }
+
+            .clndr-previous-button:hover, .clndr-next-button:hover {
+                opacity: 0.5;
+            }
+        }
+
+        .clndr-grid {
+            float: left;
+            width: 100%;
+            border: none;
+
+            .days-of-the-week {
+                width: 100%;
+                background-color: @bg-days;
+            }
+
+            .days-of-the-week .header-day {
+                float: left;
+                width: 14.2857%;
+                padding: 14px;
+                text-align: center;
+                color: white;
+            }
+
+            .days {
+                width: 100%;
+
+                .day, .empty {
+                    float: left;
+                    width: 14.2857%;
+                    height: 66px;
+                    padding: 24px 0;
+                    text-align: center;
+                    color: @day-color;
+                    background-color: @bg-color;
+                    border-bottom: 2px solid white;
+                    background-image: url('./imgs/triangle.svg');
+                    background-size: cover;
+                    background-position: center;
+                }
+
+                .day.event .day-number, .empty.event .day-number {
+                    padding-bottom: 4px;
+                    border-bottom: 2px solid @bg-days;
+                }
+
+                .day.adjacent-month .day-number, .empty.adjacent-month .day-number {
+                    opacity: 0.3;
+                }
+
+                .today {
+                    background-color: white;
+                    background-image: none;
+                }
+
+                .day.event {
+                    cursor: pointer;
+                }
+
+                .day.selected {
+                    border-color: @select-border;
+                }
+            }
+        }
+
+        .noselect {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        @media all and (max-width: 768px) {
+            .clndr-grid {
+                width: 100%;
+                border: none;
+            }
+        }
+    }
+&lt;/style>
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">首页</a></h2><h3>组件</h3><ul><li><a href="module-BhButton.html">BhButton</a></li><li><a href="module-BhCard.html">BhCard</a></li><li><a href="module-BhCheckbox.html">BhCheckbox</a></li><li><a href="module-BhChecklist.html">BhChecklist</a></li><li><a href="module-BhChoose.html">BhChoose</a></li><li><a href="module-BhDatatable.html">BhDatatable</a></li><li><a href="module-BhDatetime.html">BhDatetime</a></li><li><a href="module-BhDropdown.html">BhDropdown</a></li><li><a href="module-BhDropdownmenu.html">BhDropdownmenu</a></li><li><a href="module-BhEditPanel.html">BhEditPanel</a></li><li><a href="module-bhFlowNode.html">bhFlowNode</a></li><li><a href="module-BhFooter.html">BhFooter</a></li><li><a href="module-BhHeader.html">BhHeader</a></li><li><a href="module-BhInput.html">BhInput</a></li><li><a href="module-BhListView.html">BhListView</a></li><li><a href="module-BhLoading.html">BhLoading</a></li><li><a href="module-BhNav.html">BhNav</a></li><li><a href="module-BhOutline.html">BhOutline</a></li><li><a href="module-BhPagination.html">BhPagination</a></li><li><a href="module-BhPanel.html">BhPanel</a></li><li><a href="module-BhRadio.html">BhRadio</a></li><li><a href="module-BhSearch.html">BhSearch</a></li><li><a href="module-bhStepFlow.html">bhStepFlow</a></li><li><a href="module-bhStepWizard.html">bhStepWizard</a></li><li><a href="module-BhSwitch.html">BhSwitch</a></li><li><a href="module-BhTabs.html">BhTabs</a></li><li><a href="module-BhTextarea.html">BhTextarea</a></li><li><a href="module-BhTimepicker.html">BhTimepicker</a></li><li><a href="module-BhToggle.html">BhToggle</a></li><li><a href="module-BhTooltip.html">BhTooltip</a></li><li><a href="module-BhTree.html">BhTree</a></li><li><a href="module-BhWindow.html">BhWindow</a></li><li><a href="module-Calendar.html">Calendar</a></li><li><a href="module-EmapAvatarupload.html">EmapAvatarupload</a></li><li><a href="module-EmapCard.html">EmapCard</a></li><li><a href="module-EmapDatatable.html">EmapDatatable</a></li><li><a href="module-EmapDbTable.html">EmapDbTable</a></li><li><a href="module-EmapDdTree.html">EmapDdTree</a></li><li><a href="module-EmapEditor.html">EmapEditor</a></li><li><a href="module-EmapFileupload.html">EmapFileupload</a></li><li><a href="module-EmapForm.html">EmapForm</a></li><li><a href="module-EmapGrid.html">EmapGrid</a></li><li><a href="module-EmapImageupload.html">EmapImageupload</a></li><li><a href="module-EmapLinkage.html">EmapLinkage</a></li><li><a href="module-EmapSearch.html">EmapSearch</a></li><li><a href="module-EmapSearchAdv.html">EmapSearchAdv</a></li><li><a href="module-EmapUpload.html">EmapUpload</a></li><li><a href="module-utils_http.html">utils/http</a></li><li><a href="module-utils_pageUtil.html">utils/pageUtil</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Sun Oct 09 2016 14:44:16 GMT+0800 (中国标准时间)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

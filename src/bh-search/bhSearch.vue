@@ -17,6 +17,18 @@
      * <caption>html</caption>
      * <bh-search @search='search' :value.sync='val' placeholder='随便输入，长度小于10' :maxlength='maxlength' :source='candidates'></bh-search>
      */
+    
+    /**
+     * 去除字符串两端空格
+     */
+    const _trim = (val) => {
+        if (! val) {
+            return '';
+        }
+
+        return val.trim();
+    };
+
     export default {
         data () {
             return {
@@ -34,6 +46,7 @@
          */
         props: {
             'value': {
+                type: String,
                 default: ''
             },
             'showButton': {
@@ -59,8 +72,15 @@
             }
         },
         methods: {
+            /**
+             * 获取输入值
+             * @return {String} 经过trim处理的输入字符串
+             */
+            getValue () {
+                return _trim(this.value);
+            },
             search () {
-                this.$dispatch('search', this.value);
+                this.$dispatch('search', _trim(this.value));
             }
         },
         ready () {

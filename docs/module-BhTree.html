@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: BhTree</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">BhTree</h1>
+    
+
+
+
+
+<section>
+
+<header>
+    
+        
+            
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">树</div>
+        
+
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="bh-tree_bhTree.vue.html">bh-tree/bhTree.vue</a>, <a href="bh-tree_bhTree.vue.html#line2">line 2</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<h5>事件(Dispatch):</h5>
+<ul>
+    <li>check-change - 选择的元素列表发生变化(需要支持多选:checkboxes = true)</li>
+
+    <li>select - 当前元素发生变化(鼠标点击)</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>&lt;bh-tree v-ref:tree3 :source='treeData' :selected-item.sync='selItem'>&lt;/bh-tree></code></pre>
+
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+        <h3 class="subsection-title">属性</h3>
+
+        
+            
+<h4 class="name" id="props"><span class="type-signature"></span>props<span class="type-signature"></span></h4>
+
+
+
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>source</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">数据源，发生变化时会重新渲染当前组件</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>selectedItem</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">当前选中的节点数据（鼠标点击）</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>checkedItems</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">当前选中的节点数据（复选框选中）</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">其他参数
+                <h6>Properties</h6>
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>hasThreeStates</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last">三种状态展示是否选中</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>checkboxes</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last">是否支持复选</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fields</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    { id: 'id', pid: 'parentid', label: 'label'}
+                
+                </td>
+            
+
+            <td class="description last">字段定义</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="bh-tree_bhTree.vue.html">bh-tree/bhTree.vue</a>, <a href="bh-tree_bhTree.vue.html#line196">line 196</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>source: [
+     {
+         icon: "resources/img/icon/tree/mailIcon.png", label: "Mail", expanded: true, items: [
+           { icon: "resources/img/icon/tree/calendarIcon.png", label: "Calendar" },
+           { icon: "resources/img/icon/tree/contactsIcon.png", label: "Contacts", selected: true }
+         ]
+     },
+     {
+         icon: "resources/img/icon/tree/folder.png", label: "Inbox", expanded: true, items: [
+          { icon: "resources/img/icon/tree/folder.png", label: "Admin" },
+          { icon: "resources/img/icon/tree/folder.png", label: "Corporate" },
+          { icon: "resources/img/icon/tree/folder.png", label: "Finance" },
+          { icon: "resources/img/icon/tree/folder.png", label: "Other" },
+         ]
+     },
+     { icon: "resources/img/icon/tree/recycle.png", label: "Deleted Items" },
+     { icon: "resources/img/icon/tree/notesIcon.png", label: "Notes" },
+     { iconsize: 14, icon: "resources/img/icon/tree/settings.png", label: "Settings" },
+     { icon: "resources/img/icon/tree/favorites.png", label: "Favorites" }
+ ];</code></pre>
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">方法</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="addChild"><span class="type-signature"></span>addChild<span class="signature">(child, parent)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    增加子节点
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>child</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">子节点数据</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>parent</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">父节点</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="bh-tree_bhTree.vue.html">bh-tree/bhTree.vue</a>, <a href="bh-tree_bhTree.vue.html#line233">line 233</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="checkAll"><span class="type-signature"></span>checkAll<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    全选
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="bh-tree_bhTree.vue.html">bh-tree/bhTree.vue</a>, <a href="bh-tree_bhTree.vue.html#line219">line 219</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="collapseItem"><span class="type-signature"></span>collapseItem<span class="signature">(item)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    收起节点
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>item</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">元素节点（li 标签）</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="bh-tree_bhTree.vue.html">bh-tree/bhTree.vue</a>, <a href="bh-tree_bhTree.vue.html#line246">line 246</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="expandItem"><span class="type-signature"></span>expandItem<span class="signature">(item)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    展开节点
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>item</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">元素节点（li 标签）</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="bh-tree_bhTree.vue.html">bh-tree/bhTree.vue</a>, <a href="bh-tree_bhTree.vue.html#line253">line 253</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getAll"><span class="type-signature"></span>getAll<span class="signature">()</span><span class="type-signature"> &rarr; {Array}</span></h4>
+
+    
+
+
+
+<div class="description">
+    获取全部节点数据
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="bh-tree_bhTree.vue.html">bh-tree/bhTree.vue</a>, <a href="bh-tree_bhTree.vue.html#line213">line 213</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    数据列表
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="remove"><span class="type-signature"></span>remove<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    移除节点
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="bh-tree_bhTree.vue.html">bh-tree/bhTree.vue</a>, <a href="bh-tree_bhTree.vue.html#line239">line 239</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="selectItem"><span class="type-signature"></span>selectItem<span class="signature">(item)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    选择节点
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>item</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">元素节点（li 标签）</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="bh-tree_bhTree.vue.html">bh-tree/bhTree.vue</a>, <a href="bh-tree_bhTree.vue.html#line260">line 260</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="uncheckAll"><span class="type-signature"></span>uncheckAll<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    反选
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="bh-tree_bhTree.vue.html">bh-tree/bhTree.vue</a>, <a href="bh-tree_bhTree.vue.html#line225">line 225</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">首页</a></h2><h3>组件</h3><ul><li><a href="module-BhButton.html">BhButton</a></li><li><a href="module-BhCard.html">BhCard</a></li><li><a href="module-BhCheckbox.html">BhCheckbox</a></li><li><a href="module-BhChecklist.html">BhChecklist</a></li><li><a href="module-BhChoose.html">BhChoose</a></li><li><a href="module-BhDatatable.html">BhDatatable</a></li><li><a href="module-BhDatetime.html">BhDatetime</a></li><li><a href="module-BhDropdown.html">BhDropdown</a></li><li><a href="module-BhDropdownmenu.html">BhDropdownmenu</a></li><li><a href="module-BhEditPanel.html">BhEditPanel</a></li><li><a href="module-bhFlowNode.html">bhFlowNode</a></li><li><a href="module-BhFooter.html">BhFooter</a></li><li><a href="module-BhHeader.html">BhHeader</a></li><li><a href="module-BhInput.html">BhInput</a></li><li><a href="module-BhListView.html">BhListView</a></li><li><a href="module-BhLoading.html">BhLoading</a></li><li><a href="module-BhNav.html">BhNav</a></li><li><a href="module-BhOutline.html">BhOutline</a></li><li><a href="module-BhPagination.html">BhPagination</a></li><li><a href="module-BhPanel.html">BhPanel</a></li><li><a href="module-BhRadio.html">BhRadio</a></li><li><a href="module-BhSearch.html">BhSearch</a></li><li><a href="module-bhStepFlow.html">bhStepFlow</a></li><li><a href="module-bhStepWizard.html">bhStepWizard</a></li><li><a href="module-BhSwitch.html">BhSwitch</a></li><li><a href="module-BhTabs.html">BhTabs</a></li><li><a href="module-BhTextarea.html">BhTextarea</a></li><li><a href="module-BhTimepicker.html">BhTimepicker</a></li><li><a href="module-BhToggle.html">BhToggle</a></li><li><a href="module-BhTooltip.html">BhTooltip</a></li><li><a href="module-BhTree.html">BhTree</a></li><li><a href="module-BhWindow.html">BhWindow</a></li><li><a href="module-Calendar.html">Calendar</a></li><li><a href="module-EmapAvatarupload.html">EmapAvatarupload</a></li><li><a href="module-EmapCard.html">EmapCard</a></li><li><a href="module-EmapDatatable.html">EmapDatatable</a></li><li><a href="module-EmapDbTable.html">EmapDbTable</a></li><li><a href="module-EmapDdTree.html">EmapDdTree</a></li><li><a href="module-EmapEditor.html">EmapEditor</a></li><li><a href="module-EmapFileupload.html">EmapFileupload</a></li><li><a href="module-EmapForm.html">EmapForm</a></li><li><a href="module-EmapGrid.html">EmapGrid</a></li><li><a href="module-EmapImageupload.html">EmapImageupload</a></li><li><a href="module-EmapLinkage.html">EmapLinkage</a></li><li><a href="module-EmapSearch.html">EmapSearch</a></li><li><a href="module-EmapSearchAdv.html">EmapSearchAdv</a></li><li><a href="module-EmapUpload.html">EmapUpload</a></li><li><a href="module-utils_http.html">utils/http</a></li><li><a href="module-utils_pageUtil.html">utils/pageUtil</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Sun Oct 09 2016 14:44:17 GMT+0800 (中国标准时间)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

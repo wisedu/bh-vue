@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: 首页</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">首页</h1>
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h1>基于jqwidget和EMAP封装的Vue组件</h1><p>演示页面：<a href="https://wisedu.github.io/bh-vue-demo">https://wisedu.github.io/bh-vue-demo</a></p>
+<p>组件文档参考：<a href="http://res.wisedu.com/FE/vue-doc/index.html">http://res.wisedu.com/FS/vue-doc/index.html</a></p>
+<h3>引入组件库</h3><ol>
+<li>使用npm方式引入：<pre class="prettyprint source"><code> npm install bh-vue</code></pre></li>
+<li>使用压缩js的方式引入<pre class="prettyprint source"><code> &lt;script src=&quot;//res.wisedu.com/fe_components/bh-vue/bh-vue.min.js&quot;>&lt;/script></code></pre></li>
+</ol>
+<h3>打包组件库到min.js文件</h3><pre class="prettyprint source"><code>npm install
+npm run pack</code></pre><h3>包含第三依赖库的页面模板：</h3><pre class="prettyprint source lang-html"><code>&lt;!DOCTYPE html>
+&lt;html>
+  &lt;head>
+    &lt;meta charset=&quot;utf-8&quot;>
+    &lt;title>jqwidget-based Vue Components&lt;/title>
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;//res.wisedu.com/fe_components/jqwidget/blue/bh.min.css&quot; />
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;//res.wisedu.com/fe_components/jqwidget/blue/bh-scenes.min.css&quot; id=&quot;bhThemes&quot; />
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;//res.wisedu.com/bower_components/fontawesome/css/font-awesome.min.css&quot; />
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;//res.wisedu.com/fe_components/iconfont/iconfont.css&quot;>
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;//res.wisedu.com/bower_components/selectize/dist/css/selectize.bootstrap3.css&quot;>
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;//res.wisedu.com/fe_components/selectize/select.css&quot;>
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;//res.wisedu.com/bower_components/summernote-0.8.1/dist/summernote-bs3.min.css&quot;>
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;//res.wisedu.com/bower_components/summernote-0.8.1/dist/summernote.css&quot;>
+  &lt;/head>
+  &lt;body>
+    &lt;div id=&quot;app&quot;>&lt;/div>
+    &lt;script src=&quot;//res.wisedu.com/bower_components/jquery/dist/jquery.min.js&quot;>&lt;/script>
+    &lt;!-- jqxwidget -->
+    &lt;script src='//res.wisedu.com/fe_components/jqwidget/jqxwidget.min.js'>&lt;/script>
+    &lt;script src=&quot;//res.wisedu.com/fe_components/jqwidget/globalize.js&quot;>&lt;/script>
+    &lt;script src=&quot;//res.wisedu.com/fe_components/jqwidget/globalize.culture.zh-CN.js&quot;>&lt;/script>
+    &lt;!-- bh -->
+    &lt;script src=&quot;//res.wisedu.com/fe_components/bh.min.js&quot;>&lt;/script>
+    &lt;script src=&quot;//res.wisedu.com/fe_components/bh_utils.js&quot;>&lt;/script>
+    &lt;script src=&quot;//res.wisedu.com/bower_components/sortable/Sortable.min.js&quot;>&lt;/script>
+    &lt;script src=&quot;//res.wisedu.com/bower_components/selectize/dist/js/standalone/selectize.min.js&quot;>&lt;/script>
+    &lt;!-- 文件上传控件依赖库 -->
+    &lt;script src=&quot;//res.wisedu.com/bower_components/blueimp-file-upload/js/vendor/jquery.ui.widget.js&quot;>&lt;/script>
+    &lt;script src=&quot;//res.wisedu.com/bower_components/blueimp-file-upload/js/jquery.iframe-transport.js&quot;>&lt;/script>
+    &lt;script src=&quot;//res.wisedu.com/bower_components/blueimp-file-upload/js/jquery.fileupload.js&quot;>&lt;/script>
+    &lt;!-- 日历控件依赖库 -->
+    &lt;script src='//cdn.bootcss.com/moment.js/2.13.0/moment.min.js'>&lt;/script>
+    &lt;script src='//cdn.bootcss.com/moment.js/2.13.0/locale/zh-cn.js'>&lt;/script>
+    &lt;script src='//cdn.bootcss.com/underscore.js/1.5.2/underscore-min.js'>&lt;/script>
+    &lt;script src='//cdn.bootcss.com/clndr/1.4.4/clndr.min.js'>&lt;/script>
+    &lt;!-- nicescroll -->
+    &lt;script src=&quot;//res.wisedu.com/bower_components/jquery.nicescroll/jquery.nicescroll.min.js&quot;>&lt;/script>
+    &lt;!-- EMAP 依赖库 -->
+    &lt;script src='//cdn.bootcss.com/hogan.js/3.0.2/hogan.min.js'>&lt;/script>
+    &lt;script src='//res.wisedu.com/fe_components/emap.js'>&lt;/script>
+    &lt;!-- mock.js 在开发环境无法模拟post请求数据时使用 -->
+    &lt;!-- &lt;script src='//res.wisedu.com/fe_components/mock/mock.js'>&lt;/script> -->
+    &lt;!-- 富文本编辑器 -->
+    &lt;script src=&quot;//res.wisedu.com/bower_components/bootstrap/dist/js/bootstrap.min.js&quot;>&lt;/script>
+    &lt;script src=&quot;//res.wisedu.com/bower_components/summernote-0.8.1/dist/summernote.js&quot;>&lt;/script>
+    &lt;!-- built files will be auto injected -->
+  &lt;/body>
+&lt;/html></code></pre><h3>示例页面</h3><pre class="prettyprint source lang-html"><code>&lt;template>
+    &lt;article bh-layout-role=&quot;single-no-title&quot;>
+        &lt;section class=&quot;bh-mh-8 bh-mv-8&quot;>
+            &lt;header>
+                &lt;h2>富文本编辑器&lt;/h2>
+            &lt;/header>
+            &lt;div class=&quot;bh-row bh-mt-16&quot;>
+                &lt;div class=&quot;bh-col-md-6 bh-mv-8 bh-mb-16&quot;>
+                    &lt;emap-editor v-ref:ee :options='options'>&lt;/emap-editor>
+                &lt;/div>
+                &lt;div class=&quot;clearfix&quot;>&lt;/div>
+                &lt;div class=&quot;bh-col-md-6 bh-mv-8&quot;>
+                    &lt;button class='bh-btn bh-btn-default' @click='getContent'>获取输入内容&lt;/button>
+                    &lt;button class='bh-btn bh-btn-default' @click='setValue'>设置内容&lt;/button>
+                    &lt;button class='bh-btn bh-btn-default' @click='clear'>清空内容&lt;/button>
+                    &lt;button class='bh-btn bh-btn-default' @click='disable'>禁用&lt;/button>
+                    &lt;button class='bh-btn bh-btn-default' @click='enable'>启用&lt;/button>
+                    &lt;button class='bh-btn bh-btn-default' @click='isEmpty'>是否为空&lt;/button>
+                &lt;/div>
+            &lt;/div>
+        &lt;/section>
+    &lt;/article>
+&lt;/template>
+
+&lt;script>
+    /** 使用js方式引入组件库的话不需要在此处import */
+    import EmapEditor from 'components/emap-editor/emapEditor.vue'
+
+    export default {
+        data: function() {
+            return {
+                options: {
+                    contextPath: 'http://localhost:3000/mock/emap/major-model.json'
+                }
+            }
+        },
+        methods: {
+            getContent: function() {
+                console.log(this.$refs.ee.getValue());
+            },
+            setValue: function() {
+                this.$refs.ee.setValue('&lt;p>Hello World, Hello Dog !&lt;/p>');
+            },
+            clear: function() {
+                this.$refs.ee.clear();
+            },
+            disable: function() {
+                this.$refs.ee.disable();
+            },
+            enable: function() {
+                this.$refs.ee.enable();
+            },
+            isEmpty: function() {
+                alert(this.$refs.ee.isEmpty());
+            }
+        },
+        /** 使用js方式引入组件库的话不需要在此处注册 */
+        components: {EmapEditor}
+    }
+&lt;/script></code></pre></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">首页</a></h2><h3>组件</h3><ul><li><a href="module-BhButton.html">BhButton</a></li><li><a href="module-BhCard.html">BhCard</a></li><li><a href="module-BhCheckbox.html">BhCheckbox</a></li><li><a href="module-BhChecklist.html">BhChecklist</a></li><li><a href="module-BhChoose.html">BhChoose</a></li><li><a href="module-BhDatatable.html">BhDatatable</a></li><li><a href="module-BhDatetime.html">BhDatetime</a></li><li><a href="module-BhDropdown.html">BhDropdown</a></li><li><a href="module-BhDropdownmenu.html">BhDropdownmenu</a></li><li><a href="module-BhEditPanel.html">BhEditPanel</a></li><li><a href="module-bhFlowNode.html">bhFlowNode</a></li><li><a href="module-BhFooter.html">BhFooter</a></li><li><a href="module-BhHeader.html">BhHeader</a></li><li><a href="module-BhInput.html">BhInput</a></li><li><a href="module-BhListView.html">BhListView</a></li><li><a href="module-BhLoading.html">BhLoading</a></li><li><a href="module-BhNav.html">BhNav</a></li><li><a href="module-BhOutline.html">BhOutline</a></li><li><a href="module-BhPagination.html">BhPagination</a></li><li><a href="module-BhPanel.html">BhPanel</a></li><li><a href="module-BhRadio.html">BhRadio</a></li><li><a href="module-BhSearch.html">BhSearch</a></li><li><a href="module-bhStepFlow.html">bhStepFlow</a></li><li><a href="module-bhStepWizard.html">bhStepWizard</a></li><li><a href="module-BhSwitch.html">BhSwitch</a></li><li><a href="module-BhTabs.html">BhTabs</a></li><li><a href="module-BhTextarea.html">BhTextarea</a></li><li><a href="module-BhTimepicker.html">BhTimepicker</a></li><li><a href="module-BhToggle.html">BhToggle</a></li><li><a href="module-BhTooltip.html">BhTooltip</a></li><li><a href="module-BhTree.html">BhTree</a></li><li><a href="module-BhWindow.html">BhWindow</a></li><li><a href="module-Calendar.html">Calendar</a></li><li><a href="module-EmapAvatarupload.html">EmapAvatarupload</a></li><li><a href="module-EmapCard.html">EmapCard</a></li><li><a href="module-EmapDatatable.html">EmapDatatable</a></li><li><a href="module-EmapDbTable.html">EmapDbTable</a></li><li><a href="module-EmapDdTree.html">EmapDdTree</a></li><li><a href="module-EmapEditor.html">EmapEditor</a></li><li><a href="module-EmapFileupload.html">EmapFileupload</a></li><li><a href="module-EmapForm.html">EmapForm</a></li><li><a href="module-EmapGrid.html">EmapGrid</a></li><li><a href="module-EmapImageupload.html">EmapImageupload</a></li><li><a href="module-EmapLinkage.html">EmapLinkage</a></li><li><a href="module-EmapSearch.html">EmapSearch</a></li><li><a href="module-EmapSearchAdv.html">EmapSearchAdv</a></li><li><a href="module-EmapUpload.html">EmapUpload</a></li><li><a href="module-utils_http.html">utils/http</a></li><li><a href="module-utils_pageUtil.html">utils/pageUtil</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Sun Oct 09 2016 14:44:16 GMT+0800 (中国标准时间)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

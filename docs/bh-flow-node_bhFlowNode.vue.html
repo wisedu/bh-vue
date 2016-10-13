@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: bh-flow-node/bhFlowNode.vue</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: bh-flow-node/bhFlowNode.vue</h1>
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>&lt;template>
+    &lt;div class="scenes-cbrt-record bh-row" :class='{"scenes-cbrt-record-active": active}' v-show='isShow'>
+        &lt;div class="scenes-cbrt-left">
+            &lt;div class="scenes-cbrt-no">{{num}}&lt;/div>
+        &lt;/div>
+        &lt;div class="scenes-cbrt-right">
+            &lt;div v-if='type === "panel"' :class="panelCls" sc-cbrt-id="{{num}}">
+                &lt;h3 class="scenes-cbrt-title">{{title}}&lt;/h3>
+                &lt;a href="javascript:void(0);" class="bh-tag bh-tag-primary no-active">{{tag}}&lt;/a>
+                &lt;div class="bh-text-caption bh-caption-default">{{caption}}&lt;/div>
+                &lt;div class="scenes-cbrt-toolbar" v-if='showExpand'>
+                    &lt;a href="javascript:void(0);" class="bh-btn-link" sc-cbrt-flag="switch" sc-cbrt-role="extend" @click='toggle'>
+                        {{toggleText}}
+                    &lt;/a>
+                &lt;/div>
+                &lt;div v-el:container class="scenes-ci-container-block" :style='{height: currentHeight}' @transitionend='onAnimated'>
+                    &lt;slot>&lt;/slot>
+                &lt;/div>
+            &lt;/div>
+            &lt;slot v-else>&lt;/slot>
+        &lt;/div>
+    &lt;/div>
+&lt;/template>
+
+&lt;script>
+    /**
+     * 竖向步骤条节点，作为 BhStepFlow 的子组件使用
+     *
+     * @module bhFlowNode
+     * @see {@link module:BhStepFlow 竖向步骤条}
+     *
+     */
+
+    export default {
+        data () {
+            return {
+                isShow: true,
+                originHeight: 0,
+                currentHeight: 'auto'
+            };
+        },
+        computed: {
+            toggleText () {
+                return this.expanded ? '收起' : '展开';
+            },
+            panelCls () {
+                var cls = {
+                    'scenes-cbrt-card-view': true,
+                    'scenes-cbrt-card-item': !this.active,
+                    'bh-card': this.active,
+                    'bh-card-lv2': this.active,
+                    'scenes-cbrt-card': this.active
+                };
+
+                return cls;
+            }
+        },
+        /**
+         * @property {String} num 步骤编号
+         * @property {String} [type=panel] 容器类型，支持 panel/custom
+         * @property {String} [title] 大标题内容，可以是传纯文本或html（容器为panel时有效）
+         * @property {String} [caption] 小标题内容，可以是传纯文本或html（容器为panel时有效）
+         * @property {String} [tag] 标签 html（容器为panel时有效）
+         * @property {String} [toolbar] 标签 html（容器为panel时有效）
+         * @property {Boolean} [expanded=false] 是否默认展开
+         * @property {Boolean} [showExpand=true] 是否显示‘展开/收起’操作
+         * @property {Boolean} [active=false] 是否为激活状态
+         * @property {Boolean} [autoHide=false] 是否默认隐藏
+         */
+        props: {
+            num: String,
+            type: {
+                default: 'panel'
+            },
+            title: String,
+            caption: String,
+            tag: String,
+            toolbar: String,
+            active: {
+                type: Boolean,
+                default: false
+            },
+            expanded: {
+                type: Boolean,
+                default: false
+            },
+            showExpand: {
+                type: Boolean,
+                default: true
+            },
+            autoHide: {
+                type: Boolean,
+                default: false
+            }
+        },
+        methods: {
+            /**
+             * 切换展开/收缩状态
+             */
+            toggle () {
+                this.expanded = !this.expanded;
+                this.currentHeight = this.expanded ? this.originHeight : 0;
+                this.$dispatch('toggle-flow-node', this.num, this.expanded);
+            },
+            /**
+             * 展开/收缩动画的回调方法
+             * @inner
+             */
+            onAnimated () {
+                this.active = this.expanded;
+
+                // auto hide process
+                if (!this.expanded &amp;&amp; this.autoHide) {
+                    this.isShow = false;
+                }
+            },
+            /**
+             * 隐藏节点
+             */
+            hide () {
+                this.expanded = false;
+                this.currentHeight = 0;
+                this.$dispatch('toggle-flow-node', this.num, false);
+            }
+        },
+        ready () {
+            this.$nextTick(() => {
+                if (this.$els.container) {
+                    var height = this.$els.container.offsetHeight;
+                    this.originHeight = height ? height + 'px' : 'auto';
+
+                    if (!this.expanded) {
+                        this.currentHeight = 0;
+                    } else {
+                        this.active = true;
+                    }
+
+                    this.isShow = !this.autoHide;
+                }
+            });
+        },
+        events: {
+            'expand-flow-node' (num) {
+                this.expanded = (num === this.num);
+
+                if (this.expanded) {
+                    this.autoHide &amp;&amp; (this.isShow = true);
+                    setTimeout(() => {
+                        this.currentHeight = this.originHeight;
+                    }, 0);
+                } else {
+                    this.currentHeight = 0;
+                }
+            },
+            'collapse-flow-node' (num) {
+                if (num === this.num) {
+                    this.hide();
+                }
+            },
+            'hide-flow-node' (num) {
+                if (num === this.num) {
+                    this.hide();
+                }
+            }
+        }
+    };
+&lt;/script>
+
+&lt;style scoped>
+    .scenes-cbrt-card-view {
+        overflow: hidden;
+    }
+
+    .scenes-ci-container-block {
+        overflow: hidden;
+        transition: height 0.1s ease;
+    }
+&lt;/style>
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">首页</a></h2><h3>组件</h3><ul><li><a href="module-BhButton.html">BhButton</a></li><li><a href="module-BhCard.html">BhCard</a></li><li><a href="module-BhCheckbox.html">BhCheckbox</a></li><li><a href="module-BhChecklist.html">BhChecklist</a></li><li><a href="module-BhChoose.html">BhChoose</a></li><li><a href="module-BhDatatable.html">BhDatatable</a></li><li><a href="module-BhDatetime.html">BhDatetime</a></li><li><a href="module-BhDropdown.html">BhDropdown</a></li><li><a href="module-BhDropdownmenu.html">BhDropdownmenu</a></li><li><a href="module-BhEditPanel.html">BhEditPanel</a></li><li><a href="module-bhFlowNode.html">bhFlowNode</a></li><li><a href="module-BhFooter.html">BhFooter</a></li><li><a href="module-BhHeader.html">BhHeader</a></li><li><a href="module-BhInput.html">BhInput</a></li><li><a href="module-BhListView.html">BhListView</a></li><li><a href="module-BhLoading.html">BhLoading</a></li><li><a href="module-BhNav.html">BhNav</a></li><li><a href="module-BhOutline.html">BhOutline</a></li><li><a href="module-BhPagination.html">BhPagination</a></li><li><a href="module-BhPanel.html">BhPanel</a></li><li><a href="module-BhRadio.html">BhRadio</a></li><li><a href="module-BhSearch.html">BhSearch</a></li><li><a href="module-bhStepFlow.html">bhStepFlow</a></li><li><a href="module-bhStepWizard.html">bhStepWizard</a></li><li><a href="module-BhSwitch.html">BhSwitch</a></li><li><a href="module-BhTabs.html">BhTabs</a></li><li><a href="module-BhTextarea.html">BhTextarea</a></li><li><a href="module-BhTimepicker.html">BhTimepicker</a></li><li><a href="module-BhToggle.html">BhToggle</a></li><li><a href="module-BhTooltip.html">BhTooltip</a></li><li><a href="module-BhTree.html">BhTree</a></li><li><a href="module-BhWindow.html">BhWindow</a></li><li><a href="module-Calendar.html">Calendar</a></li><li><a href="module-EmapAvatarupload.html">EmapAvatarupload</a></li><li><a href="module-EmapCard.html">EmapCard</a></li><li><a href="module-EmapDatatable.html">EmapDatatable</a></li><li><a href="module-EmapDbTable.html">EmapDbTable</a></li><li><a href="module-EmapDdTree.html">EmapDdTree</a></li><li><a href="module-EmapEditor.html">EmapEditor</a></li><li><a href="module-EmapFileupload.html">EmapFileupload</a></li><li><a href="module-EmapForm.html">EmapForm</a></li><li><a href="module-EmapGrid.html">EmapGrid</a></li><li><a href="module-EmapImageupload.html">EmapImageupload</a></li><li><a href="module-EmapLinkage.html">EmapLinkage</a></li><li><a href="module-EmapSearch.html">EmapSearch</a></li><li><a href="module-EmapSearchAdv.html">EmapSearchAdv</a></li><li><a href="module-EmapUpload.html">EmapUpload</a></li><li><a href="module-utils_http.html">utils/http</a></li><li><a href="module-utils_pageUtil.html">utils/pageUtil</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Sun Oct 09 2016 14:44:16 GMT+0800 (中国标准时间)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

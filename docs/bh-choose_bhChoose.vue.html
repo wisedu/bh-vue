@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: bh-choose/bhChoose.vue</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: bh-choose/bhChoose.vue</h1>
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>&lt;template>
+    &lt;div class='bh-choose'>
+        &lt;div class="side left bh-pull-left" :style='{width: leftWidth}'>
+            &lt;bh-search :show-button='false' :value.sync='searchVal' :placeholder='placeholder' @search='search' class='bh-mb-8'>&lt;/bh-search>
+            &lt;div class="left-list">
+                &lt;bh-datatable
+                    v-ref:bhchooselefttable
+                    :id='id'
+                    :checkable='true'
+                    :height='height'
+                    :checked-rows.sync='checkedRows'
+                    :show-header='showHeader'
+                    :url='leftSourceUrl'
+                    :page-number-field='pageNumberField'
+                    :page-size-field='pageSizeField'
+                    selection-mode='default'
+                    :root='leftSourceAction'
+                    :columns='columns'
+                    :query-type='type'
+                    :query-params='queryParams'
+                    class='transparentGrid'
+                    @rendered='leftListRendered'
+                    @check-change='onCheckChange'>
+                &lt;/bh-datatable>
+            &lt;/div>
+        &lt;/div>
+        &lt;div class="side right bh-pull-left" :style='{width: rightWidth}'>
+            &lt;div class="before">&lt;/div>
+            &lt;div class="title">{{rightTitle}}&lt;/div>
+            &lt;div class="right-list" :style='{height: height + "px"}'>
+                &lt;bh-datatable
+                    v-ref:bhchooserighttable
+                    :id='id'
+                    :url='rightSourceUrl'
+                    :localdata='localdata'
+                    :pageable='false'
+                    :show-header='showHeader'
+                    :root='rightSourceAction'
+                    :columns='rcolumns'
+                    :query-type='type'
+                    :query-params='rightParams'
+                    :operations='operations'
+                    class='transparentGrid'
+                    @del='uncheck'
+                    @rendered='rightListRendered'>
+                &lt;/bh-datatable>
+            &lt;/div>
+            &lt;div class="after">&lt;/div>
+        &lt;/div>
+    &lt;/div>
+&lt;/template>
+
+&lt;script>
+    /**
+     * 列表选择控件
+     * @module BhChoose
+     *
+     * @fires left-ready - 左侧表格渲染完成时触发，此处可添加对渲染元素的自定义处理
+     *
+     * @example
+     *     &lt;caption>html&lt;/caption>
+     *     &lt;bh-choose v-ref:choose1
+     *         left-source-url='/mock/datatable.json' :leftcells-renderer='leftcellsRenderer'
+     *         right-source-url='/mock/datatable2.json' :rightcells-renderer='leftcellsRenderer'>
+     *     &lt;/bh-choose>
+     *     &lt;div class="bh-btn bh-btn-primary bh-mb-16" @click='getChecked'>获取选择项&lt;/div>
+     * @example
+     *     &lt;caption>javascript&lt;/caption>
+     *     import BhChoose from 'components/bh-choose/bhChoose'
+     *     export default {
+     *         data () {
+     *             return {
+     *                 leftcellsRenderer: function(row, column, value, rowData) {
+     *                     var html = '&lt;div>';
+     *                     html += '&lt;div row="' + row + '" class="bh-col-md-2">&lt;/div>';
+     *                     html += '&lt;div class="bh-col-md-8">' + rowData.name + '&lt;/div>';
+     *                     html += '&lt;div class="bh-col-md-2">' + rowData.calories + '&lt;/div>';
+     *                     html += '&lt;/div>';
+     *                     return html;
+     *                 }
+     *             }
+     *         },
+     *         methods: {
+     *             getChecked () {
+     *                 console.log(this.$refs.choose1.getChecked());
+     *             }
+     *         },
+     *         components: {BhChoose}
+     *     }
+     */
+    import BhSearch from '../bh-search/bhSearch';
+    import BhDatatable from '../bh-datatable/bhDatatable';
+
+    export default {
+        data () {
+            return {
+                checkedRows: [],
+                searchVal: '',
+                operations: {
+                    title: '操作',
+                    width: 100,
+                    items: [{
+                        title: '删除',
+                        name: 'del',
+                        type: 'link'
+                    }]
+                }
+            };
+        },
+        computed: {
+            queryParams () {
+                var params = this.leftParams || {};
+                params[this.localSearchField] = this.searchVal;
+                return params;
+            },
+            columns () {
+                var vm = this;
+                return vm.leftCols ? vm.leftCols : [{
+                    dataField: 'onlineDate',
+                    cellsRenderer: (row, column, value, rowData) => {
+                        if (!vm.leftcellsRenderer) {
+                            console.error('no leftcellsRenderer defined for bhChoose !');
+                            return '';
+                        }
+
+                        var html = $(vm.leftcellsRenderer(row, column, value, rowData));
+                        $(html.children()[0]).addClass('gm-member-user');
+                        return html.prop('outerHTML');
+                    }
+                }];
+            },
+            rcolumns () {
+                var vm = this;
+                return vm.rightCols ? vm.rightCols : [{
+                    dataField: 'onlineDate',
+                    cellsRenderer: (row, column, value, rowData) => {
+                        if (!vm.rightcellsRenderer) {
+                            console.error('no rightcellsRenderer defined for bhChoose !');
+                            return '';
+                        }
+
+                        var html = $(vm.rightcellsRenderer(row, column, value, rowData));
+                        $(html.children()[0]).addClass('gm-member-user');
+                        return html.prop('outerHTML');
+                    }
+                }];
+            }
+        },
+        /**
+         * @property {String} [id=id] 主键名称
+         * @property {String} [leftWidth=50%] 左侧区域宽度
+         * @property {String} [rightWidth=50%] 右侧区域宽度
+         * @property {String/Number} [height=313] 高度
+         * @property {String} [localSearchField=keyword] 搜索框参数名称
+         * @property {String} [placeholder=输入关键字] 搜索框提示文字
+         * @property {String} [pageNumberField=pageNumber] 分页查询的page number参数名称
+         * @property {String} [pageSizeField=pageSize] 分页查询的page size参数名称
+         * @property {String} [rightTitle=已选择] 右侧标题
+         * @property {String} leftSourceUrl 左侧数据源地址
+         * @property {Array} leftCols 左侧的自定义列，如果设置此属性则不需要leftcellsRenderer，参考BhDatatable的列定义
+         * @property {String} rightSourceUrl 右侧数据源地址
+         * @property {Array} localdata 右侧使用本地数组作为数据源代替rightSourceUrl
+         * @property {String} leftSourceAction 右侧数据源模型名称
+         * @property {String} rightSourceAction 左侧数据源模型名称
+         * @property {Array} rightCols 右侧的自定义列，如果设置此属性则不需要rightcellsRenderer，参考BhDatatable的列定义
+         * @property {String} leftParams 左侧请求附加参数
+         * @property {String} rightParams 右侧请求附加参数
+         * @property {String} [type=post] 请求类型
+         * @property {Boolean} [showHeader=false] 是否显示列头
+         * @property {Function} leftcellsRenderer 左侧单元格渲染方法
+         * @property {Function} rightcellsRenderer 右侧单元格渲染方法
+         * @property {Boolean} [nicescroll=true] 是否优化滚动条样式
+         */
+        props: {
+            id: {
+                default: 'id'
+            },
+            height: {
+                default: 313
+            },
+            leftWidth: {
+                default: '50%'
+            },
+            rightWidth: {
+                default: '50%'
+            },
+            localSearchField: {
+                default: 'keyword'
+            },
+            pageNumberField: {
+                default: 'pageNumber'
+            },
+            pageSizeField: {
+                default: 'pageSize'
+            },
+            placeholder: {
+                default: '输入关键字'
+            },
+            rightTitle: {
+                default: '已选择'
+            },
+            leftSourceUrl: String,
+            leftSourceAction: String,
+            leftCols: Array,
+            rightSourceUrl: String,
+            localdata: Array,
+            rightSourceAction: String,
+            rightCols: Array,
+            leftParams: Object,
+            rightParams: Object,
+            type: {
+                type: String,
+                default: 'post'
+            },
+            showHeader: {
+                type: Boolean,
+                default: false
+            },
+            showSelectedTip: {
+                type: Boolean,
+                default: true
+            },
+            leftcellsRenderer: Function,
+            rightcellsRenderer: Function,
+            nicescroll: {
+                type: Boolean,
+                default: true
+            }
+        },
+        methods: {
+            /**
+             * 重新加载（重新生成）
+             * @param {String} side 指定要重新加载左侧还是右侧的列表（'left'/'right'），参数为空则全部加载
+             */
+            reload (side) {
+                (side !== 'left') &amp;&amp; this.$refs.bhchooserighttable.render();
+                (side !== 'right') &amp;&amp; this.$refs.bhchooselefttable.render();
+            },
+            /**
+             * 选择发生变化的处理
+             * @inner
+             */
+            onCheckChange (checked, rowData) {
+                if (!rowData) {
+                    return;
+                }
+
+                var vm = this;
+
+                if (!checked) {
+                    vm.$refs.bhchooserighttable.deleteRowById(rowData[this.id]);
+                } else {
+                    vm.$refs.bhchooserighttable.addRow(rowData);
+                }
+            },
+            /**
+             * 左侧列表渲染完成事件
+             * @inner
+             */
+            leftListRendered () {
+                var vm = this;
+                vm.$dispatch('left-ready');
+                setTimeout(() => {
+                    vm.$refs.bhchooselefttable.setChecked(vm.$refs.bhchooserighttable.getTotalRecords(), vm.id);
+                }, 0);
+            },
+            /**
+             * 右侧列表渲染完成事件
+             * @inner
+             */
+            rightListRendered () {
+                if (this.nicescroll) {
+                    $(this.$el).find('.right-list').niceScroll();
+                }
+            },
+            /**
+             * 执行查询
+             * @inner
+             */
+            search () {
+                this.$refs.bhchooselefttable.render();
+            },
+            /**
+             * 获取选择项
+             * @return {Array} 选择项数组
+             */
+            getChecked () {
+                return this.$refs.bhchooserighttable.getTotalRecords();
+            },
+            /**
+             * 根据主键id选中一行
+             * @param  {String} id 指定的主键id
+             */
+            checkById (id) {
+                return this.$refs.bhchooselefttable.checkById(id);
+            },
+            /**
+             * 删除某一项
+             * @inner
+             */
+            uncheck (rowData) {
+                this.uncheckById(rowData[this.id]);
+            },
+            /**
+             * 根据主键id反选一行
+             * @param  {String} id 指定的主键id
+             */
+            uncheckById (id) {
+                return this.$refs.bhchooselefttable.uncheckById(id);
+            },
+            /**
+             * 左侧列表增加一项
+             * @param {Object} rowData 行数据
+             */
+            addItem (rowData) {
+                return this.$refs.bhchooselefttable.addRow(rowData);
+            },
+            /**
+             * 左侧列表增加一项并选中新增的数据
+             * @param {Object} rowData 行数据
+             */
+            addAndCheck (rowData) {
+                this.addItem(rowData);
+                this.$refs.bhchooselefttable.refresh();
+                this.checkById(rowData[this.id]);
+            }
+        },
+        components: {BhSearch, BhDatatable}
+    };
+&lt;/script>
+
+&lt;style lang='less'>
+    @border-color: #d8dcf0;
+    @bgc-dark: rgba(63,81,181,.04);
+    @bgc-split: #fff;
+
+    .bh-choose {
+        width: 100%;
+        overflow: hidden;
+        border: 1px solid @border-color;
+
+        .side {
+            padding: 5px;
+            display: inline-block;
+
+            &amp;.left {
+                border-right: none;
+                .search-box {
+                    background: @bgc-dark;
+                    input, i{
+                        border: none;
+                    }
+                }
+            }
+
+            &amp;.right {
+                background: @bgc-dark;
+                position: relative;
+                border-left: 1px solid @border-color;
+                .title {
+                    padding: 4px 0;
+                    text-indent: 5px;
+                    border-bottom: none;
+                }
+
+                .before {
+                    border: 44px solid transparent;
+                    border-left: 14px solid @border-color;
+                    position: absolute;
+                    top: 128px;
+                    left: 0;
+                }
+
+                .after {
+                    border: 44px solid transparent;
+                    border-left: 14px solid @bgc-split;
+                    position: absolute;
+                    top: 128px;
+                    left: -1px;
+                }
+
+                .right-list {
+                    overflow: auto;
+                }
+            }
+        }
+    }
+&lt;/style>
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">首页</a></h2><h3>组件</h3><ul><li><a href="module-BhButton.html">BhButton</a></li><li><a href="module-BhCard.html">BhCard</a></li><li><a href="module-BhCheckbox.html">BhCheckbox</a></li><li><a href="module-BhChecklist.html">BhChecklist</a></li><li><a href="module-BhChoose.html">BhChoose</a></li><li><a href="module-BhDatatable.html">BhDatatable</a></li><li><a href="module-BhDatetime.html">BhDatetime</a></li><li><a href="module-BhDropdown.html">BhDropdown</a></li><li><a href="module-BhDropdownmenu.html">BhDropdownmenu</a></li><li><a href="module-BhEditPanel.html">BhEditPanel</a></li><li><a href="module-bhFlowNode.html">bhFlowNode</a></li><li><a href="module-BhFooter.html">BhFooter</a></li><li><a href="module-BhHeader.html">BhHeader</a></li><li><a href="module-BhInput.html">BhInput</a></li><li><a href="module-BhListView.html">BhListView</a></li><li><a href="module-BhLoading.html">BhLoading</a></li><li><a href="module-BhNav.html">BhNav</a></li><li><a href="module-BhOutline.html">BhOutline</a></li><li><a href="module-BhPagination.html">BhPagination</a></li><li><a href="module-BhPanel.html">BhPanel</a></li><li><a href="module-BhRadio.html">BhRadio</a></li><li><a href="module-BhSearch.html">BhSearch</a></li><li><a href="module-bhStepFlow.html">bhStepFlow</a></li><li><a href="module-bhStepWizard.html">bhStepWizard</a></li><li><a href="module-BhSwitch.html">BhSwitch</a></li><li><a href="module-BhTabs.html">BhTabs</a></li><li><a href="module-BhTextarea.html">BhTextarea</a></li><li><a href="module-BhTimepicker.html">BhTimepicker</a></li><li><a href="module-BhToggle.html">BhToggle</a></li><li><a href="module-BhTooltip.html">BhTooltip</a></li><li><a href="module-BhTree.html">BhTree</a></li><li><a href="module-BhWindow.html">BhWindow</a></li><li><a href="module-Calendar.html">Calendar</a></li><li><a href="module-EmapAvatarupload.html">EmapAvatarupload</a></li><li><a href="module-EmapCard.html">EmapCard</a></li><li><a href="module-EmapDatatable.html">EmapDatatable</a></li><li><a href="module-EmapDbTable.html">EmapDbTable</a></li><li><a href="module-EmapDdTree.html">EmapDdTree</a></li><li><a href="module-EmapEditor.html">EmapEditor</a></li><li><a href="module-EmapFileupload.html">EmapFileupload</a></li><li><a href="module-EmapForm.html">EmapForm</a></li><li><a href="module-EmapGrid.html">EmapGrid</a></li><li><a href="module-EmapImageupload.html">EmapImageupload</a></li><li><a href="module-EmapLinkage.html">EmapLinkage</a></li><li><a href="module-EmapSearch.html">EmapSearch</a></li><li><a href="module-EmapSearchAdv.html">EmapSearchAdv</a></li><li><a href="module-EmapUpload.html">EmapUpload</a></li><li><a href="module-utils_http.html">utils/http</a></li><li><a href="module-utils_pageUtil.html">utils/pageUtil</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Sun Oct 09 2016 14:44:16 GMT+0800 (中国标准时间)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

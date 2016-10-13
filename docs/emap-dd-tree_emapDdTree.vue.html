@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: emap-dd-tree/emapDdTree.vue</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: emap-dd-tree/emapDdTree.vue</h1>
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>&lt;template>
+    &lt;div>&lt;/div>
+&lt;/template>
+
+&lt;script>
+    /**
+     * 下拉树
+     * @module EmapDdTree
+     * @example
+     *     &lt;caption>html&lt;/caption>
+     *     &lt;!-- 异步加载数据 -->
+     *     &lt;emap-dd-tree :options='options1'>&lt;/emap-dd-tree>
+     *     &lt;!-- 同步数据 -->
+     *     &lt;emap-dd-tree :options='options2'>&lt;/emap-dd-tree>
+     * @example
+     *     &lt;caption>javascript&lt;/caption>
+     *     export default {
+     *      data: function() {
+     *          return {
+     *              options1: {
+     *                  checkboxes:true,
+     *                  url: 'http://localhost:3000/mock/emap/ddtree.json',
+     *                  params: {}
+     *              },
+     *              options2: {
+     *                  checkboxes:true,
+     *                  datas: [{
+     *                      "id": "1",
+     *                      "name": "党群组织",
+     *                      "pId": "0"
+     *                  }, {
+     *                      "id": "000010",
+     *                      "name": "党群组织\/工会",
+     *                      "pId": "1"
+     *                  }, {
+     *                      "id": "000012",
+     *                      "name": "党群组织\/宣传",
+     *                      "pId": "1"
+     *                  }]
+     *              }
+     *          }
+     *      },
+     *      components: {EmapDdTree}
+     *  }
+     */
+    export default {
+        /**
+         * @property {Object} options 参数配置
+         * @property {String} [options.url] 异步数据源地址（服务器返回的数据参考EMAP格式）
+         * @property {Object} [options.params] 请求时附加的参数
+         * @property {Array} [options.datas] 同步树数据，格式为树型结构[{id:"",name:"",pId:""}]，与url参数必选其一
+         * @property {Boolean} [options.checkboxes=false] 是否显示复选框支持多选
+         */
+        props: {
+            options: Object
+        },
+        methods: {
+            /**
+             * 获取选择值
+             * @return {String} 以逗号分隔的id字符串，如 '000010,000012'
+             */
+            getValue () {
+                return $(this.$el).emapDropdownTree('getValue');
+            },
+            /**
+             * 获取选择的文本
+             * @return {String} 以逗号分隔的文本字符串，如 '党群组织\/工会, 党群组织\/宣传'
+             */
+            getText () {
+                return $(this.$el).emapDropdownTree('getText');
+            },
+            /**
+             * 设置选择值
+             * @param {Array} val 这个参数有点奇怪，格式为[value, descripton]，如 ['000010', '党群组织\/工会']，与当前加载的列表完全没有关系
+             */
+            setValue (val) {
+                $(this.$el).emapDropdownTree('setValue', val);
+            },
+            /**
+             * 禁用
+             */
+            disable () {
+                $(this.$el).emapDropdownTree('disable');
+            },
+            /**
+             * 启用
+             */
+            enable () {
+                $(this.$el).emapDropdownTree('enable');
+            }
+        },
+        ready () {
+            $(this.$el).emapDropdownTree(this.options);
+        }
+    };
+&lt;/script>
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">首页</a></h2><h3>组件</h3><ul><li><a href="module-BhButton.html">BhButton</a></li><li><a href="module-BhCard.html">BhCard</a></li><li><a href="module-BhCheckbox.html">BhCheckbox</a></li><li><a href="module-BhChecklist.html">BhChecklist</a></li><li><a href="module-BhChoose.html">BhChoose</a></li><li><a href="module-BhDatatable.html">BhDatatable</a></li><li><a href="module-BhDatetime.html">BhDatetime</a></li><li><a href="module-BhDropdown.html">BhDropdown</a></li><li><a href="module-BhDropdownmenu.html">BhDropdownmenu</a></li><li><a href="module-BhEditPanel.html">BhEditPanel</a></li><li><a href="module-bhFlowNode.html">bhFlowNode</a></li><li><a href="module-BhFooter.html">BhFooter</a></li><li><a href="module-BhHeader.html">BhHeader</a></li><li><a href="module-BhInput.html">BhInput</a></li><li><a href="module-BhListView.html">BhListView</a></li><li><a href="module-BhLoading.html">BhLoading</a></li><li><a href="module-BhNav.html">BhNav</a></li><li><a href="module-BhOutline.html">BhOutline</a></li><li><a href="module-BhPagination.html">BhPagination</a></li><li><a href="module-BhPanel.html">BhPanel</a></li><li><a href="module-BhRadio.html">BhRadio</a></li><li><a href="module-BhSearch.html">BhSearch</a></li><li><a href="module-bhStepFlow.html">bhStepFlow</a></li><li><a href="module-bhStepWizard.html">bhStepWizard</a></li><li><a href="module-BhSwitch.html">BhSwitch</a></li><li><a href="module-BhTabs.html">BhTabs</a></li><li><a href="module-BhTextarea.html">BhTextarea</a></li><li><a href="module-BhTimepicker.html">BhTimepicker</a></li><li><a href="module-BhToggle.html">BhToggle</a></li><li><a href="module-BhTooltip.html">BhTooltip</a></li><li><a href="module-BhTree.html">BhTree</a></li><li><a href="module-BhWindow.html">BhWindow</a></li><li><a href="module-Calendar.html">Calendar</a></li><li><a href="module-EmapAvatarupload.html">EmapAvatarupload</a></li><li><a href="module-EmapCard.html">EmapCard</a></li><li><a href="module-EmapDatatable.html">EmapDatatable</a></li><li><a href="module-EmapDbTable.html">EmapDbTable</a></li><li><a href="module-EmapDdTree.html">EmapDdTree</a></li><li><a href="module-EmapEditor.html">EmapEditor</a></li><li><a href="module-EmapFileupload.html">EmapFileupload</a></li><li><a href="module-EmapForm.html">EmapForm</a></li><li><a href="module-EmapGrid.html">EmapGrid</a></li><li><a href="module-EmapImageupload.html">EmapImageupload</a></li><li><a href="module-EmapLinkage.html">EmapLinkage</a></li><li><a href="module-EmapSearch.html">EmapSearch</a></li><li><a href="module-EmapSearchAdv.html">EmapSearchAdv</a></li><li><a href="module-EmapUpload.html">EmapUpload</a></li><li><a href="module-utils_http.html">utils/http</a></li><li><a href="module-utils_pageUtil.html">utils/pageUtil</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Sun Oct 09 2016 14:44:16 GMT+0800 (中国标准时间)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

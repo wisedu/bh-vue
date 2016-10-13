@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: emap-avatarupload/emapAvatarupload.vue</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: emap-avatarupload/emapAvatarupload.vue</h1>
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>&lt;template>
+    &lt;div>&lt;/div>
+&lt;/template>
+
+&lt;script>
+    /**
+     * 头像裁剪上传[EMAP]
+     * @module EmapAvatarupload
+     *
+     * @fires submit -文件提交时触发，参数为 token，未上传时token为undefined
+     *
+     * @example
+     *     &lt;caption>html&lt;/caption>
+     *     &lt;emap-avatarupload ftype='png'>&lt;/emap-avatarupload>
+     */
+    export default {
+        /**
+         * @property {String} contextPath 请求上下文路径
+         * @property {String} [token] 授权token，已有头像传入
+         * @property {String} [storeId=file] 存储id
+         * @property {String/Array} [ftype] 上传文件的类型限制
+         * @property {Number} [size=2048] 文件大小限制（单位为 Kb）
+         * @property {Number} [width=100] 头像容器宽度
+         * @property {Number} [ratio=1] 头像宽高比
+         * @property {String} defaultAvatar 默认头像路径，上传新头像时必填
+         */
+        props: {
+            'contextPath': {
+                type: String,
+                default: ''
+            },
+            'token': {
+                type: String,
+                default: ''
+            },
+            'storeId': {
+                type: String,
+                default: 'file'
+            },
+            'ftype': {
+                type: [Array, String],
+                default () {
+                    return [];
+                }
+            },
+            'size': {
+                type: Number,
+                default: 2048
+            },
+            'width': {
+                type: Number,
+                default: 100
+            },
+            'ratio': {
+                type: Number,
+                default: 1
+            },
+            defaultAvatar: String
+        },
+        methods: {
+            /**
+             * 获取token
+             * @return {String} token
+             */
+            getFileToken () {
+                return $(this.$el).emapAvatarUpload('getFileToken');
+            },
+            /**
+             * 返回token下已有的正式文件的url数组
+             * @return {Array} 文件url数组
+             */
+            getFileUrl () {
+                return $(this.$el).emapAvatarUpload('getFileUrl');
+            },
+            /**
+             * 保存文件
+             * @return {String} 已保存文件的token
+             */
+            saveTempFile () {
+                return $(this.$el).emapAvatarUpload('saveTempFile');
+            },
+            /**
+             * 销毁
+             */
+            destroy () {
+                $(this.$el).emapAvatarUpload('destroy');
+            }
+        },
+        ready () {
+            var vm = this;
+            var el = $(this.$el);
+
+            var type = $.isArray(this.ftype) ? this.ftype : [this.ftype];
+
+            el.emapAvatarUpload({
+                contextPath: this.contextPath,
+                storeId: this.storeId,
+                type: type,
+                token: this.token,
+                size: this.size,
+                ratio: this.ratio,
+                width: this.width,
+                defaultAvatar: this.defaultAvatar,
+                onSubmit (token) {
+                    vm.$dispatch('submit', token);
+                }
+            });
+        },
+        beforeDestroy () {
+            this.destroy();
+        }
+    };
+&lt;/script>
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">首页</a></h2><h3>组件</h3><ul><li><a href="module-BhButton.html">BhButton</a></li><li><a href="module-BhCard.html">BhCard</a></li><li><a href="module-BhCheckbox.html">BhCheckbox</a></li><li><a href="module-BhChecklist.html">BhChecklist</a></li><li><a href="module-BhChoose.html">BhChoose</a></li><li><a href="module-BhDatatable.html">BhDatatable</a></li><li><a href="module-BhDatetime.html">BhDatetime</a></li><li><a href="module-BhDropdown.html">BhDropdown</a></li><li><a href="module-BhDropdownmenu.html">BhDropdownmenu</a></li><li><a href="module-BhEditPanel.html">BhEditPanel</a></li><li><a href="module-bhFlowNode.html">bhFlowNode</a></li><li><a href="module-BhFooter.html">BhFooter</a></li><li><a href="module-BhHeader.html">BhHeader</a></li><li><a href="module-BhInput.html">BhInput</a></li><li><a href="module-BhListView.html">BhListView</a></li><li><a href="module-BhLoading.html">BhLoading</a></li><li><a href="module-BhNav.html">BhNav</a></li><li><a href="module-BhOutline.html">BhOutline</a></li><li><a href="module-BhPagination.html">BhPagination</a></li><li><a href="module-BhPanel.html">BhPanel</a></li><li><a href="module-BhRadio.html">BhRadio</a></li><li><a href="module-BhSearch.html">BhSearch</a></li><li><a href="module-bhStepFlow.html">bhStepFlow</a></li><li><a href="module-bhStepWizard.html">bhStepWizard</a></li><li><a href="module-BhSwitch.html">BhSwitch</a></li><li><a href="module-BhTabs.html">BhTabs</a></li><li><a href="module-BhTextarea.html">BhTextarea</a></li><li><a href="module-BhTimepicker.html">BhTimepicker</a></li><li><a href="module-BhToggle.html">BhToggle</a></li><li><a href="module-BhTooltip.html">BhTooltip</a></li><li><a href="module-BhTree.html">BhTree</a></li><li><a href="module-BhWindow.html">BhWindow</a></li><li><a href="module-Calendar.html">Calendar</a></li><li><a href="module-EmapAvatarupload.html">EmapAvatarupload</a></li><li><a href="module-EmapCard.html">EmapCard</a></li><li><a href="module-EmapDatatable.html">EmapDatatable</a></li><li><a href="module-EmapDbTable.html">EmapDbTable</a></li><li><a href="module-EmapDdTree.html">EmapDdTree</a></li><li><a href="module-EmapEditor.html">EmapEditor</a></li><li><a href="module-EmapFileupload.html">EmapFileupload</a></li><li><a href="module-EmapForm.html">EmapForm</a></li><li><a href="module-EmapGrid.html">EmapGrid</a></li><li><a href="module-EmapImageupload.html">EmapImageupload</a></li><li><a href="module-EmapLinkage.html">EmapLinkage</a></li><li><a href="module-EmapSearch.html">EmapSearch</a></li><li><a href="module-EmapSearchAdv.html">EmapSearchAdv</a></li><li><a href="module-EmapUpload.html">EmapUpload</a></li><li><a href="module-utils_http.html">utils/http</a></li><li><a href="module-utils_pageUtil.html">utils/pageUtil</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Sun Oct 09 2016 14:44:16 GMT+0800 (中国标准时间)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

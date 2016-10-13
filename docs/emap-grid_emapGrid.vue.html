@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: emap-grid/emapGrid.vue</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: emap-grid/emapGrid.vue</h1>
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>&lt;template>
+    &lt;div class='bh-grid-container'>
+        &lt;div class='bh-switch-card-view'>
+            &lt;span v-if='columnSetting &amp;&amp; type=="list"' class='bh-switch-item bh-switch-setting bh-mr-8' @click='openSetting'>
+                &lt;i class='iconfont icon-settings'>&lt;/i>
+                &lt;span>设置&lt;/span>
+            &lt;/span>
+            &lt;span class='bh-switch-item bh-switch-list' :class='{"bh-active": type == "list"}' @click='showList'>
+                &lt;i class='iconfont icon-viewlist'>&lt;/i>
+                &lt;span>列表&lt;/span>
+            &lt;/span>
+            &lt;span class='bh-switch-item bh-switch-card' :class='{"bh-active": type == "card"}' @click='showCard'>
+                &lt;i class='iconfont icon-viewmodule'>&lt;/i>
+                &lt;span>卡片&lt;/span>
+            &lt;/span>
+        &lt;/div>
+        &lt;div>
+            &lt;component v-ref:grid :is='compName' :options='compOpts' keep-alive>&lt;/component>
+        &lt;/div>
+    &lt;/div>
+&lt;/template>
+
+&lt;script>
+    /**
+     * 基于EMAP的高级列表，支持list和card两种模式
+     * 传入参数可以参考{@link module:EmapDatatable EmapDatatable} 和 {@link module:EmapCard EmapCard}
+     * 需要注意的是pageSize参数要是一个数组，比如[10, 15]，分别表示列表和卡片形态时的分页数。
+     * @module EmapGrid
+     *
+     * @example
+     *     &lt;caption>html&lt;/caption>
+     *     &lt;emap-grid :options='options'>&lt;/emap-grid>
+     *
+     */
+    import EmapDatatable from '../emap-datatable/emapDatatable.vue';
+    import EmapCard from '../emap-card/emapCard.vue';
+
+    const COMP_NAME = {
+        'list': 'EmapDatatable',
+        'card': 'EmapCard'
+    };
+
+    const DEFAULT_OPTS = {pageSize: [10, 12]};
+
+    // 组件参数预处理
+    const _getCompOpts = (type, options) => {
+        // clone使用，防止被污染
+        let opts = $.extend({}, DEFAULT_OPTS, options);
+
+        switch (type) {
+            case 'list': {
+                opts.pageSize = opts.pageSize[0];
+                // 假如高级表格不支持多选，与卡片列表保持统一，禁止多选
+                // opts.checkable = false;
+                 // 列表不需要卡片模板参数以及回调
+                opts.template = undefined;
+                opts.cardBeforeRender = undefined;
+                opts.cardAfterRender = undefined;
+                return opts;
+            }
+            case 'card': {
+                opts.pageSize = opts.pageSize[1];
+                return options;
+            }
+        }
+    };
+
+    const _sendSwitch = (vm, type) => {
+        vm.$dispatch('grid:switch', type);
+    };
+
+    export default {
+        /**
+         * @property {Boolean} [columnSetting=true] 是否显示自定义列设置
+         * @property {String} [type=list] 当前展示类型，支持'list/card'
+         * @property {Object} options 表格参数
+         * @property {Array} [options.pageSize=[10, 12]] 显示条数（[列表,卡片]）
+         */
+        props: {
+            columnSetting: {
+                default: true,
+                type: Boolean
+            },
+            type: {
+                default: 'list'
+            },
+            options: {
+                default: () => ({}),
+                type: Object
+            }
+        },
+        computed: {
+            compName () {
+                return COMP_NAME[this.type];
+            },
+            compOpts () {
+                return _getCompOpts(this.type, this.options);
+            }
+        },
+        methods: {
+            /**
+             * 刷新表格数据
+             * @param  {Object} params 刷新表格时需要传递的参数
+             */
+            reload (params) {
+                this.$refs.grid.reload(params);
+            },
+            /**
+             * 重新加载数据并跳转到第一页
+             * @param  {Object} params 刷新表格时需要传递的参数
+             */
+            reloadFirstPage (params) {
+                this.$refs.grid.reloadFirstPage(params);
+            },
+            /**
+             * 获取数据条数
+             * @return {Number} 数据条数
+             */
+            getTotalRecords () {
+                return this.$refs.grid.getTotalRecords();
+            },
+            /**
+             * 显示为列表
+             */
+            showList () {
+                this.type = 'list';
+                _sendSwitch(this, 'list');
+            },
+            /**
+             * 显示为卡片
+             */
+            showCard () {
+                this.type = 'card';
+                _sendSwitch(this, 'card');
+            },
+            /**
+             * 打开自定义列设置（列表模式下可用）
+             */
+            openSetting () {
+                let grid = this.$refs.grid;
+                grid.selectToShowColumns &amp;&amp; grid.selectToShowColumns();
+            },
+            /**
+             * 根据当前type获取列表(EmapDatatable)或者卡片(EmapCard)组件实例
+             * @return {Object} 当前切换的组件实例
+             */
+            getGrid () {
+                return this.$refs.grid;
+            }
+        },
+        components: {EmapDatatable, EmapCard}
+    };
+&lt;/script>
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">首页</a></h2><h3>组件</h3><ul><li><a href="module-BhButton.html">BhButton</a></li><li><a href="module-BhCard.html">BhCard</a></li><li><a href="module-BhCheckbox.html">BhCheckbox</a></li><li><a href="module-BhChecklist.html">BhChecklist</a></li><li><a href="module-BhChoose.html">BhChoose</a></li><li><a href="module-BhDatatable.html">BhDatatable</a></li><li><a href="module-BhDatetime.html">BhDatetime</a></li><li><a href="module-BhDropdown.html">BhDropdown</a></li><li><a href="module-BhDropdownmenu.html">BhDropdownmenu</a></li><li><a href="module-BhEditPanel.html">BhEditPanel</a></li><li><a href="module-bhFlowNode.html">bhFlowNode</a></li><li><a href="module-BhFooter.html">BhFooter</a></li><li><a href="module-BhHeader.html">BhHeader</a></li><li><a href="module-BhInput.html">BhInput</a></li><li><a href="module-BhListView.html">BhListView</a></li><li><a href="module-BhLoading.html">BhLoading</a></li><li><a href="module-BhNav.html">BhNav</a></li><li><a href="module-BhOutline.html">BhOutline</a></li><li><a href="module-BhPagination.html">BhPagination</a></li><li><a href="module-BhPanel.html">BhPanel</a></li><li><a href="module-BhRadio.html">BhRadio</a></li><li><a href="module-BhSearch.html">BhSearch</a></li><li><a href="module-bhStepFlow.html">bhStepFlow</a></li><li><a href="module-bhStepWizard.html">bhStepWizard</a></li><li><a href="module-BhSwitch.html">BhSwitch</a></li><li><a href="module-BhTabs.html">BhTabs</a></li><li><a href="module-BhTextarea.html">BhTextarea</a></li><li><a href="module-BhTimepicker.html">BhTimepicker</a></li><li><a href="module-BhToggle.html">BhToggle</a></li><li><a href="module-BhTooltip.html">BhTooltip</a></li><li><a href="module-BhTree.html">BhTree</a></li><li><a href="module-BhWindow.html">BhWindow</a></li><li><a href="module-Calendar.html">Calendar</a></li><li><a href="module-EmapAvatarupload.html">EmapAvatarupload</a></li><li><a href="module-EmapCard.html">EmapCard</a></li><li><a href="module-EmapDatatable.html">EmapDatatable</a></li><li><a href="module-EmapDbTable.html">EmapDbTable</a></li><li><a href="module-EmapDdTree.html">EmapDdTree</a></li><li><a href="module-EmapEditor.html">EmapEditor</a></li><li><a href="module-EmapFileupload.html">EmapFileupload</a></li><li><a href="module-EmapForm.html">EmapForm</a></li><li><a href="module-EmapGrid.html">EmapGrid</a></li><li><a href="module-EmapImageupload.html">EmapImageupload</a></li><li><a href="module-EmapLinkage.html">EmapLinkage</a></li><li><a href="module-EmapSearch.html">EmapSearch</a></li><li><a href="module-EmapSearchAdv.html">EmapSearchAdv</a></li><li><a href="module-EmapUpload.html">EmapUpload</a></li><li><a href="module-utils_http.html">utils/http</a></li><li><a href="module-utils_pageUtil.html">utils/pageUtil</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Sun Oct 09 2016 14:44:16 GMT+0800 (中国标准时间)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
