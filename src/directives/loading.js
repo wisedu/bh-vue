@@ -1,5 +1,6 @@
 /**
- * @module directives/bhLoading Vue指令，显示处于加载状态的loading框
+ * Vue指令，显示处于加载状态的loading框
+ * @module directives/bhLoading
  *
  * @example
  * <caption>html</caption>
