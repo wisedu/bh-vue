@@ -7,10 +7,24 @@
  * // 使用
  * pageUtil.alert('警告信息');
  */
+
+import './pageUtil.less';
+
 export default {
     /**
+     * 显示普通纸质弹窗，与下面的 showVuePaper 稍有不同
+     * @param  {String} title   标题
+     * @param  {String} content 内容，支持包含vue组件的html字符串
+     * @param  {String} footer  页脚，支持包含vue组件的html字符串
+     * @param  {Function} onReady 渲染完成的回调事件
+     * @param  {Function} onClose 关闭弹框的回调事件
+     */
+    showPaper (title, content, footer, onReady, onClose) {
+        this.showVuePaper(null, title, content, footer, onReady, onClose);
+    },
+    /**
      * 使用纸质弹窗展示vue组件
-     * @param  {Object} vm      当前页面vm
+     * @param  {Object} [vm]      当前页面vm，如果为空则不会执行vue.compile
      * @param  {String} title   标题
      * @param  {String} content 内容，支持包含vue组件的html字符串
      * @param  {String} footer  页脚，支持包含vue组件的html字符串
@@ -18,15 +32,22 @@ export default {
      * @param  {Function} onClose 关闭弹框的回调事件
      */
     showVuePaper (vm, title, content, footer, onReady, onClose) {
+        if (!vm) {
+            console.warn('show vue paper dialog without vm, can use showPaper() instead !');
+        }
+
         let opts = {
             title: title,
             content: content,
             ready ($header, $section, $footer, $aside) {
-                vm.$compile($section[0]); // 重新扫描动态插入的组件
+                if (vm) {
+                    vm.$compile($section[0]); // 重新扫描动态插入的组件
 
-                if (footer) {
-                    vm.$compile($footer[0]); // 重新扫描动态插入的组件
+                    if (footer) {
+                        vm.$compile($footer[0]); // 重新扫描动态插入的组件
+                    }
                 }
+
                 onReady && onReady($header, $section, $footer, $aside);
             },
             close: onClose
@@ -45,6 +66,156 @@ export default {
     hidePaper () {
         $.bhPaperPileDialog.hide();
         $.bhPaperPileDialog.destroy();
+    },
+    /**
+     * 显示窗口对话框
+     * @param  {String} title   标题
+     * @param  {String} content 内容，支持包含vue组件的html
+     * @param  {Object} [options] 附加参数
+     * @param  {Object} [options.vm] view model对象，当内容包含vue组件时需要传递此对象
+     * @param  {Object[]} [options.btns] 底部按钮
+     * @param  {String} [options.btns.text] 底部按钮文字
+     * @param  {Function} [options.btns.callback] 底部按钮回调函数，返回false则不会默认关闭窗口
+     * @param {Function} [options.created] 创建成功执行的回调
+     * @param {Function} [options.open] 窗口打开时执行的回调
+     * @param {Function} [options.close] 窗口关闭时执行的回调
+     * @param {Boolean} [options.resizable=false] 是否可以resize操作
+     * @param {Boolean} [options.isModal=true] 是否显示为模态框
+     * @param {Number} [options.modalOpacity=0.3] 遮罩透明度
+     * @param {Number} [options.height=auto] 高度
+     * @param {Number} [options.width=500] 宽度
+     * @param {Number} [options.minHeight=300] 最小高度
+     * @param {Number} [options.minWidth=200] 最小宽度
+     * @param {Number} [options.maxHeight=1000] 最大高度
+     * @param {Number} [options.maxWidth=1000] 最大宽度
+     * @param {Boolean} [options.autoOpen=false] 是否自动打开
+     *
+     * @example
+     * <caption>javascript</caption>
+     * pageUtil.showWindow('测试对话框', '<bh-search></bh-search>', {
+     *     vm: this, // this 指向当前页面的 vm, 因为包含bhSearch组件，需要传此参数
+     *     btns: [{
+     *         text: '确认',
+     *         callback () {
+     *             // 点击后不会关闭窗口
+     *             return false;
+     *         }
+     *     }, {
+     *         text: '取消',
+     *         callback () {
+     *             // 默认点击后会关闭窗口
+     *         }
+     *     }],
+     *     close () {
+     *         // 窗口关闭时会触发此处理
+     *     }
+     * }
+     */
+    showWindow (title, content, options) {
+        let opts = $.extend({
+            btns: [],
+            resizable: false,
+            isModal: true,
+            modalOpacity: 0.3,
+            height: 'auto',
+            width: 500,
+            minWidth: 200,
+            minHeight: 300,
+            maxHeight: 1000,
+            maxWidth: 1000,
+            autoOpen: true
+            // inIframe: false
+        }, options);
+
+        // store and delete custom arguments
+        let created = opts.created;
+        let open = opts.open;
+        let close = opts.close;
+        let btns = opts.btns;
+        let vm = opts.vm;
+        delete opts.created;
+        delete opts.open;
+        delete opts.close;
+        delete opts.btns;
+        delete opts.vm;
+
+        let hasButton = btns.length > 0;
+
+        let clsName = hasButton ? 'has-button' : '';
+
+        let btnsPanel = '';
+        if (hasButton) {
+            let btnsHtml = '';
+            let index = 0;
+            btns.forEach(btn => {
+                let className = btn.className || 'bh-btn-default';
+                btnsHtml += `<button class="bh-btn bh-window-btn ${className}" data-index='${index++}'>${btn.text}</button>`;
+            });
+
+            btnsPanel = `
+                <div class='buttons'>
+                    <hr style="border:none;border-top: 1px solid #efefef;margin-bottom: 10px;">
+                    ${btnsHtml}
+                </div>
+            `;
+        }
+
+        let jqDom = $('<div>').addClass(`bh-window bh-pageutil-window ${clsName}`);
+        jqDom.append(`
+            <div class='head'>
+                <h3>${title}</h3>
+            </div>
+            <div class='content'>
+                ${content}
+                ${btnsPanel}
+            </div>
+        `);
+
+        jqDom.appendTo($('body'));
+
+        // add event handlers
+        jqDom.on('created', (event) => {
+            let target = event.target;
+            if (vm) { // support vue compile
+                vm.$compile(target);
+            }
+            created && created(target);
+        });
+
+        jqDom.on('open', (event) => {
+            // let target = event.target;
+            // if (options.vm) { // support vue compile
+            //     options.vm.$compile(target);
+            // }
+            open && open(event.target);
+        });
+
+        jqDom.on('close', (event) => {
+            close && close(event.target);
+        });
+        // 点击按钮事件触发
+        let self = this;
+        jqDom.on('click', '.bh-window-btn', function (event) {
+            let target = $(event.target);
+            let index = target.data('index');
+            let callback = btns[index].callback;
+            if (!callback || callback(target) !== false) {
+                self.hideWindow();
+            }
+        });
+
+        jqDom.jqxWindow(opts);
+    },
+    /**
+     * 关闭窗口（默认为销毁窗口，所以每次打开窗口都会重建）
+     */
+    hideWindow () {
+        let jqDom = $('.bh-pageutil-window');
+        if (jqDom.length > 0) {
+            jqDom.off('click').off('close').off('open').off('created');
+            jqDom.jqxWindow('destroy');
+            jqDom.remove();
+        }
     },
     /**
      * 显示 popover 弹框
@@ -170,6 +341,7 @@ export default {
      */
     setTipInfo (vm, text) {
         if (!vm) {
+            console.log('set tip info failed, no vm specified !');
             return;
         }
 
@@ -193,6 +365,11 @@ export default {
      * @param  {String} modelName 模型名称
      */
     exportFile (submitUrl, modelUrl, modelName) {
+        if (!submitUrl || !modelUrl || !modelName) {
+            console.log('export file failed, invalid arguments!', arguments);
+            return;
+        }
+
         let model = WIS_EMAP_SERV.getModel(modelUrl, modelName);
         let columns = model.map((item) => {
             return {
