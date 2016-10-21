@@ -1,9 +1,9 @@
 <template>
     <div class="bh-radio" :class='dirClass'>
         <label v-for='item in items' :class='{"bh-disabled": item.disabled}'>
-            <input name='radio-btn-{{uuid}}' type="radio" :value="item.value" :disabled="item.disabled" v-model='value' @change.stop='onchange'>
+            <input name='radio-btn-{{uuid}}' type="radio" :value="item[valueMember]" :disabled="item.disabled" v-model='value' @change.stop='onchange'>
             <i class="bh-choice-helper"></i>
-            {{item.name}}
+            {{item[nameMember]}}
         </label>
     </div>
 </template>
@@ -61,12 +61,14 @@
             }
         },
         /**
-         * @property {String} value 选择项的value
+         * @property {String} value 选择项的value值
          * @property {Object[]} items 待选列表
          * @property {String} items.name 显示名称
          * @property {String} items.value 值
          * @property {Boolean} items.disabled 是否禁用
          * @property {String} [dir=h] 排列方向(水平/垂直)，支持 'h'/'v'
+         * @property {String} [nameMember='name'] 自定义名称字段
+         * @property {String} [valueMember='value'] 自定义值字段
          */
         props: {
             value: '',
@@ -75,6 +77,12 @@
             },
             dir: {
                 default: 'h'
+            },
+            nameMember: {
+                default: 'name'
+            },
+            valueMember: {
+                default: 'value'
             }
         },
         methods: {

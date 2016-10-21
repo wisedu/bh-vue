@@ -364,7 +364,7 @@ export default {
      * @param  {String} modelUrl  获取模型的地址
      * @param  {String} modelName 模型名称
      */
-    exportFile (submitUrl, modelUrl, modelName) {
+    exportFile (submitUrl, modelUrl, modelName, params) {
         if (!submitUrl || !modelUrl || !modelName) {
             console.log('export file failed, invalid arguments!', arguments);
             return;
@@ -389,7 +389,19 @@ export default {
                 });
 
                 let colStr = ids.join(',');
-                window.open(`${submitUrl}?colnames=${colStr}`);
+
+                let url = `${submitUrl}?colnames=${colStr}`;
+
+                if (params) {
+                    let suffix = '';
+                    for (let key in params) {
+                        suffix += ('&' + key + '=' + params[key]);
+                    }
+
+                    url = url + suffix;
+                }
+
+                window.open(url);
             }
         });
     }
