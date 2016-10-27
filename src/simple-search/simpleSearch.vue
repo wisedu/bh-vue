@@ -28,7 +28,7 @@ export default {
   },
   created() {
     if (!this.simpleSearch) {
-      this.simpleSearch = this.$parent.pageopt[this.name ? this.name : 'simpleSearch']
+      this.simpleSearch = this.$parent.pageopt &&　this.$parent.pageopt[this.name ? this.name : 'simpleSearch']
     }
   },
   methods: {
