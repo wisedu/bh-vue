@@ -1,6 +1,6 @@
 module.exports = function (url, params, pageNum, pageSize) {
     let page = {
-        pageNumber: pageNum || 1,
+        pageNumber: pageNum + 1,
         pageSize: pageSize || 10
     };
 
