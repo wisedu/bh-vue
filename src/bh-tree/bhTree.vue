@@ -100,12 +100,65 @@
         });
     };
 
-    var createTree = (vm, options) => {
-        var el = $(vm.$el);
+    var _addOperations = (vm) => {
+        let operations = vm.operations;
+        if (!operations) {
+            return;
+        }
 
+        let root = $(vm.$el);
+        root.addClass('has-opt').on('mouseenter', '.jqx-tree-item', function(event) {
+            let target = $(event.target);
+            let li = target.parent();
+            let item = getItem(root, li[0]);
+            let opts = null;
+            if (typeof operations === 'function') {
+                opts = operations(item) || [];
+            } else {
+                opts = operations;
+            }
+
+            let rootOffset = root.offset();
+            let liOffset = target.offset();
+
+            let optHtml = $('<div>').addClass('opt-panel').css({
+                top: liOffset.top - rootOffset.top,
+                right: 0,
+                position: 'absolute'
+            });
+
+            opts.forEach(opt => {
+                $('<a>').text(opt.title)
+                        .data('action', opt.name)
+                        .data('item', item)
+                        .addClass('opt-btn bh-mh-4')
+                        .appendTo(optHtml);
+            });
+
+            li.append(optHtml);
+        }).on('mouseleave', '.jqx-tree-item-li', function(event) {
+            root.find('.opt-panel').remove();
+        }).on('click', '.opt-btn', function(event) {
+            let target = $(event.target);
+            vm.$dispatch(target.data('action'), target.data('item'));
+        });
+    };
+
+    var _removeOperations = (vm) => {
+        let root = $(vm.$el);
+        root.off('mouseenter').off('mouseleave').off('click');
+        root.find('.opt-panel').remove();
+    };
+
+    var createTree = (vm, options) => {
+        _removeOperations(vm);
+
+        var el = $(vm.$el);
         vm.jqxObj = el.jqxTree(options);
         vm.selectedItem = getSelectedItem(el);
         vm.checkedItems = getCheckedItems(el);
+
+        _addOperations(vm);
 
         return vm.jqxObj;
     };
@@ -202,6 +255,7 @@
             selectedItem: Object,
             checkedItems: Array,
             fields: Object,
+            operations: [Array, Function],
             source: {
                 type: Array,
                 default () {
@@ -263,6 +317,19 @@
              */
             selectItem (item) {
                 return $(this.$el).jqxTree('selectItem', item);
+            },
+            /**
+             * 获取当前选择节点
+             */
+            getSelectedItem () {
+                return getSelectedItem($(this.$el));
+            },
+            /**
+             * 更新节点
+             * @param  {Object} item 元素节点
+             */
+            updateItem (item) {
+                return $(this.$el).jqxTree('updateItem', item);
             }
         },
         ready () {
@@ -284,6 +351,7 @@
          * @inner
          */
         beforeDestroy () {
+            _removeOperations(this);
             var el = $(this.$el);
             el.off('checkChange');
             el.off('select');
@@ -292,3 +360,19 @@
         }
     };
 </script>
+
+<style lang="less">
+    .jqx-tree.has-opt {
+        .jqx-tree-item-li {
+            // width: 100%;
+
+            .opt-panel {
+                padding: 3px;
+
+                .opt-btn {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+</style>
