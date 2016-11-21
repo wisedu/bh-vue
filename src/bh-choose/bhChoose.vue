@@ -252,6 +252,8 @@
                 } else {
                     vm.$refs.bhchooserighttable.addRow(rowData);
                 }
+
+                this.$dispatch('change');
             },
             /**
              * 左侧列表渲染完成事件

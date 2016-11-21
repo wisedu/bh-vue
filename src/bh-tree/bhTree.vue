@@ -27,6 +27,10 @@
         return el.jqxTree('getItem', element);
     };
 
+    var selectItem = (el, item) => {
+        return el.jqxTree('selectItem', item);
+    };
+
     var checkAll = (el) => {
         return el.jqxTree('checkAll');
     };
@@ -100,6 +104,29 @@
         });
     };
 
+    var addDefaultSelectEvents = (vm) => {
+        var self = vm;
+        var el = $(self.$el);
+
+        el.on('initialized', (event) => {
+
+            if(!vm.defaultSelect) {
+                return;
+            }
+
+            vm.$nextTick(function () {
+                var items = getAll(el);
+                if( ! items.length > 0 ) {
+                    return;
+                }
+                selectItem(el, items[0]);
+
+                self.selectedItem = items[0];
+                self.$dispatch('select', items[0]);
+            })
+        });
+    };
+
     var _addOperations = (vm) => {
         let operations = vm.operations;
         if (!operations) {
@@ -108,6 +135,7 @@
 
         let root = $(vm.$el);
         root.addClass('has-opt').on('mouseenter', '.jqx-tree-item', function(event) {
+            root.find('.opt-panel').remove(); // 先清一把
             let target = $(event.target);
             let li = target.parent();
             let item = getItem(root, li[0]);
@@ -261,6 +289,10 @@
                 default () {
                     return [];
                 }
+            },
+            defaultSelect: {
+                type: Boolean,
+                default: false
             }
         },
         methods: {
@@ -290,6 +322,32 @@
              */
             addChild (child, parent) {
                 return addChild($(this.$el), child, parent);
+            },
+            /**
+             * 在元素之前增加新节点
+             * @param {Object} item 新节点数据
+             * @param {Object} elem 原有元素
+             */
+            addBefore (item, elem) {
+                return $(this.$el).jqxTree('addBefore', item, elem);
+            },
+            /**
+             * 在元素之下增加新子节点
+             * @param {Object} item 新节点数据
+             * @param {Object} elem 原有元素
+             */
+            addTo (item, elem) {
+                //return $(this.$el).jqxTree('addBefore', item, elem);
+                return $(this.$el).jqxTree('addTo', item, elem, false);
+
+            },
+            /**
+             * 在元素之后增加新节点
+             * @param {Object} item 新节点数据
+             * @param {Object} elem 原有元素
+             */
+            addAfter (item, elem) {
+                return $(this.$el).jqxTree('addAfter', item, elem);
             },
             /**
              * 移除节点
@@ -327,9 +385,10 @@
             /**
              * 更新节点
              * @param  {Object} item 元素节点
+             * @param  {Object} newItem 更新后的元素数据
              */
-            updateItem (item) {
-                return $(this.$el).jqxTree('updateItem', item);
+            updateItem (item, newItem) {
+                return $(this.$el).jqxTree('updateItem', item, newItem);
             }
         },
         ready () {
@@ -357,6 +416,9 @@
             el.off('select');
             el.off('itemClick');
             el.jqxTree('destroy');
+        },
+        beforeCompile () {
+            addDefaultSelectEvents(this);
         }
     };
 </script>

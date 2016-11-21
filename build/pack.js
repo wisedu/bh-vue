@@ -6,12 +6,15 @@ var webpackConf = require('./webpack.config');
 
 var cmpPath = 'src';
 var buildPath = 'build';
-var outFile = path.join(buildPath, 'entry.js');
+var entryFile = path.join(buildPath, 'entry.js');
+var confFile = path.join(buildPath, 'complist.json');
 
 // 需要跳过的帮助文件
-const ignoreList = ['build', 'dist', 'test', 'package.json', 'README.md'];
+const ignoreList = ['build', 'dist', 'test', 'package.json', 'README.md', 'index.js'];
 
 var outContent = '';
+var compContent = [];
+var components = [];
 
 /**
  * 1.首先遍历组件目录生成组件全局注册文件
@@ -33,15 +36,53 @@ fs.readdirSync(cmpPath).forEach((dir) => {
         });
     });
 
-    if (fs.readFileSync(path.join(cmpPath, dir, vueName + '.vue'), 'utf-8') === '') {
-        console.log('file empty:' + vueName);
+    var upperName = vueName.substring(0, 1).toUpperCase() + vueName.substring(1);
+
+    try {
+        if (fs.readFileSync(path.join(cmpPath, dir, vueName + '.vue'), 'utf-8') === '') {
+            console.log('file empty:' + vueName);
+            return;
+        }
+    } catch (e) {
+        console.warn(e.message);
+        return;
     }
 
-    outContent += 'Vue.component(\'' + dir + '\', require(\'src/' + dir + '/' + vueName + '\'));\n';
+    components.push({
+        name: upperName,
+        path: 'src/' + dir + '/' + vueName,
+        dir: dir
+    });
 });
 
-// 内容写入 entry.js 文件
-fs.writeFileSync(outFile, outContent, 'utf-8');
+var jsImport = [];
+var jsExport = [];
+var jsInstall = [];
+
+components.forEach(item => {
+    compContent.push('"' + item.name + '": "' + item.path + '"');
+    jsImport.push('import ' + item.name + ' from \'' + item.path + '\';');
+    jsExport.push(item.name);
+    jsInstall.push(`    Vue.component('${item.dir}', ${item.name});`);
+});
+
+jsImport = jsImport.join('\n');
+jsExport = 'module.exports = {\n' + jsExport.join(',\n') + '\n}';
+var installComps = jsInstall.join('\n');
+jsInstall = `
+if (typeof window !== 'undefined' && window.Vue) {
+${installComps}
+}`;
+
+var entryContent = '';
+// import
+entryContent += jsImport + '\n\n';
+// install
+entryContent += jsInstall + '\n\n';
+// export
+entryContent += jsExport;
+
+fs.writeFileSync(entryFile, entryContent, 'utf-8');
 
 // 执行webpack打包
 webpack(webpackConf, (err, stats) => {

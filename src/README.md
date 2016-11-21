@@ -2,7 +2,7 @@
 
 演示页面：[https://wisedu.github.io/bh-vue-demo](https://wisedu.github.io/bh-vue-demo)
 
-组件文档参考：[http://res.wisedu.com/FS/vue-doc/index.html](http://res.wisedu.com/FE/vue-doc/index.html)
+组件文档参考：[http://res.wisedu.com/FS/vue-doc/index.html](http://res.wisedu.com/FS/vue-doc/index.html)
 
 ### 引入组件库
 1. 使用npm方式引入：

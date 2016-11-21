@@ -1,13 +1,15 @@
 var path = require('path');
+var webpack = require('webpack');
 
 module.exports = {
     // 'devtool': 'source-map',
     'entry': {
-        'app': './build/entry.js'
+        'app': path.resolve(__dirname, './entry.js')
+        // 'app': path.resolve(__dirname, '../src/bh-button/bhButton.js')
     },
     'output': {
-        'path': './dist/',
-        'filename': 'bh-vue.min.js',
+        'path': path.resolve(__dirname, '../src'),
+        'filename': 'index.js',
         'publicPath': ''
     },
     'resolve': {
@@ -23,8 +25,8 @@ module.exports = {
         },
         {
             'test': /\.js$/,
-            'loader': 'babel',
-            'include': '../'
+            'loader': 'babel-loader',
+            'exclude': /node_modules/
         },
         {
             'test': /\.json$/,
@@ -40,5 +42,25 @@ module.exports = {
                 'name': './resources/imgs/[name].[hash:7].[ext]'
             }
         }]
-    }
+    },
+    babel: {
+        presets: ['es2015'],
+        plugins: ['transform-runtime']
+    },
+    externals: {
+        vue: {
+            root: 'Vue',
+            commonjs: 'vue',
+            commonjs2: 'vue',
+            amd: 'vue'
+        }
+    },
+    plugins: [
+        new webpack.NoErrorsPlugin()
+        // new webpack.optimize.UglifyJsPlugin({
+        //     compress: {warnings: false},
+        //     output: {comments: false},
+        //     sourceMap: true
+        // })
+    ]
 };

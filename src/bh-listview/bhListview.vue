@@ -72,6 +72,9 @@
                 let datas = response.datas;
                 pageConf.total = datas.totalSize;
                 vm.source = datas.rows || [];
+            } else {
+                pageConf.total = 0;
+                vm.source = [];
             }
         });
     };
