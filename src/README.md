@@ -11,7 +11,7 @@
     ```
 2. 使用压缩js的方式引入
     ```
-    <script src="//res.wisedu.com/fe_components/bh-vue/bh-vue.min.js"></script>
+    <script src="//res.wisedu.com/fe_components/bh-vue/index.js"></script>
     ```
 
 ### 打包组件库到min.js文件
@@ -102,7 +102,7 @@ npm run pack
 
 <script>
     /** 使用js方式引入组件库的话不需要在此处import */
-    import EmapEditor from 'components/emap-editor/emapEditor.vue'
+    import {EmapEditor} from 'components'
 
     export default {
         data: function() {
