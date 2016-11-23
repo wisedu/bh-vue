@@ -1508,6 +1508,7 @@
 	    }
 
 	    return new $.jqx.dataAdapter(source, {
+	        contentType: vm.contentType,
 	        formatData: function formatData(data) {
 	            if (vm.pageable) {
 	                data[vm.pageNumberField] = data.pagenum + 1;
@@ -1708,6 +1709,10 @@
 	        'localdata': Array,
 	        'root': String,
 	        'columns': Array,
+	        'contentType': {
+	            default: 'appliaction/json',
+	            type: String
+	        },
 	        'queryType': {
 	            default: 'GET',
 	            type: String
