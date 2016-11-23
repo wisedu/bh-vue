@@ -94,6 +94,7 @@
         }
 
         return new $.jqx.dataAdapter(source, {
+            contentType: vm.contentType,
             formatData: function (data) {
                 if (vm.pageable) {
                     data[vm.pageNumberField] = data.pagenum + 1;
@@ -272,6 +273,7 @@
          * @property {Boolean} [reorder=false] 是否支持拖动列头排序
          * @property {Boolean} [resize=false] 是否支持拖动修改列头宽度
          * @property {String} [url] 数据资源url，与localdata必选其一
+         * @property {String} [contentType=application/json] 请求类型设置
          * @property {Array} [localdata] 本地数据源，如果不指定 url则使用本地数据源
          * @property {String} root 请求返回的数据源中列表根节点名称，如果有多级节点，使用 'aa>bb' 的形式定义
          * @property {Array} columns 列定义
@@ -334,6 +336,10 @@
             'localdata': Array,
             'root': String,
             'columns': Array,
+            'contentType': {
+                default: 'appliaction/json',
+                type: String
+            },
             'queryType': {
                 default: 'GET',
                 type: String
