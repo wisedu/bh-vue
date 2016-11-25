@@ -167,6 +167,10 @@
             vm.$dispatch(vm.readyName, vm);
         };
 
+        opts.formatData = (data) => {
+            return data && JSON.stringify(data);
+        };
+
         el.emapdatatable(opts);
 
         el.on('click', '.opt-button', function (e) {

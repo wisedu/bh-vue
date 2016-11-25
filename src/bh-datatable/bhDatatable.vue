@@ -110,7 +110,7 @@
 
                 // data.sortdatafield && data.sortorder --- 指定排序使用的参数
                 $.extend(data, vm.queryParams);
-                return data;
+                return JSON.stringify(data);
             },
             beforeSend: (xhr) => {
                 callbacks && callbacks.beforeSend && callbacks.beforeSend(xhr);
@@ -120,7 +120,7 @@
             },
             loadError: function (xhr, status, error) {
                 callbacks && callbacks.loadError && callbacks.loadError(status, error);
-                throw new Error('http://services.odata.org: ' + error.toString());
+                throw new Error('loadError:' + error.toString());
             }
         });
     };
