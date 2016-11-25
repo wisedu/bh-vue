@@ -20,7 +20,8 @@
                     :query-params='queryParams'
                     class='transparentGrid'
                     @rendered='leftListRendered'
-                    @check-change='onCheckChange'>
+                    @check-change='onCheckChange'
+                    :callbacks='callbacks'>
                 </bh-datatable>
             </div>
         </div>
@@ -170,6 +171,10 @@
          * @property {Function} leftcellsRenderer 左侧单元格渲染方法
          * @property {Function} rightcellsRenderer 右侧单元格渲染方法
          * @property {Boolean} [nicescroll=true] 是否优化滚动条样式
+         * @property {Object} [callbacks] 数据请求过程中的一些回调方法
+         * @property {Function} callbacks.downloadComplete 请求数据结束时触发，参数为 data
+         * @property {Function} callbacks.beforeSend 发送请求之前触发，参数为 xhr
+         * @property {Function} callbacks.loadError 请求失败触发，参数为status
          */
         props: {
             id: {
@@ -225,7 +230,8 @@
             nicescroll: {
                 type: Boolean,
                 default: true
-            }
+            },
+            callbacks: Object
         },
         methods: {
             /**
