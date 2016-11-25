@@ -1715,7 +1715,7 @@
 	        'root': String,
 	        'columns': Array,
 	        'contentType': {
-	            default: 'appliaction/json',
+	            default: 'application/json',
 	            type: String
 	        },
 	        'queryType': {
