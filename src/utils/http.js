@@ -16,7 +16,7 @@ let _code = (data) => {
     if (data && (data.code === '0' || data.code === 0)) {
         return data;
     } else {
-        throw (data && data.code);
+        throw data;
     }
 };
 
