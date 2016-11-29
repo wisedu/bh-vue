@@ -13,7 +13,7 @@ let http = Vue.http;
 // 封装一些通用处理，更方便的解析返回数据格式
 // 只需要判断返回结果是否正常
 let _code = (data) => {
-    if (data && data.code === 0) {
+    if (data && (data.code === '0' || data.code === 0)) {
         return data;
     } else {
         throw (data && data.code);
@@ -22,6 +22,7 @@ let _code = (data) => {
 
 // 一般是emap返回的数据格式
 let _rows = (data) => {
+    data = _code(data);
     if (data && data.datas && data.datas.rows) {
         return data.datas.rows;
     } else {
@@ -31,6 +32,7 @@ let _rows = (data) => {
 
 // 列表数据
 let _datas = (data) => {
+    data = _code(data);
     if (data && data.datas) {
         return data.datas;
     } else {
@@ -40,6 +42,7 @@ let _datas = (data) => {
 
 // 一般用来获取emap表单数据
 let _firstRow = (data) => {
+    data = _code(data);
     if (data && data.datas && data.datas.rows) {
         return data.datas.rows[0];
     } else {
