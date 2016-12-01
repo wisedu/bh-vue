@@ -186,6 +186,22 @@
                 return $(this.$el).emapValidate('validate');
             },
             /**
+             * @method requireItem
+             * @description 添加字段的必填校验
+             * @param {String|Array} ids - 表单字段的name
+             */
+            requireItem (ids) {
+                return $(this.$el).emapForm('requireItem', ids);
+            },
+            /**
+             * @method unRequireItem
+             * @description 取消字段的必填校验
+             * @param {String|Array} ids - 表单字段的name
+             */
+            unRequireItem (ids) {
+                return $(this.$el).emapForm('unRequireItem', ids);
+            },
+            /**
              * 如果不传参数，则清空表单中所有值，
              * 如果传入参数是个数组，则清空该数组中为字段名称的控件值
              */
