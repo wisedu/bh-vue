@@ -334,7 +334,7 @@
         },
         beforeDestroy () {
             this.inited = false;
-            this.cachedMap = null;
+            this.cachedMap = {};
         }
     };
 </script>

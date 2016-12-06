@@ -7412,6 +7412,9 @@
 	        var item = getItem(el, args.element);
 
 	        self.selectedItem = item;
+
+	        el.find('li').removeClass('edit-tree-li-select');
+	        $(item.element).addClass('edit-tree-li-select');
 	        self.$dispatch('select', item);
 	    });
 
@@ -7451,6 +7454,7 @@
 
 	            self.selectedItem = items[0];
 	            self.$dispatch('select', items[0]);
+	            self.$dispatch('initialized');
 	        });
 	    });
 	};
@@ -7466,6 +7470,7 @@
 	        root.find('.opt-panel').remove();
 	        var target = $(event.target);
 	        var li = target.parent();
+	        li.addClass('edit-tree-item-hover');
 	        var item = getItem(root, li[0]);
 	        var opts = null;
 	        if (typeof operations === 'function') {
@@ -8979,7 +8984,7 @@
 	    },
 	    beforeDestroy: function beforeDestroy() {
 	        this.inited = false;
-	        this.cachedMap = null;
+	        this.cachedMap = {};
 	    }
 	};
 

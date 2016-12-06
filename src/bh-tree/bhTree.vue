@@ -84,6 +84,9 @@
             var item = getItem(el, args.element);
 
             self.selectedItem = item;
+            //在选中项的li元素上增加select选中class(首先去除其它的)
+            el.find('li').removeClass('edit-tree-li-select');
+            $(item.element).addClass('edit-tree-li-select');
             self.$dispatch('select', item);
         });
 
@@ -123,6 +126,7 @@
 
                 self.selectedItem = items[0];
                 self.$dispatch('select', items[0]);
+                self.$dispatch('initialized');
             })
         });
     };
@@ -138,6 +142,7 @@
             root.find('.opt-panel').remove(); // 先清一把
             let target = $(event.target);
             let li = target.parent();
+            li.addClass('edit-tree-item-hover');
             let item = getItem(root, li[0]);
             let opts = null;
             if (typeof operations === 'function') {
@@ -157,10 +162,10 @@
 
             opts.forEach(opt => {
                 $('<a>').text(opt.title)
-                        .data('action', opt.name)
-                        .data('item', item)
-                        .addClass('opt-btn bh-mh-4')
-                        .appendTo(optHtml);
+                    .data('action', opt.name)
+                    .data('item', item)
+                    .addClass('opt-btn bh-mh-4')
+                    .appendTo(optHtml);
             });
 
             li.append(optHtml);
