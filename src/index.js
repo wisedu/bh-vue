@@ -7437,25 +7437,22 @@
 
 	var addDefaultSelectEvents = function addDefaultSelectEvents(vm) {
 	    var self = vm;
-	    var el = $(self.$el);
+	    var el = $(vm.$els.treeroot);
 
-	    el.on('initialized', function (event) {
+	    if (!vm.defaultSelect) {
+	        return;
+	    }
 
-	        if (!vm.defaultSelect) {
+	    vm.$nextTick(function () {
+	        var items = _getAll(el);
+	        if (!items.length > 0) {
 	            return;
 	        }
+	        selectItem(el, items[0]);
 
-	        vm.$nextTick(function () {
-	            var items = _getAll(el);
-	            if (!items.length > 0) {
-	                return;
-	            }
-	            selectItem(el, items[0]);
-
-	            self.selectedItem = items[0];
-	            self.$dispatch('select', items[0]);
-	            self.$dispatch('initialized');
-	        });
+	        self.selectedItem = items[0];
+	        self.$dispatch('select', items[0]);
+	        self.$dispatch('initialized');
 	    });
 	};
 
@@ -7509,9 +7506,10 @@
 
 	var createTree = function createTree(vm, options) {
 	    _removeOperations(vm);
+	    var el = $(vm.$els.treeroot);
 
-	    var el = $(vm.$el);
 	    vm.jqxObj = el.jqxTree(options);
+	    addDefaultSelectEvents(vm);
 	    vm.selectedItem = _getSelectedItem(el);
 	    vm.checkedItems = getCheckedItems(el);
 
@@ -7658,16 +7656,14 @@
 	        el.off('itemClick');
 	        el.jqxTree('destroy');
 	    },
-	    beforeCompile: function beforeCompile() {
-	        addDefaultSelectEvents(this);
-	    }
+	    beforeCompile: function beforeCompile() {}
 	};
 
 /***/ },
 /* 222 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div></div>\n";
+	module.exports = "\n<div v-el:treeroot></div>\n";
 
 /***/ },
 /* 223 */

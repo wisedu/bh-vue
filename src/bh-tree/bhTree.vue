@@ -1,5 +1,5 @@
 <template>
-    <div></div>
+    <div v-el:treeroot></div>
 </template>
 
 <script>
@@ -109,26 +109,23 @@
 
     var addDefaultSelectEvents = (vm) => {
         var self = vm;
-        var el = $(self.$el);
+        var el = $(vm.$els.treeroot);
 
-        el.on('initialized', (event) => {
+        if(!vm.defaultSelect) {
+            return;
+        }
 
-            if(!vm.defaultSelect) {
+        vm.$nextTick(function () {
+            var items = getAll(el);
+            if( ! items.length > 0 ) {
                 return;
             }
+            selectItem(el, items[0]);
 
-            vm.$nextTick(function () {
-                var items = getAll(el);
-                if( ! items.length > 0 ) {
-                    return;
-                }
-                selectItem(el, items[0]);
-
-                self.selectedItem = items[0];
-                self.$dispatch('select', items[0]);
-                self.$dispatch('initialized');
-            })
-        });
+            self.selectedItem = items[0];
+            self.$dispatch('select', items[0]);
+            self.$dispatch('initialized');
+        })
     };
 
     var _addOperations = (vm) => {
@@ -185,9 +182,10 @@
 
     var createTree = (vm, options) => {
         _removeOperations(vm);
+        var el = $(vm.$els.treeroot);
 
-        var el = $(vm.$el);
         vm.jqxObj = el.jqxTree(options);
+        addDefaultSelectEvents(vm);
         vm.selectedItem = getSelectedItem(el);
         vm.checkedItems = getCheckedItems(el);
 
@@ -423,7 +421,7 @@
             el.jqxTree('destroy');
         },
         beforeCompile () {
-            addDefaultSelectEvents(this);
+//            addDefaultSelectEvents(this);
         }
     };
 </script>
