@@ -25,12 +25,21 @@
          */
         props: ['value', 'placeholder', 'source', 'disabled'],
         ready () {
-            // var self = this;
-            var el = $(this.$el);
+             var self = this;
+            var el = $(self.$el);
 
-            this.jqxObj = el.jqxInput({
-                placeHolder: this.placeholder,
-                source: this.source ? this.source : []
+            self.jqxObj = el.jqxInput({
+                placeHolder: self.placeholder,
+                source: self.source ? self.source : [],
+                disabled: self.disabled
+            });
+
+            self.$watch('disabled', (newVal) => {
+                if(newVal) {
+                    self.jqxObj.jqxInput({disabled: true});
+                }else {
+                    self.jqxObj.jqxInput({disabled: false});
+                }
             });
         },
         beforeDestroy () {

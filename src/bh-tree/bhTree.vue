@@ -175,7 +175,7 @@
     };
 
     var _removeOperations = (vm) => {
-        let root = $(vm.$el);
+        let root = $(vm.$els.treeroot);
         root.off('mouseenter').off('mouseleave').off('click');
         root.find('.opt-panel').remove();
     };
@@ -233,7 +233,7 @@
         mapper = null;
         source = null;
 
-        return ret;
+        return ret || [];
     };
 
     export default {
@@ -419,9 +419,6 @@
             el.off('select');
             el.off('itemClick');
             el.jqxTree('destroy');
-        },
-        beforeCompile () {
-//            addDefaultSelectEvents(this);
         }
     };
 </script>
