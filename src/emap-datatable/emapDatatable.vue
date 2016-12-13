@@ -79,7 +79,6 @@
     var _defaultOpts = {
         height: null, // fix scrollbar defect
         checkable: false,
-        customColumns: [],
         operations: null
     };
 
@@ -139,7 +138,7 @@
 
         var el = $(vm.$el);
 
-        var opts = $.extend({}, _defaultOpts, vm.options);
+        var opts = $.extend({customColumns: []}, _defaultOpts, vm.options);
         var customColumns = opts.customColumns;
         var operations = opts.operations;
 
