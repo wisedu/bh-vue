@@ -167,7 +167,16 @@
         };
 
         opts.formatData = (data) => {
-            return data && JSON.stringify(data);
+            if (!data) {
+                return {};
+            }
+
+            delete data.pagesize;
+            delete data.pagenum;
+            delete data.filterslength;
+            delete data.sortdatafield;
+            delete data.sortorder;
+            return JSON.stringify(data);
         };
 
         el.emapdatatable(opts);
@@ -177,10 +186,14 @@
             var row = _this.attr('data-row');
             var name = _this.attr('data-name');
 
-            vm.$dispatch(name, vm.cachedMap[row]);
+            vm.$dispatch(name, vm.cachedMap[row] || vm.getDataByRow(row));
         });
 
         vm.inited = true;
+    };
+
+    var _getRows = (data) => {
+        return data && data.datas && data.datas.rows;
     };
 
     export default {
@@ -223,6 +236,7 @@
          * @property {String} options.operations.items.type 操作按钮类型，指定'button'为按钮，否则为链接
          * @property {Boolean} options.lazyInit 是否延迟控件实例初始化，为true则需要使用init方法触发控件初始化。
          * @property {String} [options.readyName='ready'] 初始化完成后触发的事件名称
+         * @property {Function} [options.getRows] 从服务器返回结果里获取rows的方法,参数为服务端返回数据，返回值为rows数组，默认为从result.datas.rows中获取
          */
         props: {
             options: Object
@@ -294,6 +308,12 @@
              */
             getResult () {
                 return $(this.$el).emapdatatable('getResult');
+            },
+            getDataByRow (row) {
+                var getRowsFunc = this.options.getRows || _getRows;
+                var result = this.getResult();
+                var rows = getRowsFunc(result);
+                return rows && rows[row];
             },
             /**
              * 导出表格数据，列为选择列

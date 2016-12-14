@@ -1,2 +1,1 @@
-npm version patch;
-npm publish;
+npm version patch

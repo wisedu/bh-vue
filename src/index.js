@@ -4444,7 +4444,7 @@
 
 
 	// module
-	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ninput[_v-2a8a521e] {\n    width: 100%;\n}\n", ""]);
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ninput[_v-2a8a521e] {\n    width: 100%;\n}\n", ""]);
 
 	// exports
 
@@ -4467,11 +4467,21 @@
 
 	    props: ['value', 'placeholder', 'source', 'disabled'],
 	    ready: function ready() {
-	        var el = $(this.$el);
+	        var self = this;
+	        var el = $(self.$el);
 
-	        this.jqxObj = el.jqxInput({
-	            placeHolder: this.placeholder,
-	            source: this.source ? this.source : []
+	        self.jqxObj = el.jqxInput({
+	            placeHolder: self.placeholder,
+	            source: self.source ? self.source : [],
+	            disabled: self.disabled
+	        });
+
+	        self.$watch('disabled', function (newVal) {
+	            if (newVal) {
+	                self.jqxObj.jqxInput({ disabled: true });
+	            } else {
+	                self.jqxObj.jqxInput({ disabled: false });
+	            }
 	        });
 	    },
 	    beforeDestroy: function beforeDestroy() {
@@ -7499,7 +7509,7 @@
 	};
 
 	var _removeOperations = function _removeOperations(vm) {
-	    var root = $(vm.$el);
+	    var root = $(vm.$els.treeroot);
 	    root.off('mouseenter').off('mouseleave').off('click');
 	    root.find('.opt-panel').remove();
 	};
@@ -7557,7 +7567,7 @@
 	    mapper = null;
 	    source = null;
 
-	    return ret;
+	    return ret || [];
 	};
 
 	exports.default = {
@@ -7655,8 +7665,7 @@
 	        el.off('select');
 	        el.off('itemClick');
 	        el.jqxTree('destroy');
-	    },
-	    beforeCompile: function beforeCompile() {}
+	    }
 	};
 
 /***/ },
@@ -8800,7 +8809,6 @@
 	var _defaultOpts = {
 	    height: null,
 	    checkable: false,
-	    customColumns: [],
 	    operations: null
 	};
 
@@ -8858,7 +8866,7 @@
 
 	    var el = $(vm.$el);
 
-	    var opts = $.extend({}, _defaultOpts, vm.options);
+	    var opts = $.extend({ customColumns: [] }, _defaultOpts, vm.options);
 	    var customColumns = opts.customColumns;
 	    var operations = opts.operations;
 
@@ -8887,7 +8895,16 @@
 	    };
 
 	    opts.formatData = function (data) {
-	        return data && (0, _stringify2.default)(data);
+	        if (!data) {
+	            return {};
+	        }
+
+	        delete data.pagesize;
+	        delete data.pagenum;
+	        delete data.filterslength;
+	        delete data.sortdatafield;
+	        delete data.sortorder;
+	        return (0, _stringify2.default)(data);
 	    };
 
 	    el.emapdatatable(opts);
@@ -8897,10 +8914,14 @@
 	        var row = _this.attr('data-row');
 	        var name = _this.attr('data-name');
 
-	        vm.$dispatch(name, vm.cachedMap[row]);
+	        vm.$dispatch(name, vm.cachedMap[row] || vm.getDataByRow(row));
 	    });
 
 	    vm.inited = true;
+	};
+
+	var _getRows = function _getRows(data) {
+	    return data && data.datas && data.datas.rows;
 	};
 
 	exports.default = {
@@ -8966,6 +8987,12 @@
 	        },
 	        getResult: function getResult() {
 	            return $(this.$el).emapdatatable('getResult');
+	        },
+	        getDataByRow: function getDataByRow(row) {
+	            var getRowsFunc = this.options.getRows || _getRows;
+	            var result = this.getResult();
+	            var rows = getRowsFunc(result);
+	            return rows && rows[row];
 	        },
 	        selectColumnsExport: function selectColumnsExport(params) {
 	            var options = $.extend({ type: 'export' }, params);
