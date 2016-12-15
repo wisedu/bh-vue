@@ -209,10 +209,14 @@
                 return $(this.$el).emapForm('clear', val);
             },
             initForm (opts) {
+                var el = $(this.$el);
                 var datamodel = WIS_EMAP_SERV.getModel(opts.pagePath, opts.modelName, 'form', opts.queryParams, {'content-type': 'json'});
                 opts.data = datamodel;
-                $(this.$el).emapForm(opts);
+                el.emapForm(opts);
                 this.reloadValidate();
+                el.on('_formChange',  (event) =>{
+                    this.$dispatch('change', event);
+                });
                 this.inited = true;
                 this.$dispatch('inited');
             },
@@ -267,7 +271,9 @@
              * 销毁
              */
             destroy () {
-                $(this.$el).emapForm('destroy');
+                var el = $(this.$el);
+                el.off('_formChange');
+                el.emapForm('destroy');
                 this.destroyOutline();
             }
         },

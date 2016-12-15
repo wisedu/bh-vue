@@ -9494,7 +9494,7 @@
 
 
 	// module
-	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nbody > main > article {\n    min-height: 68px;\n}\n", ""]);
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nbody > main > article {\n    min-height: 68px;\n}\n", ""]);
 
 	// exports
 
@@ -9578,10 +9578,16 @@
 	            return $(this.$el).emapForm('clear', val);
 	        },
 	        initForm: function initForm(opts) {
+	            var _this = this;
+
+	            var el = $(this.$el);
 	            var datamodel = WIS_EMAP_SERV.getModel(opts.pagePath, opts.modelName, 'form', opts.queryParams, { 'content-type': 'json' });
 	            opts.data = datamodel;
-	            $(this.$el).emapForm(opts);
+	            el.emapForm(opts);
 	            this.reloadValidate();
+	            el.on('_formChange', function (event) {
+	                _this.$dispatch('change', event);
+	            });
 	            this.inited = true;
 	            this.$dispatch('inited');
 	        },
@@ -9628,17 +9634,19 @@
 	            this.init();
 	        },
 	        destroy: function destroy() {
-	            $(this.$el).emapForm('destroy');
+	            var el = $(this.$el);
+	            el.off('_formChange');
+	            el.emapForm('destroy');
 	            this.destroyOutline();
 	        }
 	    },
 	    ready: function ready() {
-	        var _this = this;
+	        var _this2 = this;
 
 	        this.init();
 
 	        this.$watch('options.readonly', function (newVal, oldVal) {
-	            _this.reload();
+	            _this2.reload();
 	        });
 	    },
 	    beforeDestory: function beforeDestory() {
