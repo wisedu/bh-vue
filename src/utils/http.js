@@ -8,6 +8,59 @@
  * // 请求并获取结果中 datas.rows 的数据
  * postJson('http://xxx.do', {a:1}, handler.ROWS);
  */
+
+/* 增加loading动画 ---added by zsl 2016-12-19 --- */
+/*------------start------------- */
+let requestCount = 0;
+let beginRequest = function () {
+  requestCount++;
+  if($('#jqxLoader').length < 1) {
+    $('body').append($('<div id="jqxLoader"></div>'));
+    $('#jqxLoader').jqxLoader({ isModal: true });
+    //修改loading组件样式
+    $('#jqxLoader').css({
+      'position': 'fixed',
+      'left': 0,
+      'top': 0,
+      'z-index': 999999
+    });
+    //修改loading遮罩层样式
+    $('.jqx-loader-modal').css({
+      'z-index': 99999,
+      'opacity':  0.4
+    });
+  }
+
+  //重置loader dom位置
+  $('#jqxLoader').jqxLoader('open');
+    $('#jqxLoader').css({
+      'left': 0,
+      'top': 0
+    });
+  //隐藏其它遮罩层
+  $('.jqx-window-modal').hide();
+};
+
+let endRequest = function () {
+  requestCount--;
+  if(requestCount < 1 && $('#jqxLoader').length > 0) {
+    //关闭loading组件
+    $('#jqxLoader').jqxLoader('close');
+    //还原其它遮罩层
+    $('.jqx-window-modal').show();
+  }
+};
+
+Vue.http.interceptors.push((request, next) => {
+  beginRequest();
+  next((response) => {
+    endRequest();
+    return response;
+  });
+});
+
+/*------------end------------*/
+
 let http = Vue.http;
 
 // 封装一些通用处理，更方便的解析返回数据格式

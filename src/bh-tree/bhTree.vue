@@ -166,7 +166,17 @@
             });
 
             li.append(optHtml);
+
+            //隐藏超长，悬浮显示
+            let targetDiv = root.find('.opt-panel').parent().find('.jqx-tree-item');
+            let useWidth = $('.opt-panel').width();
+            let originWidth = targetDiv.width();
+            let desc = targetDiv.text();
+            targetDiv.css('padding-right', useWidth + 'px').addClass('bh-str-cut').attr('title', desc);
+
         }).on('mouseleave', '.jqx-tree-item-li', function(event) {
+            //移除事件
+            root.find('.opt-panel').parent().find('.jqx-tree-item').css('padding-right', '').removeClass('bh-str-cut');
             root.find('.opt-panel').remove();
         }).on('click', '.opt-btn', function(event) {
             let target = $(event.target);

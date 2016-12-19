@@ -6686,7 +6686,7 @@
 /* 200 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"bh-switch\" :class='theme'>\n    <input type=\"checkbox\" :disabled='disabled' @change='toggle($event)' v-model='toggled'>\n    <label class=\"bh-switch-helper\"></label>\n    <label class=\"bh-switch-label bh-close\">{{offText}}</label>\n    <label class=\"bh-switch-label bh-open\">{{onText}}</label>\n</div>\n";
+	module.exports = "\n<div class=\"bh-switch\" :class='theme'>\n    <input type=\"checkbox\" :disabled='disabled' @change='toggle($event)' v-model='toggled'>\n    <label class=\"bh-switch-helper\"></label>\n    <label class=\"bh-switch-text\" open-text='{{onText}}' close-text='{{offText}}'></label>\n</div>\n";
 
 /***/ },
 /* 201 */
@@ -7500,7 +7500,14 @@
 	        });
 
 	        li.append(optHtml);
+
+	        var targetDiv = root.find('.opt-panel').parent().find('.jqx-tree-item');
+	        var useWidth = $('.opt-panel').width();
+	        var originWidth = targetDiv.width();
+	        var desc = targetDiv.text();
+	        targetDiv.css('padding-right', useWidth + 'px').addClass('bh-str-cut').attr('title', desc);
 	    }).on('mouseleave', '.jqx-tree-item-li', function (event) {
+	        root.find('.opt-panel').parent().find('.jqx-tree-item').css('padding-right', '').removeClass('bh-str-cut');
 	        root.find('.opt-panel').remove();
 	    }).on('click', '.opt-btn', function (event) {
 	        var target = $(event.target);

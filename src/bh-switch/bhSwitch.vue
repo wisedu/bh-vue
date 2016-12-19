@@ -2,8 +2,7 @@
     <div class="bh-switch" :class='theme'>
         <input type="checkbox" :disabled='disabled' @change='toggle($event)' v-model='toggled'>
         <label class="bh-switch-helper"></label>
-        <label class="bh-switch-label bh-close">{{offText}}</label>
-        <label class="bh-switch-label bh-open">{{onText}}</label>
+        <label class="bh-switch-text" open-text='{{onText}}' close-text='{{offText}}'></label>
     </div>
 </template>
 

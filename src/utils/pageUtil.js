@@ -205,6 +205,7 @@ export default {
         });
 
         jqDom.jqxWindow(opts);
+        jqDom.css('position', 'fixed');
     },
     /**
      * 关闭窗口（默认为销毁窗口，所以每次打开窗口都会重建）
