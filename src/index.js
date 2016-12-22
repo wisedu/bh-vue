@@ -258,6 +258,10 @@
 
 	var _simpleSearch2 = _interopRequireDefault(_simpleSearch);
 
+	var _ztree = __webpack_require__(300);
+
+	var _ztree2 = _interopRequireDefault(_ztree);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	if (typeof window !== 'undefined' && window.Vue) {
@@ -314,6 +318,7 @@
 	    Vue.component('emap-search-adv', _emapSearchAdv2.default);
 	    Vue.component('emap-upload', _emapUpload2.default);
 	    Vue.component('simple-search', _simpleSearch2.default);
+	    Vue.component('ztree', _ztree2.default);
 	}
 
 	module.exports = {
@@ -369,7 +374,8 @@
 	    EmapSearch: _emapSearch2.default,
 	    EmapSearchAdv: _emapSearchAdv2.default,
 	    EmapUpload: _emapUpload2.default,
-	    SimpleSearch: _simpleSearch2.default
+	    SimpleSearch: _simpleSearch2.default,
+	    Ztree: _ztree2.default
 	};
 
 /***/ },
@@ -10518,6 +10524,240 @@
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"search\" _v-481e168e=\"\">\n  <div class=\"bh-simple-search\" _v-481e168e=\"\">\n    <input class=\"bh-form-control\" type=\"text\" :placeholder=\"placeholder || simpleSearch.placeholder\" v-model=\"keyword\" _v-481e168e=\"\">\n    <a href=\"javascript:void(0)\" _v-481e168e=\"\"><i class=\"iconfont\" _v-481e168e=\"\"></i></a>\n  </div>\n  <a href=\"javascript:void(0);\" class=\"bh-btn bh-btn-primary bh-btn-small waves-effect search-button\" @click=\"doSearch(searchEvent || simpleSearch.searchEvent)\" _v-481e168e=\"\">搜索</a>\n</div>\n";
+
+/***/ },
+/* 300 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	var __vue_styles__ = {}
+	__webpack_require__(301)
+	__vue_script__ = __webpack_require__(303)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\ztree\\ztree.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(304)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
+	if (__vue_template__) {
+	__vue_options__.template = __vue_template__
+	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), false)
+	  if (!hotAPI.compatible) return
+	  var id = "_v-cbef09c4/ztree.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 301 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(302);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(5)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/.0.23.1@css-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/style-rewriter.js!./../../node_modules/.8.5.4@vue-loader/lib/selector.js?type=style&index=0!./ztree.vue", function() {
+				var newContent = require("!!./../../node_modules/.0.23.1@css-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/style-rewriter.js!./../../node_modules/.8.5.4@vue-loader/lib/selector.js?type=style&index=0!./ztree.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 302 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(4)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 303 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var index = 0;
+	var defaultSetting = {
+	    async: {
+	        enable: false,
+	        contentType: 'application/json',
+	        type: 'post',
+	        dataType: 'json'
+	    },
+
+	    data: {
+	        key: {
+	            name: 'label'
+	        }
+	    },
+
+	    callback: {}
+	};
+
+	exports.default = {
+	    props: {
+	        setting: {
+	            type: Object,
+	            default: function _default() {
+	                return {};
+	            }
+	        },
+
+	        extraSetting: {
+	            type: Object,
+	            default: function _default() {
+	                return {};
+	            }
+	        },
+
+	        data: {
+	            type: Array,
+	            default: function _default() {
+	                return [];
+	            }
+	        }
+	    },
+
+	    data: function data() {
+	        return {
+	            treeId: 'ztree-' + index++,
+	            currentSelectedNodeId: ''
+	        };
+	    },
+
+	    created: function created() {
+	        var _this = this;
+
+	        var event = ['onDblClick', 'onMouseDown', 'onCheck', 'onCollapse', 'onDblClick', 'onCollapse', 'onDrag', 'onDragMove', 'onDrop', 'onMouseUp', 'onNodeCreated', 'onRemove', 'onRename', 'onRightClick', 'onClick', 'onExpand', 'onAsyncError', 'onAsyncSuccess'];
+
+	        _.each(event, function (item) {
+	            defaultSetting.callback[item] = _this._treeEvent(item);
+	        });
+
+	        if (this.extraSetting.url) {
+	            defaultSetting.callback.onExpand = this._onExpand;
+	            defaultSetting.callback.onClick = this._onClick;
+	        }
+	    },
+	    ready: function ready() {
+	        var setting = $.extend({}, defaultSetting, this.setting);
+	        this._setting = setting;
+	        if (this.data.length > 0) {
+	            $.fn.zTree.init($(this.$el), setting, this.data);
+	        } else if (this.extraSetting.url) {
+	            $.fn.zTree.init($(this.$el), setting);
+	            this._load(null, true);
+	        }
+	    },
+
+
+	    methods: {
+	        _load: function _load(treeNode, inited) {
+	            var _this2 = this;
+
+	            $.ajax({
+	                type: this._setting.async.type,
+	                contentType: this._setting.async.contentType,
+	                url: this.extraSetting.url,
+	                data: this.extraSetting.params
+	            }).done(function (res) {
+	                var treeNodes = [];
+	                if (_this2.extraSetting.dataFilter) {
+	                    treeNodes = _this2.extraSetting.dataFilter(res);
+	                }
+
+	                var treeObj = $.fn.zTree.getZTreeObj(_this2.treeId);
+	                treeObj.addNodes(treeNode, treeNodes);
+
+	                if (inited) {
+	                    Vue.nextTick(function () {
+	                        _this2.$emit('inited', treeNodes);
+	                    });
+	                }
+	            });
+	        },
+	        _onExpand: function _onExpand(event, treeId, treeNode) {
+	            var _this3 = this;
+
+	            var treeObj = $.fn.zTree.getZTreeObj(this.treeId);
+
+	            this.$emit('on-expand', treeNode, event, treeId);
+
+	            if (this.extraSetting.url) {
+	                Vue.nextTick(function () {
+	                    _this3._load(treeNode);
+	                });
+	            }
+	        },
+	        _onClick: function _onClick(event, treeId, treeNode) {
+	            if (treeNode.tId != this.currentSelectedNodeId) {
+	                this.$emit('on-click', treeNode, event, treeId);
+	                this.currentSelectedNodeId = treeNode.tId;
+	            }
+	        },
+	        action: function action(actionName) {
+	            var treeObj = $.fn.zTree.getZTreeObj(this.treeId);
+
+	            for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+	                args[_key - 1] = arguments[_key];
+	            }
+
+	            return treeObj[actionName].apply(treeObj, args);
+	        },
+	        _treeEvent: function _treeEvent(eventName) {
+	            var _this4 = this;
+
+	            return function () {
+	                for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+	                    args[_key2] = arguments[_key2];
+	                }
+
+	                _this4.$emit.apply(_this4, [Vue.util.hyphenate(eventName)].concat(args));
+	            };
+	        }
+	    }
+	};
+
+/***/ },
+/* 304 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<div :id=\"treeId\" class=\"ztree\">\n</div>\n";
 
 /***/ }
 /******/ ]);

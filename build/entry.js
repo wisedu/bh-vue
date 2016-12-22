@@ -51,6 +51,7 @@ import EmapSearch from 'src/emap-search/emapSearch';
 import EmapSearchAdv from 'src/emap-search-adv/emapSearchAdv';
 import EmapUpload from 'src/emap-upload/emapUpload';
 import SimpleSearch from 'src/simple-search/simpleSearch';
+import Ztree from 'src/ztree/ztree';
 
 
 if (typeof window !== 'undefined' && window.Vue) {
@@ -107,6 +108,7 @@ if (typeof window !== 'undefined' && window.Vue) {
     Vue.component('emap-search-adv', EmapSearchAdv);
     Vue.component('emap-upload', EmapUpload);
     Vue.component('simple-search', SimpleSearch);
+    Vue.component('ztree', Ztree);
 }
 
 module.exports = {
@@ -162,5 +164,6 @@ EmapLinkage,
 EmapSearch,
 EmapSearchAdv,
 EmapUpload,
-SimpleSearch
+SimpleSearch,
+Ztree
 }
