@@ -19,15 +19,13 @@ export default {
     }
   },
 
-  created() {
+  ready() {
     var self = this
     this.tabs.forEach(function(tab, index) {
       self.$set('tabs[' + index + '].showComponent', '')
     })
-  },
-  ready() {
+
     var el = $(this.$el)
-    var self = this
     el.jqxTabs({
       width: '100%',
       initTabContent: function(tab) {
