@@ -780,7 +780,7 @@
 /* 7 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<button :class=\"classObj\" _v-ca80e6be=\"\">\n    <slot _v-ca80e6be=\"\"></slot><i v-if=\"icon\" class=\"iconfont icon-{{icon}}\" _v-ca80e6be=\"\"></i>\n</button>\n";
+	module.exports = "\n<button :class=\"classObj\" type=\"button\" _v-ca80e6be=\"\">\n    <slot _v-ca80e6be=\"\"></slot><i v-if=\"icon\" class=\"iconfont icon-{{icon}}\" _v-ca80e6be=\"\"></i>\n</button>\n";
 
 /***/ },
 /* 8 */
@@ -8391,15 +8391,13 @@
 	    return {};
 	  },
 
-	  created: function created() {
+	  ready: function ready() {
 	    var self = this;
 	    this.tabs.forEach(function (tab, index) {
 	      self.$set('tabs[' + index + '].showComponent', '');
 	    });
-	  },
-	  ready: function ready() {
+
 	    var el = $(this.$el);
-	    var self = this;
 	    el.jqxTabs({
 	      width: '100%',
 	      initTabContent: function initTabContent(tab) {

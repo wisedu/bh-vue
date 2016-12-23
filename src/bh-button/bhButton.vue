@@ -1,5 +1,5 @@
 <template>
-    <button :class="classObj">
+    <button :class="classObj" type='button'>
         <slot></slot><i v-if='icon' class='iconfont icon-{{icon}}'></i>
     </button>
 </template>
