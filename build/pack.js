@@ -78,7 +78,7 @@ var entryContent = '';
 // import
 entryContent += jsImport + '\n\n';
 // install
-entryContent += jsInstall + '\n\n';
+// entryContent += jsInstall + '\n\n';
 // export
 entryContent += jsExport;
 
@@ -89,6 +89,6 @@ webpack(webpackConf, (err, stats) => {
     if (err) {
         console.log(err);
     } else {
-        console.log('build successfully:[dist/bh-vue.min.js]');
+        console.log('build successfully:[src/index.js]');
     }
 });

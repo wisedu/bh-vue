@@ -53,64 +53,6 @@ import EmapUpload from 'src/emap-upload/emapUpload';
 import SimpleSearch from 'src/simple-search/simpleSearch';
 import Ztree from 'src/ztree/ztree';
 
-
-if (typeof window !== 'undefined' && window.Vue) {
-    Vue.component('bh-button', BhButton);
-    Vue.component('bh-card', BhCard);
-    Vue.component('bh-checkbox', BhCheckbox);
-    Vue.component('bh-checklist', BhChecklist);
-    Vue.component('bh-choose', BhChoose);
-    Vue.component('bh-datatable', BhDatatable);
-    Vue.component('bh-datetime', BhDatetime);
-    Vue.component('bh-dropdown', BhDropdown);
-    Vue.component('bh-dropdownmenu', BhDropdownmenu);
-    Vue.component('bh-edit-panel', BhEditPanel);
-    Vue.component('bh-fileupload', BhFileupload);
-    Vue.component('bh-flow-node', BhFlowNode);
-    Vue.component('bh-footer', BhFooter);
-    Vue.component('bh-header', BhHeader);
-    Vue.component('bh-input', BhInput);
-    Vue.component('bh-listview', BhListview);
-    Vue.component('bh-loading', BhLoading);
-    Vue.component('bh-nav', BhNav);
-    Vue.component('bh-outline', BhOutline);
-    Vue.component('bh-pagination', BhPagination);
-    Vue.component('bh-panel', BhPanel);
-    Vue.component('bh-radio', BhRadio);
-    Vue.component('bh-search', BhSearch);
-    Vue.component('bh-sidemenus', BhSidemenus);
-    Vue.component('bh-step-flow', BhStepFlow);
-    Vue.component('bh-step-wizard', BhStepWizard);
-    Vue.component('bh-switch', BhSwitch);
-    Vue.component('bh-tabs', BhTabs);
-    Vue.component('bh-textarea', BhTextarea);
-    Vue.component('bh-timepicker', BhTimepicker);
-    Vue.component('bh-toggle', BhToggle);
-    Vue.component('bh-tooltip', BhTooltip);
-    Vue.component('bh-tree', BhTree);
-    Vue.component('bh-window', BhWindow);
-    Vue.component('button-list', ButtonList);
-    Vue.component('calendar', Calendar);
-    Vue.component('comp-tab', CompTab);
-    Vue.component('direct-upload', DirectUpload);
-    Vue.component('emap-avatarupload', EmapAvatarupload);
-    Vue.component('emap-card', EmapCard);
-    Vue.component('emap-datatable', EmapDatatable);
-    Vue.component('emap-dd-table', EmapDdTable);
-    Vue.component('emap-dd-tree', EmapDdTree);
-    Vue.component('emap-editor', EmapEditor);
-    Vue.component('emap-fileupload', EmapFileupload);
-    Vue.component('emap-form', EmapForm);
-    Vue.component('emap-grid', EmapGrid);
-    Vue.component('emap-imageupload', EmapImageupload);
-    Vue.component('emap-linkage', EmapLinkage);
-    Vue.component('emap-search', EmapSearch);
-    Vue.component('emap-search-adv', EmapSearchAdv);
-    Vue.component('emap-upload', EmapUpload);
-    Vue.component('simple-search', SimpleSearch);
-    Vue.component('ztree', Ztree);
-}
-
 module.exports = {
 BhButton,
 BhCard,
