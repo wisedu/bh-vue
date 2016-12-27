@@ -100,7 +100,6 @@
                 align: 'center',
                 cellsAlign: 'center',
                 cellsRenderer (row, column, value, rowData) {
-                    vm.cachedMap[row] = rowData;
                     var items = vm.options.operations.items;
 
                     if ($.isFunction(items)) {
@@ -158,6 +157,8 @@
             customColumns.push(_getOptColumn(vm));
         }
 
+        var eventList = ['click', 'mouseover']
+
         opts.checkable = undefined;
         opts.operations = undefined;
         opts.lazyInit = undefined;
@@ -165,6 +166,26 @@
             _hideCols(vm); // 隐藏列
             vm.$dispatch(vm.readyName, vm);
         };
+
+        opts.rendered = ()=>{
+            var rows = el.jqxDataTable('getRows');
+
+            rows.forEach(function (item, index) {
+                vm.cachedMap[index] = item;
+            })
+
+            Vue.nextTick(function () {
+                el.find('.jqx-grid-table tr').each(function (index, tr) {
+                    eventList.forEach(function (eventName) {
+                        var eles = $(tr).find('[data-' + eventName + ']')
+
+                        if (eles.length > 0) {
+                            eles.prop('row', vm.cachedMap[index])
+                        }
+                    })
+                })
+            })
+        }
 
         opts.formatData = (data) => {
             if (!data) {
@@ -188,6 +209,16 @@
 
             vm.$dispatch(name, vm.cachedMap[row] || vm.getDataByRow(row));
         });
+
+        eventList.forEach(function (eventName) {
+            el.on('click', '[data-' + eventName + ']', function (e) {
+                var _this = $(this);
+                var row = _this.prop('row');
+                var eventFuncName = _this.attr('data-' + eventName);
+
+                vm.$dispatch(eventFuncName, row)
+            });
+        })
 
         vm.inited = true;
     };
