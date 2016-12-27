@@ -10,7 +10,9 @@ module.exports = {
     'output': {
         'path': path.resolve(__dirname, '../src'),
         'filename': 'index.js',
-        'publicPath': ''
+        'publicPath': '',
+        'libraryTarget': "umd",
+        'library': "bh-vue"
     },
     'resolve': {
         'extensions': ['', '.js', '.vue'],
@@ -47,14 +49,14 @@ module.exports = {
         presets: ['es2015'],
         plugins: ['transform-runtime']
     },
-    externals: {
-        vue: {
-            root: 'Vue',
-            commonjs: 'vue',
-            commonjs2: 'vue',
-            amd: 'vue'
-        }
-    },
+    // externals: {
+    //     vue: {
+    //         root: 'Vue',
+    //         commonjs: 'vue',
+    //         commonjs2: 'vue',
+    //         amd: 'vue'
+    //     }
+    // },
     plugins: [
         new webpack.NoErrorsPlugin()
         // new webpack.optimize.UglifyJsPlugin({
