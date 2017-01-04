@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul>
-      <li v-for="item in tabs">{{item.title}}</li>
+      <li v-for="item in tabs">{{{item.title}}}</li>
     </ul>
     <div v-for="item in tabs" class="bh-mt-16">
       <component :is="item.showComponent" keep-alive></component>
