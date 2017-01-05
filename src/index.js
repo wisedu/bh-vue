@@ -192,83 +192,91 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _bhWindow2 = _interopRequireDefault(_bhWindow);
 
-	var _buttonList = __webpack_require__(229);
+	var _bhWizard = __webpack_require__(229);
+
+	var _bhWizard2 = _interopRequireDefault(_bhWizard);
+
+	var _buttonList = __webpack_require__(234);
 
 	var _buttonList2 = _interopRequireDefault(_buttonList);
 
-	var _calendar = __webpack_require__(234);
+	var _calendar = __webpack_require__(239);
 
 	var _calendar2 = _interopRequireDefault(_calendar);
 
-	var _compTab = __webpack_require__(242);
+	var _compChoose = __webpack_require__(247);
+
+	var _compChoose2 = _interopRequireDefault(_compChoose);
+
+	var _compTab = __webpack_require__(250);
 
 	var _compTab2 = _interopRequireDefault(_compTab);
 
-	var _directUpload = __webpack_require__(247);
+	var _directUpload = __webpack_require__(255);
 
 	var _directUpload2 = _interopRequireDefault(_directUpload);
 
-	var _emapAvatarupload = __webpack_require__(250);
+	var _emapAvatarupload = __webpack_require__(258);
 
 	var _emapAvatarupload2 = _interopRequireDefault(_emapAvatarupload);
 
-	var _emapCard = __webpack_require__(253);
+	var _emapCard = __webpack_require__(261);
 
 	var _emapCard2 = _interopRequireDefault(_emapCard);
 
-	var _emapDatatable = __webpack_require__(256);
+	var _emapDatatable = __webpack_require__(264);
 
 	var _emapDatatable2 = _interopRequireDefault(_emapDatatable);
 
-	var _emapDdTable = __webpack_require__(259);
+	var _emapDdTable = __webpack_require__(267);
 
 	var _emapDdTable2 = _interopRequireDefault(_emapDdTable);
 
-	var _emapDdTree = __webpack_require__(262);
+	var _emapDdTree = __webpack_require__(270);
 
 	var _emapDdTree2 = _interopRequireDefault(_emapDdTree);
 
-	var _emapEditor = __webpack_require__(265);
+	var _emapEditor = __webpack_require__(273);
 
 	var _emapEditor2 = _interopRequireDefault(_emapEditor);
 
-	var _emapFileupload = __webpack_require__(270);
+	var _emapFileupload = __webpack_require__(278);
 
 	var _emapFileupload2 = _interopRequireDefault(_emapFileupload);
 
-	var _emapForm = __webpack_require__(273);
+	var _emapForm = __webpack_require__(281);
 
 	var _emapForm2 = _interopRequireDefault(_emapForm);
 
-	var _emapGrid = __webpack_require__(278);
+	var _emapGrid = __webpack_require__(286);
 
 	var _emapGrid2 = _interopRequireDefault(_emapGrid);
 
-	var _emapImageupload = __webpack_require__(281);
+	var _emapImageupload = __webpack_require__(289);
 
 	var _emapImageupload2 = _interopRequireDefault(_emapImageupload);
 
-	var _emapLinkage = __webpack_require__(284);
+	var _emapLinkage = __webpack_require__(292);
 
 	var _emapLinkage2 = _interopRequireDefault(_emapLinkage);
 
-	var _emapSearch = __webpack_require__(287);
+	var _emapSearch = __webpack_require__(295);
 
 	var _emapSearch2 = _interopRequireDefault(_emapSearch);
 
-	var _emapSearchAdv = __webpack_require__(290);
+	var _emapSearchAdv = __webpack_require__(298);
 
 	var _emapSearchAdv2 = _interopRequireDefault(_emapSearchAdv);
 
-	var _emapUpload = __webpack_require__(293);
+	var _emapUpload = __webpack_require__(301);
 
 	var _emapUpload2 = _interopRequireDefault(_emapUpload);
 
-	var _simpleSearch = __webpack_require__(296);
+	var _simpleSearch = __webpack_require__(304);
 
 	var _simpleSearch2 = _interopRequireDefault(_simpleSearch);
 
-	var _ztree = __webpack_require__(301);
+	var _ztree = __webpack_require__(309);
 
 	var _ztree2 = _interopRequireDefault(_ztree);
 
@@ -309,8 +317,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  BhTooltip: _bhTooltip2.default,
 	  BhTree: _bhTree2.default,
 	  BhWindow: _bhWindow2.default,
+	  BhWizard: _bhWizard2.default,
 	  ButtonList: _buttonList2.default,
 	  Calendar: _calendar2.default,
+	  CompChoose: _compChoose2.default,
 	  CompTab: _compTab2.default,
 	  DirectUpload: _directUpload2.default,
 	  EmapAvatarupload: _emapAvatarupload2.default,
@@ -18309,8 +18319,168 @@ return /******/ (function(modules) { // webpackBootstrap
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\button-list\\buttonList.vue: named exports in *.vue files are ignored.")}
+	  console.warn("[vue-loader] src\\bh-wizard\\bhWizard.vue: named exports in *.vue files are ignored.")}
 	__vue_template__ = __webpack_require__(233)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
+	if (__vue_template__) {
+	__vue_options__.template = __vue_template__
+	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), false)
+	  if (!hotAPI.compatible) return
+	  var id = "_v-41866cc1/bhWizard.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 230 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(231);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(5)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/.0.23.1@css-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/style-rewriter.js?id=_v-41866cc1&scoped=true!./../../node_modules/.8.5.4@vue-loader/lib/selector.js?type=style&index=0!./bhWizard.vue", function() {
+				var newContent = require("!!./../../node_modules/.0.23.1@css-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/style-rewriter.js?id=_v-41866cc1&scoped=true!./../../node_modules/.8.5.4@vue-loader/lib/selector.js?type=style&index=0!./bhWizard.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 231 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(4)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.wizard-main[_v-41866cc1] {\n  height: 32px;\n}\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 232 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = {
+	  props: ['wizards', 'current', 'isAddClickEvent', 'active'],
+
+	  created: function created() {
+	    var _this = this;
+
+	    var self = this;
+	    this.wizards.forEach(function (wizard, index) {
+	      self.$set('wizards[' + index + '].showComponent', '');
+	      if (wizard.finished === undefined) {
+	        wizard.finished = false;
+	      }
+	    });
+	    if (this.active) {
+	      this.wizards.forEach(function (wizard, index) {
+	        if (wizard.stepId == _this.active) {
+	          wizard.showComponent = wizard.component;
+	        }
+	      });
+	    } else {
+	      this.wizards[0].showComponent = this.wizards[0].component;
+	    }
+	  },
+	  ready: function ready() {
+	    this._renderWizard();
+	  },
+
+
+	  methods: {
+	    action: function action(actionName, arg1, arg2, arg3) {
+	      $(this.$el).find('.wizard-main').bhStepWizard(actionName, arg1, arg2, arg3);
+	    },
+	    _renderWizard: function _renderWizard() {
+	      var _this2 = this;
+
+	      var self = this;
+	      $(this.$el).find('.wizard-main').data('bhStepWizard', '').empty();
+
+	      var finished = [];
+
+	      var hasShow = false;
+	      this.wizards.forEach(function (wizard, index) {
+	        if (wizard.showComponent === undefined) {
+	          wizard.showComponent = '';
+	        }
+	        if (wizard.finished) {
+	          finished.push(wizard.stepId);
+	        }
+	      });
+
+	      this.current = this.wizards[0];
+
+	      $(this.$el).find('.wizard-main').bhStepWizard({
+	        items: this.wizards,
+	        active: this.active || this.wizards[0].stepId,
+	        finished: finished,
+	        isAddClickEvent: this.isAddClickEvent === false ? false : true,
+	        change: function change(current) {
+	          _this2.$emit('change', current);
+	          self.current = current;
+	          _this2.wizards.forEach(function (wizard, index) {
+	            wizard.showComponent = wizard.stepId === current.stepId ? wizard.component : '';
+	          });
+	        }
+	      });
+	    }
+	  }
+	};
+
+/***/ },
+/* 233 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<div _v-41866cc1=\"\">\n  <div class=\"wizard-main\" _v-41866cc1=\"\"></div>\n  <div class=\"wizard-content-{{item.stepId}}\" v-for=\"item in wizards\" _v-41866cc1=\"\">\n    <component :is=\"item.showComponent\" keep-alive=\"\" _v-41866cc1=\"\"></component>\n  </div>\n</div>\n";
+
+/***/ },
+/* 234 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	var __vue_styles__ = {}
+	__webpack_require__(235)
+	__vue_script__ = __webpack_require__(237)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\button-list\\buttonList.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(238)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
@@ -18335,13 +18505,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 230 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(231);
+	var content = __webpack_require__(236);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(5)(content, {});
@@ -18361,7 +18531,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 231 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(4)();
@@ -18375,7 +18545,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 232 */
+/* 237 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -18402,24 +18572,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 233 */
+/* 238 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"opt-buttons bh-mv-16\" _v-5e09e4f9=\"\">\n  <a href=\"javascript:void(0);\" class=\"bh-btn bh-btn-{{item.primary?'primary':'default'}} waves-effect\" @click=\"click(item.clickEvent)\" v-for=\"item in buttonList\" _v-5e09e4f9=\"\">\n    <i class=\"iconfont icon-{{item.icon}}\" v-if=\"item.icon\" _v-5e09e4f9=\"\"></i> {{item.text}}\n  </a>\n</div>\n";
 
 /***/ },
-/* 234 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(235)
-	__vue_script__ = __webpack_require__(238)
+	__webpack_require__(240)
+	__vue_script__ = __webpack_require__(243)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\calendar\\calendar.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(241)
+	__vue_template__ = __webpack_require__(246)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
@@ -18444,13 +18614,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 235 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(236);
+	var content = __webpack_require__(241);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(5)(content, {});
@@ -18470,7 +18640,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 236 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(4)();
@@ -18478,19 +18648,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	// module
-	exports.push([module.id, ".full-clndr {\n  width: 100%;\n  background-color: #ebebeb;\n  font-weight: 700;\n  box-shadow: 0px 4px 0 #343434;\n}\n.full-clndr .festival {\n  color: ##111;\n}\n.full-clndr .clndr-controls {\n  padding: 14px;\n  background-color: #414141;\n  color: white;\n  text-align: center;\n}\n.full-clndr .clndr-controls .clndr-previous-button {\n  float: left;\n  text-align: left;\n}\n.full-clndr .clndr-controls .clndr-next-button {\n  float: right;\n  text-align: right;\n}\n.full-clndr .clndr-controls .clndr-previous-button,\n.full-clndr .clndr-controls .clndr-next-button {\n  width: 30px;\n  cursor: pointer;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n}\n.full-clndr .clndr-controls .clndr-previous-button:hover,\n.full-clndr .clndr-controls .clndr-next-button:hover {\n  opacity: 0.5;\n}\n.full-clndr .clndr-grid {\n  float: left;\n  width: 100%;\n  border: none;\n}\n.full-clndr .clndr-grid .days-of-the-week {\n  width: 100%;\n  background-color: #3883a3;\n}\n.full-clndr .clndr-grid .days-of-the-week .header-day {\n  float: left;\n  width: 14.2857%;\n  padding: 14px;\n  text-align: center;\n  color: white;\n}\n.full-clndr .clndr-grid .days {\n  width: 100%;\n}\n.full-clndr .clndr-grid .days .day,\n.full-clndr .clndr-grid .days .empty {\n  float: left;\n  width: 14.2857%;\n  height: 66px;\n  padding: 24px 0;\n  text-align: center;\n  color: #4f4f4f;\n  background-color: #ebebeb;\n  border-bottom: 2px solid white;\n  background-image: url(" + __webpack_require__(237) + ");\n  background-size: cover;\n  background-position: center;\n}\n.full-clndr .clndr-grid .days .day.event .day-number,\n.full-clndr .clndr-grid .days .empty.event .day-number {\n  padding-bottom: 4px;\n  border-bottom: 2px solid #3883a3;\n}\n.full-clndr .clndr-grid .days .day.adjacent-month .day-number,\n.full-clndr .clndr-grid .days .empty.adjacent-month .day-number {\n  opacity: 0.3;\n}\n.full-clndr .clndr-grid .days .today {\n  background-color: white;\n  background-image: none;\n}\n.full-clndr .clndr-grid .days .day.event {\n  cursor: pointer;\n}\n.full-clndr .clndr-grid .days .day.selected {\n  border-color: #a55;\n}\n.full-clndr .noselect {\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n}\n@media all and (max-width: 768px) {\n  .full-clndr .clndr-grid {\n    width: 100%;\n    border: none;\n  }\n}\n", ""]);
+	exports.push([module.id, ".full-clndr {\n  width: 100%;\n  background-color: #ebebeb;\n  font-weight: 700;\n  box-shadow: 0px 4px 0 #343434;\n}\n.full-clndr .festival {\n  color: ##111;\n}\n.full-clndr .clndr-controls {\n  padding: 14px;\n  background-color: #414141;\n  color: white;\n  text-align: center;\n}\n.full-clndr .clndr-controls .clndr-previous-button {\n  float: left;\n  text-align: left;\n}\n.full-clndr .clndr-controls .clndr-next-button {\n  float: right;\n  text-align: right;\n}\n.full-clndr .clndr-controls .clndr-previous-button,\n.full-clndr .clndr-controls .clndr-next-button {\n  width: 30px;\n  cursor: pointer;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n}\n.full-clndr .clndr-controls .clndr-previous-button:hover,\n.full-clndr .clndr-controls .clndr-next-button:hover {\n  opacity: 0.5;\n}\n.full-clndr .clndr-grid {\n  float: left;\n  width: 100%;\n  border: none;\n}\n.full-clndr .clndr-grid .days-of-the-week {\n  width: 100%;\n  background-color: #3883a3;\n}\n.full-clndr .clndr-grid .days-of-the-week .header-day {\n  float: left;\n  width: 14.2857%;\n  padding: 14px;\n  text-align: center;\n  color: white;\n}\n.full-clndr .clndr-grid .days {\n  width: 100%;\n}\n.full-clndr .clndr-grid .days .day,\n.full-clndr .clndr-grid .days .empty {\n  float: left;\n  width: 14.2857%;\n  height: 66px;\n  padding: 24px 0;\n  text-align: center;\n  color: #4f4f4f;\n  background-color: #ebebeb;\n  border-bottom: 2px solid white;\n  background-image: url(" + __webpack_require__(242) + ");\n  background-size: cover;\n  background-position: center;\n}\n.full-clndr .clndr-grid .days .day.event .day-number,\n.full-clndr .clndr-grid .days .empty.event .day-number {\n  padding-bottom: 4px;\n  border-bottom: 2px solid #3883a3;\n}\n.full-clndr .clndr-grid .days .day.adjacent-month .day-number,\n.full-clndr .clndr-grid .days .empty.adjacent-month .day-number {\n  opacity: 0.3;\n}\n.full-clndr .clndr-grid .days .today {\n  background-color: white;\n  background-image: none;\n}\n.full-clndr .clndr-grid .days .day.event {\n  cursor: pointer;\n}\n.full-clndr .clndr-grid .days .day.selected {\n  border-color: #a55;\n}\n.full-clndr .noselect {\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n}\n@media all and (max-width: 768px) {\n  .full-clndr .clndr-grid {\n    width: 100%;\n    border: none;\n  }\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 237 */
+/* 242 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNi4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiDQoJIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0iMTE0cHgiIGhlaWdodD0iNjZweCIgdmlld0JveD0iMCAwIDExNCA2NiIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8cG9seWdvbiBmaWxsPSIjRThFOEU4IiBwb2ludHM9IjExNCwwIDAsNjYgMTE0LDY2ICIvPg0KPC9zdmc+DQo="
 
 /***/ },
-/* 238 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18503,13 +18673,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _stringify2 = _interopRequireDefault(_stringify);
 
-	var _festivals = __webpack_require__(239);
+	var _festivals = __webpack_require__(244);
 
 	var _festivals2 = _interopRequireDefault(_festivals);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var defaultTmpl = __webpack_require__(240);
+	var defaultTmpl = __webpack_require__(245);
 
 	exports.default = {
 	    data: function data() {
@@ -18596,7 +18766,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 239 */
+/* 244 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -18666,30 +18836,113 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 240 */
+/* 245 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"clndr-controls\">\n    <div class=\"clndr-previous-button\">&lt;</div>\n    <div class=\"clndr-next-button\">&gt;</div>\n    <div class=\"current-month\"><%= month %> <%= year %></div>\n</div>\n<div class=\"clndr-grid\">\n    <div class=\"days-of-the-week clearfix\">\n        <% _.each(daysOfTheWeek, function(day) { %>\n            <div class=\"header-day\">\n              <%= day %>\n            </div>\n        <% }); %>\n    </div>\n    <div class=\"days\">\n        <% _.each(days, function(day) { %>\n            <div class=\"<%= day.classes %>\" id=\"<%= day.id %>\"><span class=\"day-number\">\n              <%= day.day %></span>\n              <% var md = (day.date.month() + 1) + '-' + day.day; if(extras.festivals[md]) { %>\n                  <div class='festival'><%= extras.festivals[md] %></div>\n              <% } %>\n            </div>\n        <% }); %>\n    </div>\n</div>\n<!-- <div class=\"event-listing\">\n    <div class=\"event-listing-title\">自定义事件</div>\n    <% _.each(eventsThisMonth, function(event) { %>\n        <% if (event.date) { %>\n            <div class=\"event-item data-date='<%= moment(event.date).format('YYYY-MM-DD') %>'>\n                <div class=\"event-item-date\"><%= event.date %></div>\n                <div class=\"event-item-name\"><%= event.title %></div>\n                <div class=\"event-item-location\"><%= event.location %></div>\n            </div>\n        <% } else { %>\n            <div class=\"event-item\" data-start=\"<%= moment(event.start).format('YYYY-MM-DD') %>\" data-end=\"<%= moment(event.end).format('YYYY-MM-DD') %>\">\n                <div class=\"event-item-date\"><%= event.start %> ~ <%= event.end %></div>\n                <div class=\"event-item-name\"><%= event.title %></div>\n                <div class=\"event-item-location\"><%= event.location %></div>\n            </div>\n        <% }%>\n    <% }); %>\n</div> -->\n";
 
 /***/ },
-/* 241 */
+/* 246 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class='full-clndr'></div>\n";
 
 /***/ },
-/* 242 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(243)
-	__vue_script__ = __webpack_require__(245)
+	__vue_script__ = __webpack_require__(248)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\comp-choose\\compChoose.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(249)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
+	if (__vue_template__) {
+	__vue_options__.template = __vue_template__
+	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), false)
+	  if (!hotAPI.compatible) return
+	  var id = "_v-28e68d5a/compChoose.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 248 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = {
+	  props: ['options'],
+	  ready: function ready() {
+	    var options = this.options;
+	    this.win = $.bh_choose({
+	      insertContainer: $(this.$el),
+	      leftSourceUrl: options.leftSourceUrl,
+	      leftSourceAction: options.leftSourceAction,
+	      placeholder: options.placeholder || '搜索应用名称',
+	      id: options.id,
+	      type: options.type || 'post',
+	      params: options.params,
+	      multiSelect: options.multiSelect,
+	      maxSelect: options.maxSelect,
+	      rightcellsRenderer: options.rightcellsRenderer,
+	      leftcellsRenderer: options.leftcellsRenderer
+	    });
+
+	    this.win.show();
+	  },
+
+
+	  methods: {
+	    getSelectedRecords: function getSelectedRecords() {
+	      return this.win.getSelectedRecords();
+	    },
+	    reloadLeftTable: function reloadLeftTable(params) {
+	      this.win.options.params = params;
+	      this.win.reloadLeftTable();
+	    }
+	  }
+	};
+
+/***/ },
+/* 249 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<div></div>\n";
+
+/***/ },
+/* 250 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	var __vue_styles__ = {}
+	__webpack_require__(251)
+	__vue_script__ = __webpack_require__(253)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\comp-tab\\compTab.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(246)
+	__vue_template__ = __webpack_require__(254)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
@@ -18714,13 +18967,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 243 */
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(244);
+	var content = __webpack_require__(252);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(5)(content, {});
@@ -18740,7 +18993,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 244 */
+/* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(4)();
@@ -18754,54 +19007,54 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 245 */
+/* 253 */
 /***/ function(module, exports) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	exports.default = {
-	  props: ['name', 'tabs'],
-	  data: function data() {
-	    return {};
-	  },
+	    props: ['name', 'tabs'],
+	    data: function data() {
+	        return {};
+	    },
 
-	  ready: function ready() {
-	    var self = this;
-	    this.tabs.forEach(function (tab, index) {
-	      self.$set('tabs[' + index + '].showComponent', '');
-	    });
+	    ready: function ready() {
+	        var self = this;
+	        this.tabs.forEach(function (tab, index) {
+	            self.$set('tabs[' + index + '].showComponent', '');
+	        });
 
-	    var el = $(this.$el);
-	    el.jqxTabs({
-	      width: '100%',
-	      initTabContent: function initTabContent(tab) {
-	        self.tabs[tab].showComponent = self.tabs[tab].component;
-	      }
-	    });
-	  }
+	        var el = $(this.$el);
+	        el.jqxTabs({
+	            width: '100%',
+	            initTabContent: function initTabContent(tab) {
+	                self.tabs[tab].showComponent = self.tabs[tab].component;
+	            }
+	        });
+	    }
 	};
 
 /***/ },
-/* 246 */
+/* 254 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div _v-fc0e79b2=\"\">\n  <ul _v-fc0e79b2=\"\">\n    <li v-for=\"item in tabs\" _v-fc0e79b2=\"\">{{item.title}}</li>\n  </ul>\n  <div v-for=\"item in tabs\" class=\"bh-mt-16\" _v-fc0e79b2=\"\">\n    <component :is=\"item.showComponent\" keep-alive=\"\" _v-fc0e79b2=\"\"></component>\n  </div>\n</div>\n";
+	module.exports = "\n<div _v-fc0e79b2=\"\">\n    <ul _v-fc0e79b2=\"\">\n        <li v-for=\"item in tabs\" _v-fc0e79b2=\"\">{{{item.title}}}</li>\n    </ul>\n    <div v-for=\"item in tabs\" class=\"bh-mt-16\" _v-fc0e79b2=\"\">\n        <component :is=\"item.showComponent\" keep-alive=\"\" _v-fc0e79b2=\"\"></component>\n    </div>\n</div>\n";
 
 /***/ },
-/* 247 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(248)
+	__vue_script__ = __webpack_require__(256)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\direct-upload\\directUpload.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(249)
+	__vue_template__ = __webpack_require__(257)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
@@ -18826,7 +19079,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 248 */
+/* 256 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -18941,23 +19194,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 249 */
+/* 257 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div></div>\n";
 
 /***/ },
-/* 250 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(251)
+	__vue_script__ = __webpack_require__(259)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\emap-avatarupload\\emapAvatarupload.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(252)
+	__vue_template__ = __webpack_require__(260)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
@@ -18982,7 +19235,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 251 */
+/* 259 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -19064,23 +19317,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 252 */
+/* 260 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div></div>\n";
 
 /***/ },
-/* 253 */
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(254)
+	__vue_script__ = __webpack_require__(262)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\emap-card\\emapCard.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(255)
+	__vue_template__ = __webpack_require__(263)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
@@ -19105,7 +19358,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 254 */
+/* 262 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -19138,23 +19391,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 255 */
+/* 263 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div></div>\n";
 
 /***/ },
-/* 256 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(257)
+	__vue_script__ = __webpack_require__(265)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\emap-datatable\\emapDatatable.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(258)
+	__vue_template__ = __webpack_require__(266)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
@@ -19179,7 +19432,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 257 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -19218,7 +19471,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	            align: 'center',
 	            cellsAlign: 'center',
 	            cellsRenderer: function cellsRenderer(row, column, value, rowData) {
-	                vm.cachedMap[row] = rowData;
 	                var items = vm.options.operations.items;
 
 	                if ($.isFunction(items)) {
@@ -19274,6 +19526,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        customColumns.push(_getOptColumn(vm));
 	    }
 
+	    var eventList = ['click', 'mouseover'];
+
 	    opts.checkable = undefined;
 	    opts.operations = undefined;
 	    opts.lazyInit = undefined;
@@ -19289,6 +19543,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	    opts.ready = function () {
 	        _hideCols(vm);
 	        vm.$dispatch(vm.readyName, vm);
+	    };
+
+	    opts.rendered = function () {
+	        var rows = el.jqxDataTable('getRows');
+
+	        rows.forEach(function (item, index) {
+	            vm.cachedMap[index] = item;
+	        });
+
+	        Vue.nextTick(function () {
+	            el.find('.jqx-grid-table tr').each(function (index, tr) {
+	                eventList.forEach(function (eventName) {
+	                    var eles = $(tr).find('[data-' + eventName + ']');
+
+	                    if (eles.length > 0) {
+	                        eles.prop('row', vm.cachedMap[index]);
+	                    }
+	                });
+	            });
+	        });
 	    };
 
 	    opts.formatData = function (data) {
@@ -19312,6 +19586,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var name = _this.attr('data-name');
 
 	        vm.$dispatch(name, vm.cachedMap[row] || vm.getDataByRow(row));
+	    });
+
+	    eventList.forEach(function (eventName) {
+	        el.on('click', '[data-' + eventName + ']', function (e) {
+	            var _this = $(this);
+	            var row = _this.prop('row');
+	            var eventFuncName = _this.attr('data-' + eventName);
+
+	            vm.$dispatch(eventFuncName, row);
+	        });
 	    });
 
 	    vm.inited = true;
@@ -19409,23 +19693,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 258 */
+/* 266 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div></div>\n";
 
 /***/ },
-/* 259 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(260)
+	__vue_script__ = __webpack_require__(268)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\emap-dd-table\\emapDdTable.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(261)
+	__vue_template__ = __webpack_require__(269)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
@@ -19450,7 +19734,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 260 */
+/* 268 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -19485,23 +19769,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 261 */
+/* 269 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div></div>\n";
 
 /***/ },
-/* 262 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(263)
+	__vue_script__ = __webpack_require__(271)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\emap-dd-tree\\emapDdTree.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(264)
+	__vue_template__ = __webpack_require__(272)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
@@ -19526,7 +19810,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 263 */
+/* 271 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -19561,24 +19845,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 264 */
+/* 272 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div></div>\n";
 
 /***/ },
-/* 265 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(266)
-	__vue_script__ = __webpack_require__(268)
+	__webpack_require__(274)
+	__vue_script__ = __webpack_require__(276)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\emap-editor\\emapEditor.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(269)
+	__vue_template__ = __webpack_require__(277)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
@@ -19603,13 +19887,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 266 */
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(267);
+	var content = __webpack_require__(275);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(5)(content, {});
@@ -19629,7 +19913,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 267 */
+/* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(4)();
@@ -19643,7 +19927,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 268 */
+/* 276 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -19684,23 +19968,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 269 */
+/* 277 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div></div>\n";
 
 /***/ },
-/* 270 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(271)
+	__vue_script__ = __webpack_require__(279)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\emap-fileupload\\emapFileupload.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(272)
+	__vue_template__ = __webpack_require__(280)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
@@ -19725,7 +20009,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 271 */
+/* 279 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -19815,24 +20099,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 272 */
+/* 280 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div></div>\n";
 
 /***/ },
-/* 273 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(274)
-	__vue_script__ = __webpack_require__(276)
+	__webpack_require__(282)
+	__vue_script__ = __webpack_require__(284)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\emap-form\\emapForm.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(277)
+	__vue_template__ = __webpack_require__(285)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
@@ -19857,13 +20141,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 274 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(275);
+	var content = __webpack_require__(283);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(5)(content, {});
@@ -19883,7 +20167,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 275 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(4)();
@@ -19897,7 +20181,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 276 */
+/* 284 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -20053,23 +20337,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 277 */
+/* 285 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div></div>\n";
 
 /***/ },
-/* 278 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(279)
+	__vue_script__ = __webpack_require__(287)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\emap-grid\\emapGrid.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(280)
+	__vue_template__ = __webpack_require__(288)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
@@ -20094,7 +20378,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 279 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20103,11 +20387,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: true
 	});
 
-	var _emapDatatable = __webpack_require__(256);
+	var _emapDatatable = __webpack_require__(264);
 
 	var _emapDatatable2 = _interopRequireDefault(_emapDatatable);
 
-	var _emapCard = __webpack_require__(253);
+	var _emapCard = __webpack_require__(261);
 
 	var _emapCard2 = _interopRequireDefault(_emapCard);
 
@@ -20199,23 +20483,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 280 */
+/* 288 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class='bh-grid-container'>\n    <div class='bh-switch-card-view'>\n        <span v-if='columnSetting && type==\"list\"' class='bh-switch-item bh-switch-setting bh-mr-8' @click='openSetting'>\n            <i class='iconfont icon-settings'></i>\n            <span>设置</span>\n        </span>\n        <span class='bh-switch-item bh-switch-list' :class='{\"bh-active\": type == \"list\"}' @click='showList'>\n            <i class='iconfont icon-viewlist'></i>\n            <span>列表</span>\n        </span>\n        <span class='bh-switch-item bh-switch-card' :class='{\"bh-active\": type == \"card\"}' @click='showCard'>\n            <i class='iconfont icon-viewmodule'></i>\n            <span>卡片</span>\n        </span>\n    </div>\n    <div>\n        <component v-ref:grid :is='compName' :options='compOpts' keep-alive></component>\n    </div>\n</div>\n";
 
 /***/ },
-/* 281 */
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(282)
+	__vue_script__ = __webpack_require__(290)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\emap-imageupload\\emapImageupload.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(283)
+	__vue_template__ = __webpack_require__(291)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
@@ -20240,7 +20524,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 282 */
+/* 290 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -20337,23 +20621,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 283 */
+/* 291 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div></div>\n";
 
 /***/ },
-/* 284 */
+/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(285)
+	__vue_script__ = __webpack_require__(293)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\emap-linkage\\emapLinkage.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(286)
+	__vue_template__ = __webpack_require__(294)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
@@ -20378,7 +20662,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 285 */
+/* 293 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -20399,23 +20683,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 286 */
+/* 294 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div></div>\n";
 
 /***/ },
-/* 287 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(288)
+	__vue_script__ = __webpack_require__(296)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\emap-search\\emapSearch.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(289)
+	__vue_template__ = __webpack_require__(297)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
@@ -20440,7 +20724,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 288 */
+/* 296 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -20512,23 +20796,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 289 */
+/* 297 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div></div>\n";
 
 /***/ },
-/* 290 */
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(291)
+	__vue_script__ = __webpack_require__(299)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\emap-search-adv\\emapSearchAdv.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(292)
+	__vue_template__ = __webpack_require__(300)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
@@ -20553,7 +20837,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 291 */
+/* 299 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -20617,23 +20901,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 292 */
+/* 300 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div></div>\n";
 
 /***/ },
-/* 293 */
+/* 301 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__vue_script__ = __webpack_require__(294)
+	__vue_script__ = __webpack_require__(302)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\emap-upload\\emapUpload.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(295)
+	__vue_template__ = __webpack_require__(303)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
@@ -20658,7 +20942,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 294 */
+/* 302 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -20793,24 +21077,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 295 */
+/* 303 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div></div>\n";
 
 /***/ },
-/* 296 */
+/* 304 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(297)
-	__vue_script__ = __webpack_require__(299)
+	__webpack_require__(305)
+	__vue_script__ = __webpack_require__(307)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\simple-search\\simpleSearch.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(300)
+	__vue_template__ = __webpack_require__(308)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
@@ -20835,13 +21119,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 297 */
+/* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(298);
+	var content = __webpack_require__(306);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(5)(content, {});
@@ -20861,7 +21145,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 298 */
+/* 306 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(4)();
@@ -20875,7 +21159,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 299 */
+/* 307 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -20904,24 +21188,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 300 */
+/* 308 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"search\" _v-481e168e=\"\">\n  <div class=\"bh-simple-search\" _v-481e168e=\"\">\n    <input class=\"bh-form-control\" type=\"text\" :placeholder=\"placeholder || simpleSearch.placeholder\" v-model=\"keyword\" _v-481e168e=\"\">\n    <a href=\"javascript:void(0)\" _v-481e168e=\"\"><i class=\"iconfont\" _v-481e168e=\"\"></i></a>\n  </div>\n  <a href=\"javascript:void(0);\" class=\"bh-btn bh-btn-primary bh-btn-small waves-effect search-button\" @click=\"doSearch(searchEvent || simpleSearch.searchEvent)\" _v-481e168e=\"\">搜索</a>\n</div>\n";
 
 /***/ },
-/* 301 */
+/* 309 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	var __vue_styles__ = {}
-	__webpack_require__(302)
-	__vue_script__ = __webpack_require__(304)
+	__webpack_require__(310)
+	__vue_script__ = __webpack_require__(312)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\ztree\\ztree.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(305)
+	__vue_template__ = __webpack_require__(313)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
@@ -20946,13 +21230,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	})()}
 
 /***/ },
-/* 302 */
+/* 310 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(303);
+	var content = __webpack_require__(311);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(5)(content, {});
@@ -20972,7 +21256,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 303 */
+/* 311 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(4)();
@@ -20986,7 +21270,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 304 */
+/* 312 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21138,7 +21422,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 305 */
+/* 313 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div :id=\"treeId\" class=\"ztree\">\n</div>\n";
