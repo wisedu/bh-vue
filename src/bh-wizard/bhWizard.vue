@@ -10,6 +10,7 @@
   /**
    * bhWizard控件
    * @module bhWizard
+   * @fires change - step改变时触发，参数为选中step
    * @example
    *     <caption>html</caption>
    *     <bh-wizard :wizards="wizards" v-ref:wizard :current.sync="current" :is-add-click-event="false"></bh-wizard>
