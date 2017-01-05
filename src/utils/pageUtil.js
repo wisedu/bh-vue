@@ -304,12 +304,23 @@ export default {
      * 警告信息框
      * @param  {String}   content  警告内容
      * @param  {Function} callback 点击确定按钮的回调
+     * @param {Object} [options] 附加参数，支持自定义按钮和标题文字
+     * @param {String} options.title 标题文字，默认获取多语言 Vue.t('basic.alert')
+     * @param {String} options.btnText 按钮文字，默认获取多语言 Vue.t('basic.ok')
      */
-    alert (content, callback) {
+    alert (content, callback, options) {
+        let title = (!Vue.t || Vue.t('basic.alert') === 'basic.alert') ? '警告' : Vue.t('basic.alert');
+        let ok = (!Vue.t || Vue.t('basic.ok') === 'basic.ok') ? '确定' : Vue.t('basic.ok');
+
+        let opts = $.extend({
+            title: title,
+            btnText: ok
+        }, options);
+
         BH_UTILS.bhDialogWarning({
-            title: Vue.t('basic.alert'),
+            title: opts.title,
             buttons: [{
-                text: Vue.t('basic.ok'),
+                text: opts.btnText,
                 className: 'bh-btn-default'
             }],
             content: content,
@@ -320,15 +331,28 @@ export default {
      * 确认信息弹框
      * @param  {String}   content  信息内容
      * @param  {Function} callback 点击确认按钮的回调
+     * @param {Object} [options] 附加参数，支持自定义按钮和标题文字
+     * @param {String} options.title 标题文字，默认获取多语言 Vue.t('basic.alert')
+     * @param {String} options.ok 确定按钮的文字，默认获取多语言 Vue.t('basic.ok')
+     * @param {String} options.cancel 取消按钮的文字，默认获取多语言 Vue.t('basic.cancel')
      */
-    confirm (content, callback) {
+    confirm (content, callback, options) {
+        let title = (!Vue.t || Vue.t('basic.alert') === 'basic.alert') ? '警告' : Vue.t('basic.alert');
+        let ok = (!Vue.t || Vue.t('basic.ok') === 'basic.ok') ? '确定' : Vue.t('basic.ok');
+        let cancel = (!Vue.t || Vue.t('basic.cancel') === 'basic.cancel') ? '取消' : Vue.t('basic.cancel');
+        let opts = $.extend({
+            title: title,
+            ok: ok,
+            cancel: cancel
+        }, options);
+
         BH_UTILS.bhDialogWarning({
-            title: Vue.t('basic.alert'),
+            title: opts.title,
             buttons: [{
-                text: Vue.t('basic.ok'),
+                text: opts.ok,
                 className: 'bh-btn-primary'
             }, {
-                text: Vue.t('basic.cancel'),
+                text: opts.cancel,
                 className: 'bh-btn-default'
             }],
             content: content,
@@ -379,8 +403,10 @@ export default {
             };
         });
 
+        let title = (!Vue.t || Vue.t('basic.select_export_cols') === 'basic.select_export_cols') ? '请选择要导出的列' : Vue.t('basic.select_export_cols');
+
         $.bhCustomizeColumn({
-            title: Vue.t('basic.select_export_cols'),
+            title: title,
             model: model,
             columns: columns,
             callback (cols) {

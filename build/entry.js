@@ -32,8 +32,10 @@ import BhToggle from 'src/bh-toggle/bhToggle';
 import BhTooltip from 'src/bh-tooltip/bhTooltip';
 import BhTree from 'src/bh-tree/bhTree';
 import BhWindow from 'src/bh-window/bhWindow';
+import BhWizard from 'src/bh-wizard/bhWizard';
 import ButtonList from 'src/button-list/buttonList';
 import Calendar from 'src/calendar/calendar';
+import CompChoose from 'src/comp-choose/compChoose';
 import CompTab from 'src/comp-tab/compTab';
 import DirectUpload from 'src/direct-upload/directUpload';
 import EmapAvatarupload from 'src/emap-avatarupload/emapAvatarupload';
@@ -88,8 +90,10 @@ BhToggle,
 BhTooltip,
 BhTree,
 BhWindow,
+BhWizard,
 ButtonList,
 Calendar,
+CompChoose,
 CompTab,
 DirectUpload,
 EmapAvatarupload,
