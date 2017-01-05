@@ -7,7 +7,7 @@
    * @module compChoose
    * @example
    *     <caption>html</caption>
-   *     <bh-choose :options="options" v-ref:choose></bh-choose>
+   *     <comp-choose :options="options" v-ref:choose></comp-choose>
    * @example
    *     <caption>javascript</caption>
    *    export default {
