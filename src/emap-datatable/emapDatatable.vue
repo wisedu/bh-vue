@@ -161,6 +161,15 @@
         opts.checkable = undefined;
         opts.operations = undefined;
         opts.lazyInit = undefined;
+        // 监听行展开、收缩事件
+        el.off('rowExpand').on('rowExpand', function() {
+            vm.$dispatch('expand');
+        });
+
+        el.off('rowCollapse').on('rowCollapse', function() {
+            vm.$dispatch('collapse');
+        });
+
         opts.ready = () => {
             _hideCols(vm); // 隐藏列
             vm.$dispatch(vm.readyName, vm);

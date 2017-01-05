@@ -19277,6 +19277,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	    opts.checkable = undefined;
 	    opts.operations = undefined;
 	    opts.lazyInit = undefined;
+
+	    el.off('rowExpand').on('rowExpand', function () {
+	        vm.$dispatch('expand');
+	    });
+
+	    el.off('rowCollapse').on('rowCollapse', function () {
+	        vm.$dispatch('collapse');
+	    });
+
 	    opts.ready = function () {
 	        _hideCols(vm);
 	        vm.$dispatch(vm.readyName, vm);
