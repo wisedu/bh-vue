@@ -7,7 +7,7 @@
     <a href="javascript:void(0);" class="bh-btn bh-btn-primary bh-btn-small waves-effect search-button" @click="doSearch(searchEvent || simpleSearch.searchEvent)">搜索</a>
   </div>
 </template>
-<style scoped lang="sass">
+<style scoped>
 .bh-simple-search {
   width: 300px;
   display: inline-block;

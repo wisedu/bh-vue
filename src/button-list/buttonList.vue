@@ -5,7 +5,7 @@
     </a>
   </div>
 </template>
-<style scoped lang="sass">
+<style scoped>
 .opt-buttons {
   margin-left: -4px;
   clear: both;
