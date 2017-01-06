@@ -61,7 +61,7 @@
     },
 
     methods: {
-      /***
+      /**
        * 调用bhStepWizard提供的方法
        * @param {String} actionName bhStepWizard提供的方法名称
        * @param {String} arg1 actionName对应方法需要的参数1

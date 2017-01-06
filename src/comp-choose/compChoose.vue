@@ -73,7 +73,7 @@
     },
 
     methods: {
-      /***
+      /**
        * 获取选中记录
        * @return {Array} 右侧选中的记录
        */
@@ -81,7 +81,7 @@
         return this.win.getSelectedRecords()
       },
 
-      /***
+      /**
        * 刷新左侧表格
        * @param {Object} 传入的参数
        */
