@@ -1,15 +1,17 @@
 <template>
-    <label v-if='inGroup' :class='{"bh-disabled": disabled}'>
-        <input type="checkbox" :value="value" @change.stop='change($event)' v-model='ischeck' :disabled='disabled'>
-        <i class="bh-choice-helper"></i>
-        <slot></slot>
-    </label>
-    <div v-else class="bh-checkbox">
-        <label :class='{"bh-disabled": disabled}'>
+    <div>
+        <label v-if='inGroup' :class='{"bh-disabled": disabled}'>
             <input type="checkbox" :value="value" @change.stop='change($event)' v-model='ischeck' :disabled='disabled'>
             <i class="bh-choice-helper"></i>
             <slot></slot>
         </label>
+        <div v-else class="bh-checkbox">
+            <label :class='{"bh-disabled": disabled}'>
+                <input type="checkbox" :value="value" @change.stop='change($event)' v-model='ischeck' :disabled='disabled'>
+                <i class="bh-choice-helper"></i>
+                <slot></slot>
+            </label>
+        </div>
     </div>
 </template>
 
