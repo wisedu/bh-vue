@@ -882,7 +882,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 13 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<label v-if='inGroup' :class='{\"bh-disabled\": disabled}'>\n    <input type=\"checkbox\" :value=\"value\" @change.stop='change($event)' v-model='ischeck' :disabled='disabled'>\n    <i class=\"bh-choice-helper\"></i>\n    <slot></slot>\n</label>\n<div v-else class=\"bh-checkbox\">\n    <label :class='{\"bh-disabled\": disabled}'>\n        <input type=\"checkbox\" :value=\"value\" @change.stop='change($event)' v-model='ischeck' :disabled='disabled'>\n        <i class=\"bh-choice-helper\"></i>\n        <slot></slot>\n    </label>\n</div>\n";
+	module.exports = "\n<div>\n    <label v-if='inGroup' :class='{\"bh-disabled\": disabled}'>\n        <input type=\"checkbox\" :value=\"value\" @change.stop='change($event)' v-model='ischeck' :disabled='disabled'>\n        <i class=\"bh-choice-helper\"></i>\n        <slot></slot>\n    </label>\n    <div v-else class=\"bh-checkbox\">\n        <label :class='{\"bh-disabled\": disabled}'>\n            <input type=\"checkbox\" :value=\"value\" @change.stop='change($event)' v-model='ischeck' :disabled='disabled'>\n            <i class=\"bh-choice-helper\"></i>\n            <slot></slot>\n        </label>\n    </div>\n</div>\n";
 
 /***/ },
 /* 14 */
@@ -18379,7 +18379,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	// module
-	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.wizard-main[_v-41866cc1] {\n  height: 32px;\n}\n", ""]);
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.wizard-main[_v-41866cc1] {\n  height: 32px;\n}\n", ""]);
 
 	// exports
 
@@ -18520,8 +18520,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.0.23.1@css-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/style-rewriter.js?id=_v-5e09e4f9&scoped=true!./../../node_modules/.4.0.2@sass-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/selector.js?type=style&index=0!./buttonList.vue", function() {
-				var newContent = require("!!./../../node_modules/.0.23.1@css-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/style-rewriter.js?id=_v-5e09e4f9&scoped=true!./../../node_modules/.4.0.2@sass-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/selector.js?type=style&index=0!./buttonList.vue");
+			module.hot.accept("!!./../../node_modules/.0.23.1@css-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/style-rewriter.js?id=_v-5e09e4f9&scoped=true!./../../node_modules/.8.5.4@vue-loader/lib/selector.js?type=style&index=0!./buttonList.vue", function() {
+				var newContent = require("!!./../../node_modules/.0.23.1@css-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/style-rewriter.js?id=_v-5e09e4f9&scoped=true!./../../node_modules/.8.5.4@vue-loader/lib/selector.js?type=style&index=0!./buttonList.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -18539,7 +18539,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	// module
-	exports.push([module.id, ".opt-buttons[_v-5e09e4f9] {\n  margin-left: -4px;\n  clear: both; }\n", ""]);
+	exports.push([module.id, "\n\n\n\n\n\n\n\r\n.opt-buttons[_v-5e09e4f9] {\r\n  margin-left: -4px;\r\n  clear: both;\r\n}\r\n", ""]);
 
 	// exports
 
@@ -21134,8 +21134,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.0.23.1@css-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/style-rewriter.js?id=_v-481e168e&scoped=true!./../../node_modules/.4.0.2@sass-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/selector.js?type=style&index=0!./simpleSearch.vue", function() {
-				var newContent = require("!!./../../node_modules/.0.23.1@css-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/style-rewriter.js?id=_v-481e168e&scoped=true!./../../node_modules/.4.0.2@sass-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/selector.js?type=style&index=0!./simpleSearch.vue");
+			module.hot.accept("!!./../../node_modules/.0.23.1@css-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/style-rewriter.js?id=_v-481e168e&scoped=true!./../../node_modules/.8.5.4@vue-loader/lib/selector.js?type=style&index=0!./simpleSearch.vue", function() {
+				var newContent = require("!!./../../node_modules/.0.23.1@css-loader/index.js!./../../node_modules/.8.5.4@vue-loader/lib/style-rewriter.js?id=_v-481e168e&scoped=true!./../../node_modules/.8.5.4@vue-loader/lib/selector.js?type=style&index=0!./simpleSearch.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -21153,7 +21153,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	// module
-	exports.push([module.id, ".bh-simple-search[_v-481e168e] {\n  width: 300px;\n  display: inline-block; }\n\n.search-button[_v-481e168e] {\n  vertical-align: top; }\n", ""]);
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\r\n.bh-simple-search[_v-481e168e] {\r\n  width: 300px;\r\n  display: inline-block;\r\n}\r\n\r\n.search-button[_v-481e168e] {\r\n  vertical-align: top;\r\n}\r\n", ""]);
 
 	// exports
 

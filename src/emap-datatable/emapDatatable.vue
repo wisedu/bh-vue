@@ -11,7 +11,7 @@
      *
      * @example
      *     <caption>html</caption>
-     *     <emap-datatable :options='options' @edit='edit' @del='del'></emap-datatable>
+     *     <emap-datatable v-ref:list :options='options' @edit='edit' @del='del'></emap-datatable>
      * @example
      *     <caption>javascript</caption>
      *      import EmapDatatable from 'components/emap-datatable/emapDatatable.vue'
@@ -47,6 +47,7 @@
      *                      customColumns: getCustomColumns(),
      *                      checkable: true,
      *                      sortable: true,
+     *                      params: {wid: 111},
      *                      columnsReorder: true,
      *                      operations: {
      *                          title: '操作',
@@ -70,6 +71,9 @@
      *              },
      *              del: function(row) {
      *                  console.log('del', row);
+     *                  // refresh after delete
+     *                  this.options.params = {keyword: 'inputVal'}; // 设置查询参数
+     *                  this.$refs.list.reload();
      *              }
      *          }
      *          components: {EmapDatatable}
@@ -268,6 +272,7 @@
          * @property {Number} options.minLineNum 表格最小行数
          * @property {Array} [options.hiddenColumns=[]] 默认需要隐藏的字段, Emap组件暂时不支持此属性，所以新增此处理
          * @property {Array} [options.alwaysHide=['WID', 'TBRQ', 'TBLX', 'CZRQ', 'CZZ', 'CZZXM']] 自定义显示列的隐藏字段
+         * @property {Object} [options.params] 查询数据时的附加参数，如 {keyword: 'aaa'}
          * @property {Object} [options.operations] 操作按钮列表，显示在最后一列
          * @property {String} options.operations.title 操作列头名称
          * @property {Object[]} options.operations.items 操作按钮列表，或者返回按钮列表的函数（参数为当前行的数据）
