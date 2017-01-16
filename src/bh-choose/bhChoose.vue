@@ -161,8 +161,8 @@
          * @property {Array} leftCols 左侧的自定义列，如果设置此属性则不需要leftcellsRenderer，参考BhDatatable的列定义
          * @property {String} rightSourceUrl 右侧数据源地址
          * @property {Array} localdata 右侧使用本地数组作为数据源代替rightSourceUrl
-         * @property {String} leftSourceAction 右侧数据源模型名称
-         * @property {String} rightSourceAction 左侧数据源模型名称
+         * @property {String} leftSourceAction 左侧数据源获取path，如 'datas>rows'
+         * @property {String} rightSourceAction 右侧数据源获取path，如 'datas>rows'
          * @property {Array} rightCols 右侧的自定义列，如果设置此属性则不需要rightcellsRenderer，参考BhDatatable的列定义
          * @property {String} leftParams 左侧请求附加参数
          * @property {String} rightParams 右侧请求附加参数

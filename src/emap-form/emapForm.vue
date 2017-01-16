@@ -6,6 +6,9 @@
     /**
      * Form控件
      * @module EmapForm
+     *
+     * @fires inited -表单初始化完成后的事件通知
+     * 
      * @example
      *     // meta文件中支持的类型定义
      *     text
