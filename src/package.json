@@ -1,8 +1,8 @@
 {
   "name": "bh-vue",
-  "version": "1.6.13",
+  "version": "1.6.14",
   "description": "vue components based on jqxwidget and EMAP",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

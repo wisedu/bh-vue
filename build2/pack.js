@@ -1,20 +1,22 @@
 var fs = require('fs');
 var path = require('path');
+var babel = require("babel-core");
 
 var webpack = require('webpack');
 var webpackConf = require('./webpack.config');
 
 var cmpPath = 'src';
-var buildPath = 'build';
+var buildPath = 'build2';
+var distDir = 'src/dist';
+// 组件库入口文件
+var indexFile = path.join(__dirname, '..', distDir, 'index.js');
 // 临时生成的辅助文件
-var entryFile = path.join(buildPath, 'entry.js');
-var confFile = path.join(buildPath, 'complist.json');
+var entryFile = path.join(buildPath, 'entry.json');
 
 // 需要跳过的帮助文件
-const ignoreList = ['build', 'build2', 'dist', 'test', 'package.json', 'README.md', 'index.js'];
+const ignoreList = ['build', 'build2', 'directives', 'utils', 'dist', 'test', 'package.json', 'README.md', 'index.js', 'version.bat'];
 
 var outContent = '';
-var compContent = [];
 var components = [];
 
 /**
@@ -52,44 +54,48 @@ fs.readdirSync(cmpPath).forEach((dir) => {
     components.push({
         name: upperName,
         path: 'src/' + dir + '/' + vueName,
-        dir: dir
+        dir: dir,
+        distPath: './components/' + upperName
     });
 });
 
+// 增加 util 方法入口
+components = components.concat(['pageUtil', 'http'].map(function(name) {
+    return {
+        name: name,
+        path: 'src/utils/' + name + '.js',
+        dir: 'utils',
+        distPath: './components/' + name
+    };
+}));
+
 var jsImport = [];
 var jsExport = [];
-var jsInstall = [];
+var jsEntries = [];
 
 components.forEach(item => {
-    compContent.push('"' + item.name + '": "' + item.path + '"');
-    jsImport.push('import ' + item.name + ' from \'' + item.path + '\';');
+    jsEntries.push(`"${item.name}": ["${item.path}"]`);
+    jsImport.push('import ' + item.name + ' from \'' + item.distPath + '\';');
     jsExport.push(item.name);
-    jsInstall.push(`    Vue.component('${item.dir}', ${item.name});`);
 });
 
-jsImport = jsImport.join('\n');
-jsExport = 'module.exports = {\n' + jsExport.join(',\n') + '\n}';
-var installComps = jsInstall.join('\n');
-jsInstall = `
-if (typeof window !== 'undefined' && window.Vue) {
-${installComps}
-}`;
+// 每个组件入口文件
+outContent = '{\n' + jsEntries.join(',\n') + '\n}';
+fs.writeFileSync(entryFile, outContent, 'utf-8');
 
-var entryContent = '';
-// import
-entryContent += jsImport + '\n\n';
-// install
-// entryContent += jsInstall + '\n\n';
-// export
-entryContent += jsExport;
+// index入口文件
+var indexContent = jsImport.join('\n') + '\n\n';
+indexContent += 'module.exports = {\n' + jsExport.join(',\n') + '\n}';
+var result = babel.transform(indexContent, {
+    presets: ['es2015']
+});
+fs.writeFileSync(indexFile, result.code, 'utf-8');
 
-fs.writeFileSync(entryFile, entryContent, 'utf-8');
-
-// 执行webpack打包
+// 执行webpack打包组件
 webpack(webpackConf, (err, stats) => {
     if (err) {
         console.log(err);
     } else {
-        console.log('build successfully:[src/index.js]');
+        console.log('build successfully:[src/dist/index.js]');
     }
 });
