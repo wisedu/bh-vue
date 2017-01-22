@@ -6,7 +6,7 @@
         <div class="scenes-cbrt-right">
             <div v-if='type === "panel"' :class="panelCls" sc-cbrt-id="{{num}}">
                 <h3 class="scenes-cbrt-title">{{title}}</h3>
-                <a href="javascript:void(0);" class="bh-tag bh-tag-primary no-active">{{tag}}</a>
+                <a href="javascript:void(0);" class="bh-tag bh-tag-{{className}} no-active">{{tag}}</a>
                 <div class="bh-text-caption bh-caption-default">{{caption}}</div>
                 <div class="scenes-cbrt-toolbar" v-if='showExpand'>
                     <a href="javascript:void(0);" class="bh-btn-link" sc-cbrt-flag="switch" sc-cbrt-role="extend" @click='toggle'>
@@ -91,6 +91,10 @@
             autoHide: {
                 type: Boolean,
                 default: false
+            },
+            className:{
+                type:String,
+                default:'primary'
             }
         },
         methods: {
