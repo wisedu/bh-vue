@@ -33,7 +33,12 @@
             // 浮动块所在的容器
             hostContainer: vm.hostContainer,
             // 要浮动的容器
-            fixedContainer: vm.hostContainer.find('.bh-form-outline')
+            fixedContainer: vm.hostContainer.find('.bh-form-outline'),
+            //设置浮动块的偏移，top或者left
+            offset: {
+                top: vm.outlineOffsettop,
+                left: vm.outlineOffsetleft
+            }
         });
     };
 
@@ -56,6 +61,12 @@
             },
             scrollTop: {
                 default: $('header.bh-header-mini').outerHeight()
+            },
+            outlineOffsettop: {
+                default: 36
+            },
+            outlineOffsetleft: {
+                default: 0
             }
         },
         methods: {
