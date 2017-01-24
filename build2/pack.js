@@ -7,9 +7,10 @@ var webpackConf = require('./webpack.config');
 
 var cmpPath = 'src';
 var buildPath = 'build2';
-var distDir = 'src/dist';
+var distDir = 'dist';
 // 组件库入口文件
 var indexFile = path.join(__dirname, '..', distDir, 'index.js');
+var indexSrc = path.join(__dirname, '..', 'src', 'index.js');
 // 临时生成的辅助文件
 var entryFile = path.join(buildPath, 'entry.json');
 
@@ -55,6 +56,7 @@ fs.readdirSync(cmpPath).forEach((dir) => {
         name: upperName,
         path: 'src/' + dir + '/' + vueName,
         dir: dir,
+        srcPath: './' + dir + '/' + vueName,
         distPath: './components/' + upperName
     });
 });
@@ -65,6 +67,7 @@ components = components.concat(['pageUtil', 'http'].map(function(name) {
         name: name,
         path: 'src/utils/' + name + '.js',
         dir: 'utils',
+        srcPath: './utils/' + name + '.js',
         distPath: './components/' + name
     };
 }));
@@ -72,10 +75,12 @@ components = components.concat(['pageUtil', 'http'].map(function(name) {
 var jsImport = [];
 var jsExport = [];
 var jsEntries = [];
+var jsSrcImport = [];
 
 components.forEach(item => {
     jsEntries.push(`"${item.name}": ["${item.path}"]`);
     jsImport.push('import ' + item.name + ' from \'' + item.distPath + '\';');
+    jsSrcImport.push('import ' + item.name + ' from \'' + item.srcPath + '\';');
     jsExport.push(item.name);
 });
 
@@ -83,13 +88,18 @@ components.forEach(item => {
 outContent = '{\n' + jsEntries.join(',\n') + '\n}';
 fs.writeFileSync(entryFile, outContent, 'utf-8');
 
-// index入口文件
+// dist目录下的index入口文件
 var indexContent = jsImport.join('\n') + '\n\n';
 indexContent += 'module.exports = {\n' + jsExport.join(',\n') + '\n}';
 var result = babel.transform(indexContent, {
     presets: ['es2015']
 });
 fs.writeFileSync(indexFile, result.code, 'utf-8');
+
+// src目录下的index入口文件
+indexContent = jsSrcImport.join('\n') + '\n\n';
+indexContent += 'module.exports = {\n' + jsExport.join(',\n') + '\n}';
+fs.writeFileSync(indexSrc, indexContent, 'utf-8');
 
 // 执行webpack打包组件
 webpack(webpackConf, (err, stats) => {

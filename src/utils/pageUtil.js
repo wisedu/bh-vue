@@ -301,6 +301,42 @@ export default {
         $.bhPaperPileDialog.resetDialogFooter();
     },
     /**
+     * 使用侧边栏属性弹窗
+     * @param  {Object} [vm]    当前页面vm，如果为空则不会执行vue.compile
+     * @param  {String} title   标题
+     * @param  {String} content 内容，支持包含vue组件的html字符串
+     * @param  {String} footer  页脚，支持包含vue组件的html字符串
+     * @param  {Function} onReady 渲染完成的回调事件
+     * @param  {Function} onClose 关闭弹框的回调事件
+     */
+    showSidePaper (vm, title, content, footer, onReady, onClose) {
+        let opts = {
+            title: title,
+            content: content,
+            ready ($header, $section, $footer) {
+                if (vm) {
+                    vm.$compile($section[0]); // 重新扫描动态插入的组件
+
+                    if (footer) {
+                        vm.$compile($footer[0]); // 重新扫描动态插入的组件
+                    }
+                }
+
+                onReady && onReady($header, $section, $footer, $aside);
+            },
+            close: onClose
+        };
+
+        if (footer) {
+            opts.footer = footer;
+        }
+
+        $.bhPropertyDialog.show(opts);
+    },
+    hideSidePaper () {
+        $.bhPropertyDialog.hide();
+    },
+    /**
      * 警告信息框
      * @param  {String}   content  警告内容
      * @param  {Function} callback 点击确定按钮的回调

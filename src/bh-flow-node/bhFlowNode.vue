@@ -68,7 +68,7 @@
          * @property {Boolean} [autoHide=false] 是否默认隐藏
          */
         props: {
-            num: String,
+            num: [String, Number],
             type: {
                 default: 'panel'
             },

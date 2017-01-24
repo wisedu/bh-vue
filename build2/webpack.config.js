@@ -6,11 +6,11 @@ module.exports = {
     // 'devtool': 'source-map',
     'entry': entries,
     'output': {
-        'path': path.resolve(__dirname, '../src/dist/components'),
+        'path': path.resolve(__dirname, '../dist/components'),
         'filename': '[name].js',
-        'publicPath': '',
-        'libraryTarget': "umd",
-        'library': "[name]"
+        'publicPath': ''
+        // 'libraryTarget': "umd",
+        // 'library': "[name]"
     },
     'resolve': {
         'extensions': ['', '.js', '.vue'],
@@ -47,16 +47,16 @@ module.exports = {
         }]
     },
     babel: {
-        presets: ['es2015'],
+        // presets: ['es2015'],
         plugins: ['transform-runtime']
     },
     plugins: [
         // new webpack.NoErrorsPlugin()
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {warnings: false},
-            output: {comments: false},
-            sourceMap: true
-        })
+        // new webpack.optimize.UglifyJsPlugin({
+        //     compress: {warnings: false},
+        //     output: {comments: false},
+        //     sourceMap: true
+        // })
         // new webpack.optimize.CommonsChunkPlugin({
         //     name: "commons",
         //     filename: "commons.js"

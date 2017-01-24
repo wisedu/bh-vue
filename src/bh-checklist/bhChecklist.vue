@@ -1,6 +1,7 @@
 <template>
     <div class='bh-checkbox' :class='dirClass'>
         <bh-checkbox
+            :style='subStyle'
             :in-group='true'
             :extra='item'
             v-for='item in source'
@@ -32,6 +33,11 @@
         computed: {
             dirClass () {
                 return this.dir === 'v' ? 'bh-checkbox-vertical' : '';
+            },
+            subStyle () {
+                return {
+                    display: this.dir === 'v' ? 'block' : 'inline-block'
+                };
             }
         },
         /**
