@@ -11,7 +11,7 @@
     ```
 2. 使用压缩js的方式引入
     ```
-    <script src="//res.wisedu.com/fe_components/bh-vue/index.js"></script>
+    <script src="//res.wisedu.com/fe_components/bh-vue/bh-vue.min.js"></script>
     ```
 
 ### 打包组件库到min.js文件
