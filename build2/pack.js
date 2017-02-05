@@ -1,13 +1,18 @@
 var fs = require('fs');
 var path = require('path');
 var babel = require("babel-core");
+require('shelljs/global');
 
 var webpack = require('webpack');
 var webpackConf = require('./webpack.config');
 
 var cmpPath = 'src';
 var buildPath = 'build2';
-var distDir = 'dist';
+var distDir = 'src/dist'; // 将发布的组件生成到src中
+
+// 删除dist目录先
+rm('-rf', path.join(__dirname, '..', distDir));
+
 // 组件库入口文件
 var indexFile = path.join(__dirname, '..', distDir, 'index.js');
 var indexSrc = path.join(__dirname, '..', 'src', 'index.js');
@@ -57,7 +62,7 @@ fs.readdirSync(cmpPath).forEach((dir) => {
         path: 'src/' + dir + '/' + vueName,
         dir: dir,
         srcPath: './' + dir + '/' + vueName,
-        distPath: './components/' + upperName
+        distPath: './' + upperName
     });
 });
 
@@ -68,7 +73,7 @@ components = components.concat(['pageUtil', 'http'].map(function(name) {
         path: 'src/utils/' + name + '.js',
         dir: 'utils',
         srcPath: './utils/' + name + '.js',
-        distPath: './components/' + name
+        distPath: './' + name
     };
 }));
 
@@ -87,6 +92,9 @@ components.forEach(item => {
 // 每个组件入口文件
 outContent = '{\n' + jsEntries.join(',\n') + '\n}';
 fs.writeFileSync(entryFile, outContent, 'utf-8');
+
+// 创建dist目录
+mkdir(path.join(__dirname, '..', distDir));
 
 // dist目录下的index入口文件
 var indexContent = jsImport.join('\n') + '\n\n';

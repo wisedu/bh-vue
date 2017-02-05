@@ -197,6 +197,11 @@
 	    computed: {
 	        dirClass: function dirClass() {
 	            return this.dir === 'v' ? 'bh-checkbox-vertical' : '';
+	        },
+	        subStyle: function subStyle() {
+	            return {
+	                display: this.dir === 'v' ? 'block' : 'inline-block'
+	            };
 	        }
 	    },
 
@@ -235,7 +240,7 @@
 /* 16 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class='bh-checkbox' :class='dirClass'>\n    <bh-checkbox\n        :in-group='true'\n        :extra='item'\n        v-for='item in source'\n        :value.sync='item[valueMember]'\n        :disabled='item.disabled'\n        :ischeck.sync='item[checkMember]'>\n        {{item[displayMember]}}\n    </bh-checkbox>\n</div>\n";
+	module.exports = "\n<div class='bh-checkbox' :class='dirClass'>\n    <bh-checkbox\n        :style='subStyle'\n        :in-group='true'\n        :extra='item'\n        v-for='item in source'\n        :value.sync='item[valueMember]'\n        :disabled='item.disabled'\n        :ischeck.sync='item[checkMember]'>\n        {{item[displayMember]}}\n    </bh-checkbox>\n</div>\n";
 
 /***/ }
 /******/ ]);
