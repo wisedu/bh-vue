@@ -6,7 +6,7 @@ module.exports = {
     // 'devtool': 'source-map',
     'entry': entries,
     'output': {
-        'path': path.resolve(__dirname, '../dist/components'),
+        'path': path.resolve(__dirname, '../src/dist'),
         'filename': '[name].js',
         'publicPath': ''
         // 'libraryTarget': "umd",
@@ -52,11 +52,11 @@ module.exports = {
     },
     plugins: [
         // new webpack.NoErrorsPlugin()
-        // new webpack.optimize.UglifyJsPlugin({
-        //     compress: {warnings: false},
-        //     output: {comments: false},
-        //     sourceMap: true
-        // })
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {warnings: false},
+            output: {comments: false},
+            sourceMap: false
+        })
         // new webpack.optimize.CommonsChunkPlugin({
         //     name: "commons",
         //     filename: "commons.js"
