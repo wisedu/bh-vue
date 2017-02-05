@@ -35,7 +35,7 @@
          * @property {Boolean} [options.dialogsInBody=false] 弹出框是否显示在页面body区域，而非编辑器区域
          * @property {Boolean} [options.disableDragAndDrop=true] 是否禁止拖放
          */
-        props: ["options","value","disable","model"],
+        props: ["value","disable","model"],
         computed: {
             // value: {
             //     get: function(){
@@ -58,20 +58,20 @@
         ready () {
             var self = this;
 
-            var model = WIS_EMAP_SERV.convertModel([$.extend(this.model, this.options)], "form");
+            var model = WIS_EMAP_SERV.convertModel([this.model], "form");
             var field_html = WIS_EMAP_INPUT.renderPlaceHolder(model[0]);
             $(this.$el).html(field_html);
             $(this.$el).on("_formChange", function(event){
                 var formData = {};
-                var val = WIS_EMAP_INPUT.getValue($("[data-name=" + self.options.name + "]", self.$el), formData);
+                var val = WIS_EMAP_INPUT.getValue($("[data-name=" + self.model.name + "]", self.$el), formData);
                 self.value = val;
             });
 
             this.$watch('value', (newVal) => {
                 if(newVal) {
                     var val = {};
-                    val[this.options.name] = newVal;
-                    WIS_EMAP_INPUT.setValue($("[data-name=" + this.options.name + "]", this.$el), this.options.name, this.options.xtype, val);
+                    val[this.model.name] = newVal;
+                    WIS_EMAP_INPUT.setValue($("[data-name=" + this.model.name + "]", this.$el), this.model.name, this.model.xtype, val);
                 }
             });
         },
