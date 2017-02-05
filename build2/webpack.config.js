@@ -8,9 +8,9 @@ module.exports = {
     'output': {
         'path': path.resolve(__dirname, '../src/dist'),
         'filename': '[name].js',
-        'publicPath': ''
-        // 'libraryTarget': "umd",
-        // 'library': "[name]"
+        'publicPath': '',
+        'libraryTarget': "umd",
+        'library': "[name]"
     },
     'resolve': {
         'extensions': ['', '.js', '.vue'],
