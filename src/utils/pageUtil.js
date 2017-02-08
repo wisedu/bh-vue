@@ -467,5 +467,23 @@ export default {
                 window.open(url);
             }
         });
+    },
+    /**
+     *@property {Object} options 轮播初始化参数
+     * @property {String} [options.showType=page] 渲染的类型
+     * @property {String} [options.selector] 渲染的容器
+     * @property {Array} [options.dataSource=[{
+        image: 'http://res.wisedu.com/fe_components/galleria/gallery.png'
+    }, {
+        image: 'http://res.wisedu.com/fe_components/galleria/gallery_thin.png'
+    }, {
+        image: 'http://res.wisedu.com/fe_components/galleria/gallery.png'
+    }]] 轮播的图片列表
+     * @property {String} [options.height] 高度
+     * @property {String} [options.weight] 宽度
+     * @property{num}[options.show]从当前第几个开始轮播
+     */
+    galleryPic(options){
+        $.bhGallery(options)
     }
 };
