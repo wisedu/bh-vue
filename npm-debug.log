@@ -57,14 +57,14 @@
 21 silly publish      webpack: '^1.13.1' },
 21 silly publish   scripts:
 21 silly publish    { doc: 'npm install --registry http://registry.cnpmjs.org;node build/doc-build.js',
-21 silly publish      pack: 'node build/pack.js' },
+21 silly publish      pack: 'node build2/pack.js' },
 21 silly publish   readme: '# 基于jqwidget和EMAP封装的Vue组件\r\n\r\n引入组件库：\r\n```\r\nnpm install bh-vue\r\n```\r\n\r\n包含第三依赖库的页面模板：\r\n```html\r\n<!DOCTYPE html>\r\n<html>\r\n  <head>\r\n    <meta charset="utf-8">\r\n    <title>jqwidget-based Vue Components</title>\r\n    <!-- <link rel="stylesheet" href="//res.wisedu.com/fe_components/bh.css" type="text/css" /> -->\r\n    <link rel="stylesheet" href="//res.wisedu.com/fe_components/jqwidget/blue/bh.min.css" />\r\n    <link rel="stylesheet" href="//res.wisedu.com/fe_components/jqwidget/blue/bh-scenes.min.css" id="bhThemes" />\r\n    <link rel="stylesheet" href="//res.wisedu.com/bower_components/fontawesome/css/font-awesome.min.css" />\r\n    <link rel="stylesheet" href="//res.wisedu.com/fe_components/iconfont/iconfont.css">\r\n    <link rel="stylesheet" href="//res.wisedu.com/bower_components/selectize/dist/css/selectize.bootstrap3.css">\r\n    <link rel="stylesheet" href="//res.wisedu.com/fe_components/selectize/select.css">\r\n    <link rel="stylesheet" href="//res.wisedu.com/bower_components/summernote-0.8.1/dist/summernote-bs3.min.css">\r\n    <link rel="stylesheet" href="//res.wisedu.com/bower_components/summernote-0.8.1/dist/summernote.css">\r\n  </head>\r\n  <body>\r\n    <div id="app"></div>\r\n    <script src="//res.wisedu.com/bower_components/jquery/dist/jquery.min.js"></script>\r\n    <!-- <script src="./vendors/bh/bh.map.js"></script> -->\r\n    <!-- jqxwidget -->\r\n    <script src=\'//res.wisedu.com/fe_components/jqwidget/jqxwidget.min.js\'></script>\r\n    <script src="//res.wisedu.com/fe_components/jqwidget/globalize.js"></script>\r\n    <script src="//res.wisedu.com/fe_components/jqwidget/globalize.culture.zh-CN.js"></script>\r\n    <!-- bh -->\r\n    <script src="//res.wisedu.com/fe_components/bh.min.js"></script>\r\n    <script src="//res.wisedu.com/fe_components/bh_utils.js"></script>\r\n    <script src="//res.wisedu.com/bower_components/sortable/Sortable.min.js"></script>\r\n    <script src="//res.wisedu.com/bower_components/selectize/dist/js/standalone/selectize.min.js"></script>\r\n    <!-- <script src="//res.wisedu.com/fe_components/we/we.pagination.js"></script> -->\r\n    <!-- 文件上传控件依赖库 -->\r\n    <script src="//res.wisedu.com/bower_components/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>\r\n    <script src="//res.wisedu.com/bower_components/blueimp-file-upload/js/jquery.iframe-transport.js"></script>\r\n    <script src="//res.wisedu.com/bower_components/blueimp-file-upload/js/jquery.fileupload.js"></script>\r\n    <!-- 日历控件依赖库 -->\r\n    <script src=\'//cdn.bootcss.com/moment.js/2.13.0/moment.min.js\'></script>\r\n    <script src=\'//cdn.bootcss.com/moment.js/2.13.0/locale/zh-cn.js\'></script>\r\n    <script src=\'//cdn.bootcss.com/underscore.js/1.5.2/underscore-min.js\'></script>\r\n    <!-- <script src=\'vendors/CLNDR.js\'></script> -->\r\n    <script src=\'//cdn.bootcss.com/clndr/1.4.4/clndr.min.js\'></script>\r\n    <!-- nicescroll -->\r\n    <script src="//res.wisedu.com/bower_components/jquery.nicescroll/jquery.nicescroll.min.js"></script>\r\n    <!-- EMAP 依赖库 -->\r\n    <script src=\'//cdn.bootcss.com/hogan.js/3.0.2/hogan.min.js\'></script>\r\n    <script src=\'//res.wisedu.com/fe_components/emap.js\'></script>\r\n    <!-- mock.js 在开发环境无法模拟post请求数据时使用 -->\r\n    <!-- <script src=\'//res.wisedu.com/fe_components/mock/mock.js\'></script> -->\r\n    <!-- 富文本编辑器 -->\r\n    <script src="//res.wisedu.com/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>\r\n    <script src="//res.wisedu.com/bower_components/summernote-0.8.1/dist/summernote.js"></script>\r\n    <!-- built files will be auto injected -->\r\n  </body>\r\n</html> \r\n```\r\n\r\n示例页面：\r\n```html\r\n<template>\r\n    <article bh-layout-role="single-no-title">\r\n        <section class="bh-mh-8 bh-mv-8">\r\n            <header>\r\n                <h2>富文本编辑器</h2>\r\n            </header>\r\n            <div class="bh-row bh-mt-16">\r\n                <div class="bh-col-md-6 bh-mv-8 bh-mb-16">\r\n                    <emap-editor v-ref:ee :options=\'options\'></emap-editor>\r\n                </div>\r\n                <div class="clearfix"></div>\r\n                <div class="bh-col-md-6 bh-mv-8">\r\n                    <button class=\'bh-btn bh-btn-default\' @click=\'getContent\'>获取输入内容</button>\r\n                    <button class=\'bh-btn bh-btn-default\' @click=\'setValue\'>设置内容</button>\r\n                    <button class=\'bh-btn bh-btn-default\' @click=\'clear\'>清空内容</button>\r\n                    <button class=\'bh-btn bh-btn-default\' @click=\'disable\'>禁用</button>\r\n                    <button class=\'bh-btn bh-btn-default\' @click=\'enable\'>启用</button>\r\n                    <button class=\'bh-btn bh-btn-default\' @click=\'isEmpty\'>是否为空</button>\r\n                </div>\r\n            </div>\r\n        </section>\r\n    </article>\r\n</template>\r\n\r\n<script>\r\n    import EmapEditor from \'components/emap-editor/emapEditor.vue\'\r\n\r\n    export default {\r\n        data: function() {\r\n            return {\r\n                options: {\r\n                    contextPath: \'http://localhost:3000/mock/emap/major-model.json\'\r\n                }\r\n            }\r\n        },\r\n        methods: {\r\n            getContent: function() {\r\n                console.log(this.$refs.ee.getValue());\r\n            },\r\n            setValue: function() {\r\n                this.$refs.ee.setValue(\'<p>Hello World, Hello Dog !</p>\');\r\n            },\r\n            clear: function() {\r\n                this.$refs.ee.clear();\r\n            },\r\n            disable: function() {\r\n                this.$refs.ee.disable();\r\n            },\r\n            enable: function() {\r\n                this.$refs.ee.enable();\r\n            },\r\n            isEmpty: function() {\r\n                alert(this.$refs.ee.isEmpty());\r\n            }\r\n        },\r\n        components: {EmapEditor}\r\n    }\r\n</script>\r\n```\r\n\r\n组件文档参考：[http://res.wisedu.com/FE/vue-doc/index.html](http://res.wisedu.com/FE/vue-doc/index.html)',
 21 silly publish   readmeFilename: 'README.md',
 21 silly publish   author: { name: 'wisedu' },
 21 silly publish   license: 'ISC',
-21 silly publish   gitHead: 'b11f441d3d6a440d96c3f9c5b2c696f747d5d7b0',
+21 silly publish   gitHead: 'e12e3adb6b1fa43cf5e62f21879c402f2d28c2b5',
 21 silly publish   _id: 'bh-vue@1.0.0',
-21 silly publish   _shasum: '035309e3c25580ccec46a7e04fdcd22e429acf13',
+21 silly publish   _shasum: '40325942a42a8c3a9e62c381f809c083a8d0a620',
 21 silly publish   _from: '.' }
 22 verbose getPublishConfig undefined
 23 silly mapToRegistry name bh-vue
@@ -83,22 +83,22 @@
 29 silly publish uploading C:\Users\qtx\AppData\Roaming\npm-cache\bh-vue\1.0.0\package.tgz
 30 verbose request uri https://registry.npmjs.org/bh-vue
 31 verbose request sending authorization for write operation
-32 info attempt registry request try #1 at 15:42:16
+32 info attempt registry request try #1 at 17:12:06
 33 verbose request using bearer token for auth
-34 verbose request id efd481d879d63873
+34 verbose request id 045e91b2375ab882
 35 http request PUT https://registry.npmjs.org/bh-vue
 36 http 403 https://registry.npmjs.org/bh-vue
 37 verbose headers { 'content-type': 'application/json',
 37 verbose headers   'cache-control': 'max-age=300',
 37 verbose headers   'content-length': '95',
 37 verbose headers   'accept-ranges': 'bytes',
-37 verbose headers   date: 'Mon, 26 Dec 2016 07:42:23 GMT',
+37 verbose headers   date: 'Sun, 05 Feb 2017 09:12:21 GMT',
 37 verbose headers   via: '1.1 varnish',
 37 verbose headers   connection: 'keep-alive',
 37 verbose headers   'x-served-by': 'cache-nrt6130-NRT',
 37 verbose headers   'x-cache': 'MISS',
 37 verbose headers   'x-cache-hits': '0',
-37 verbose headers   'x-timer': 'S1482738141.841279,VS0,VE1581',
+37 verbose headers   'x-timer': 'S1486285919.367125,VS0,VE22468',
 37 verbose headers   vary: 'Accept-Encoding' }
 38 verbose request invalidating C:\Users\qtx\AppData\Roaming\npm-cache\registry.npmjs.org\bh-vue on PUT
 39 error publish Failed PUT 403

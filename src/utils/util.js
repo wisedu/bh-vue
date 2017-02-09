@@ -1,4 +1,6 @@
-
+/**
+ * @deprecated 使用lodash提供常用方法
+ */
 export default {
     arr: {
         /**
