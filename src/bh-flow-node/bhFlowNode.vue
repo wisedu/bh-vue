@@ -7,7 +7,7 @@
             <div v-if='type === "panel"' :class="panelCls" sc-cbrt-id="{{num}}">
                 <h3 class="scenes-cbrt-title">{{title}}</h3>
                 <a href="javascript:void(0);" class="bh-tag bh-tag-{{className}} no-active">{{tag}}</a>
-                <div class="bh-text-caption bh-caption-default">{{caption}}</div>
+                <div class="bh-text-caption bh-caption-default" v-html="caption"></div>
                 <div class="scenes-cbrt-toolbar" v-if='showExpand'>
                     <a href="javascript:void(0);" class="bh-btn-link" sc-cbrt-flag="switch" sc-cbrt-role="extend" @click='toggle'>
                         {{toggleText}}
