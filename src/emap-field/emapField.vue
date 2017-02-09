@@ -71,7 +71,7 @@
                 if(newVal) {
                     var val = {};
                     val[this.model.name] = newVal;
-                    WIS_EMAP_INPUT.setValue($("[data-name=" + this.model.name + "]", this.$el), this.model.name, this.model.xtype, val);
+                    WIS_EMAP_INPUT.formSetValue($(this.$el), val, {});
                 }
             });
         },
