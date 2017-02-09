@@ -31,6 +31,7 @@ import BhTimepicker from './bh-timepicker/bhTimepicker';
 import BhToggle from './bh-toggle/bhToggle';
 import BhTooltip from './bh-tooltip/bhTooltip';
 import BhTree from './bh-tree/bhTree';
+import BhUploader from './bh-uploader/bhUploader';
 import BhWindow from './bh-window/bhWindow';
 import BhWizard from './bh-wizard/bhWizard';
 import ButtonList from './button-list/buttonList';
@@ -44,6 +45,7 @@ import EmapDatatable from './emap-datatable/emapDatatable';
 import EmapDdTable from './emap-dd-table/emapDdTable';
 import EmapDdTree from './emap-dd-tree/emapDdTree';
 import EmapEditor from './emap-editor/emapEditor';
+import EmapField from './emap-field/emapField';
 import EmapFileupload from './emap-fileupload/emapFileupload';
 import EmapForm from './emap-form/emapForm';
 import EmapGrid from './emap-grid/emapGrid';
@@ -91,6 +93,7 @@ BhTimepicker,
 BhToggle,
 BhTooltip,
 BhTree,
+BhUploader,
 BhWindow,
 BhWizard,
 ButtonList,
@@ -104,6 +107,7 @@ EmapDatatable,
 EmapDdTable,
 EmapDdTree,
 EmapEditor,
+EmapField,
 EmapFileupload,
 EmapForm,
 EmapGrid,

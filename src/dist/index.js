@@ -132,6 +132,10 @@ var _BhTree = require('./BhTree');
 
 var _BhTree2 = _interopRequireDefault(_BhTree);
 
+var _BhUploader = require('./BhUploader');
+
+var _BhUploader2 = _interopRequireDefault(_BhUploader);
+
 var _BhWindow = require('./BhWindow');
 
 var _BhWindow2 = _interopRequireDefault(_BhWindow);
@@ -183,6 +187,10 @@ var _EmapDdTree2 = _interopRequireDefault(_EmapDdTree);
 var _EmapEditor = require('./EmapEditor');
 
 var _EmapEditor2 = _interopRequireDefault(_EmapEditor);
+
+var _EmapField = require('./EmapField');
+
+var _EmapField2 = _interopRequireDefault(_EmapField);
 
 var _EmapFileupload = require('./EmapFileupload');
 
@@ -268,6 +276,7 @@ module.exports = {
   BhToggle: _BhToggle2.default,
   BhTooltip: _BhTooltip2.default,
   BhTree: _BhTree2.default,
+  BhUploader: _BhUploader2.default,
   BhWindow: _BhWindow2.default,
   BhWizard: _BhWizard2.default,
   ButtonList: _ButtonList2.default,
@@ -281,6 +290,7 @@ module.exports = {
   EmapDdTable: _EmapDdTable2.default,
   EmapDdTree: _EmapDdTree2.default,
   EmapEditor: _EmapEditor2.default,
+  EmapField: _EmapField2.default,
   EmapFileupload: _EmapFileupload2.default,
   EmapForm: _EmapForm2.default,
   EmapGrid: _EmapGrid2.default,
