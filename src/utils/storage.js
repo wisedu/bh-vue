@@ -1,8 +1,18 @@
 /**
  * 简单的store，支持本地localstorage、memory两种方式，
  * 如果感觉vuex使用麻烦或需要localstorage可以此替代。
- * <p>
- * 依赖 store2: npm install store2 --save
+ * @module utils/storage
+ *
+ * @example
+ * <caption>javascript</caption>
+ * import storage from 'storage'
+ * storage.setItem('user', {name: 'qq', age: 12}); // save in memory
+ * storage.setItem('user', {name: 'qq', age: 12}, true); // save in local storage
+ * console.log(storage.getItem('user')) // get from memory
+ * console.log(storage.getItem('user', true)) // get from local storage
+ * storage.remove('user'[, true]); // remove data with key 'user'
+ * storage.has('user'[, true]); // check whether key 'user' exists
+ * storage.clear([true]) // clear all saved data
  */
 import store from 'store2';
 
@@ -43,12 +53,6 @@ const _validKey = (key) => {
  * @param {String} key 键
  * @param {Number/String/Object} value 值
  * @param {Boolean} [local=false] 是否为本地存储
- *
- * @example
- * <caption>javascript</caption>
- * import storage from 'storage'
- * storage.setItem('user', {name: 'qq', age: 12}); // save in memory
- * storage.setItem('user', {name: 'qq', age: 12}, true); // save in local storage
  */
 export const setItem = (key, value, local) => {
     if (!_validKey(key)) { // 主键检查
