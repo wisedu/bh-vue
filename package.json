@@ -35,5 +35,8 @@
   "author": {
     "name": "wisedu"
   },
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "store2": "^2.5.0"
+  }
 }

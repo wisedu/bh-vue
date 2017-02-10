@@ -58,5 +58,6 @@
 "SimpleSearch": ["src/simple-search/simpleSearch"],
 "Ztree": ["src/ztree/ztree"],
 "pageUtil": ["src/utils/pageUtil.js"],
-"http": ["src/utils/http.js"]
+"http": ["src/utils/http.js"],
+"storage": ["src/utils/storage.js"]
 }

@@ -240,6 +240,10 @@ var _http = require('./http');
 
 var _http2 = _interopRequireDefault(_http);
 
+var _storage = require('./storage');
+
+var _storage2 = _interopRequireDefault(_storage);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 module.exports = {
@@ -302,5 +306,6 @@ module.exports = {
   SimpleSearch: _SimpleSearch2.default,
   Ztree: _Ztree2.default,
   pageUtil: _pageUtil2.default,
-  http: _http2.default
+  http: _http2.default,
+  storage: _storage2.default
 };

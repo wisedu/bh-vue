@@ -21,6 +21,8 @@ var entryFile = path.join(buildPath, 'entry.json');
 
 // 需要跳过的帮助文件
 const ignoreList = ['build', 'build2', 'directives', 'utils', 'dist', 'test', 'package.json', 'README.md', 'index.js', 'version.bat'];
+// utlis 特殊处理
+const utilFiles = ['pageUtil', 'http', 'storage'];
 
 var outContent = '';
 var components = [];
@@ -67,7 +69,7 @@ fs.readdirSync(cmpPath).forEach((dir) => {
 });
 
 // 增加 util 方法入口
-components = components.concat(['pageUtil', 'http'].map(function(name) {
+components = components.concat(utilFiles.map(function(name) {
     return {
         name: name,
         path: 'src/utils/' + name + '.js',

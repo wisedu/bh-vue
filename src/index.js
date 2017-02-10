@@ -58,6 +58,7 @@ import SimpleSearch from './simple-search/simpleSearch';
 import Ztree from './ztree/ztree';
 import pageUtil from './utils/pageUtil.js';
 import http from './utils/http.js';
+import storage from './utils/storage.js';
 
 module.exports = {
 BhButton,
@@ -119,5 +120,6 @@ EmapUpload,
 SimpleSearch,
 Ztree,
 pageUtil,
-http
+http,
+storage
 }
