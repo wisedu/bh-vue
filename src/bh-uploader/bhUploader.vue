@@ -11,8 +11,8 @@
 
 <script>
     /**
-     * @module BhUploader
      * 简单的文件上传组件，选择文件直接上传
+     * @module BhUploader
      *
      * @fires submiting -文件开始上传之前触发，参数可参考文档(https://github.com/blueimp/jQuery-File-Upload/wiki/Options)的 add callback
      * @fires done - 文件上传成功后触发，，参数可参考文档(https://github.com/blueimp/jQuery-File-Upload/wiki/Options)的 done callback
