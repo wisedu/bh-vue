@@ -14,6 +14,7 @@
     /**
      * compTab控件
      * @module compTab
+     * @fires selected - tab项的点击事件
      * @example
      *     <caption>html</caption>
      *     <comp-tab :tabs="tabs"></comp-tab>
@@ -31,9 +32,9 @@
      *     }
      */
     export default {
-    /**
-     * @property {Array} tabs tab项配置
-     */
+        /**
+         * @property {Array} tabs tab项配置
+         */
         props: ['name', 'tabs'],
         data: function () {
             return {}
@@ -52,6 +53,11 @@
                     self.tabs[tab].showComponent = self.tabs[tab].component
                 }
             })
+
+            el.on('selected', function (event) {
+                var selectedTab = event.args.item;
+                self.$emit('selected', selectedTab);
+            });
         }
     }
 </script>
