@@ -12,7 +12,7 @@
      *
      * @example
      * <caption>html</caption>
-     * <bh-step-flow v-ref:sf>
+     * <bh-step-flow ref=sf>
      *     <bh-flow-node num='5' title='新增用户' :auto-hide='true'>
      *         <p>新增新增新增新增新增新增</p>
      *         <p>新增新增新增新增新增新增新增</p>
@@ -24,37 +24,42 @@
      * </bh-step-flow>
      */
 
+    import eventHub from './bhStepFlowEH';
+
     export default {
+        data: () => ({
+            eventHub: eventHub.instance() // 当前实例的 event hub
+        }),
         methods: {
             /**
              * 展开某个节点
              * @param  {String} num 节点编码
              */
             expand (num) {
-                this.$broadcast('expand-flow-node', num);
+                this.eventHub.$emit('expand-flow-node', num);
             },
             /**
              * 收缩某个节点
              * @param  {String} num 节点编码
              */
             collapse (num) {
-                this.$broadcast('collapse-flow-node', num);
+                this.eventHub.$emit('collapse-flow-node', num);
             },
             /**
              * 隐藏某个节点
              * @param  {String} num 节点编码
              */
             hide (num) {
-                this.$broadcast('hide-flow-node', num);
-            }
-        },
-        events: {
-            'toggle-flow-node' (num, expanded) {
-                if (expanded) {
-                    this.expand(num);
-                }
+                this.eventHub.$emit('hide-flow-node', num);
             }
         }
+        // events: {
+        //     'toggle-flow-node' (num, expanded) {
+        //         if (expanded) {
+        //             this.expand(num);
+        //         }
+        //     }
+        // }
     };
 </script>
 

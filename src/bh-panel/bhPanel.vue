@@ -46,20 +46,23 @@
             beforeCollapse: Function,
             afterCollapse: Function
         },
-        ready () {
+        mounted () {
             var self = this;
-            var el = $(this.$el);
 
-            el.bhCollapsiblePanel({
-                title: self.title,
-                caption: self.caption,
-                hasBorder: self.hasBorder,
-                tag: self.tag,
-                toolbar: self.toolbar,
-                beforeExpand: self.beforeExpand,
-                afterExpand: self.afterExpand,
-                beforeCollapse: self.beforeCollapse,
-                afterCollapse: self.afterCollapse
+            self.$nextTick(() => {
+                var el = $(this.$el);
+
+                el.bhCollapsiblePanel({
+                    title: self.title,
+                    caption: self.caption,
+                    hasBorder: self.hasBorder,
+                    tag: self.tag,
+                    toolbar: self.toolbar,
+                    beforeExpand: self.beforeExpand,
+                    afterExpand: self.afterExpand,
+                    beforeCollapse: self.beforeCollapse,
+                    afterCollapse: self.afterCollapse
+                });
             });
         }
     };

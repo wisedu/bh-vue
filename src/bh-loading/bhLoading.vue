@@ -54,19 +54,22 @@
                 default: '加载中'
             }
         },
-        ready () {
+        mounted () {
             var self = this;
-            var el = $(this.$el);
 
-            this.jqxObj = el.jqxLoader({
-                autoOpen: this.open,
-                isModal: this.model,
-                text: this.text
-            });
+            self.$nextTick(() => {
+                var el = $(self.$el);
 
-            this.$watch('open', (isOpen) => {
-                var method = isOpen ? 'open' : 'close';
-                self.jqxObj.jqxLoader(method);
+                self.jqxObj = el.jqxLoader({
+                    autoOpen: self.open,
+                    isModal: self.model,
+                    text: self.text
+                });
+
+                self.$watch('open', (isOpen) => {
+                    var method = isOpen ? 'open' : 'close';
+                    self.jqxObj.jqxLoader(method);
+                });
             });
         },
         beforeDestroy () {

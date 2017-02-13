@@ -11,15 +11,14 @@
      *
      * @example
      *     <caption>html</caption>
-     *     <bh-dropdown :source='words' :current.sync='dditem' display-member='name' value-member='sid' @change='onselect'></bh-dropdown>
+     *     <bh-dropdown :source='words' display-member='name' value-member='sid' @change='onselect'></bh-dropdown>
      * @example
      *     <caption>javascript</caption>
      *     var words = [{name: 'allow', sid: 1}, {name: 'abc', sid: 2}, {name: 'badf', sid: 3}, {name: 'best world', sid: 4}, {name: 'car', sid: 5}, {name: 'choice', sid: 6}];
      *     export default {
      *         data: function() {
      *             return {
-     *                 words: words,
-     *                 dditem: 3
+     *                 words: words
      *             }
      *         },
      *         methods: {
@@ -139,54 +138,57 @@
                 $(this.$el).jqxDropDownList('clear');
             }
         },
-        ready () {
+        mounted () {
             var self = this;
-            var el = $(this.$el);
 
-            var opts = {
-                source: this.source ? this.source : createAdapter(self),
-                selectedIndex: this.selectedIndex,
-                placeHolder: this.placeholder,
-                width: this.width,
-                height: this.height,
-                checkboxes: this.checkable
-            };
+            self.$nextTick(() => {
+                var el = $(this.$el);
 
-            if (this.displayMember || this.valueMember) {
-                $.extend(opts, {
-                    displayMember: this.displayMember,
-                    valueMember: this.valueMember
-                });
-            }
+                var opts = {
+                    source: this.source ? this.source : createAdapter(self),
+                    selectedIndex: this.selectedIndex,
+                    placeHolder: this.placeholder,
+                    width: this.width,
+                    height: this.height,
+                    checkboxes: this.checkable
+                };
 
-            var jqxObj = this.jqxObj = el.jqxDropDownList(opts);
-
-            if (this.current) {
-                jqxObj.jqxDropDownList('selectItem', this.current);
-            }
-
-            if (this.checkedIndexes && this.checkedIndexes.length > 0) {
-                $.each(this.checkedIndexes, (i, index) => {
-                    jqxObj.jqxDropDownList('checkIndex', index);
-                });
-            }
-
-            jqxObj.on('select', (event) => {
-                if (event.args) {
-                    var item = event.args.item;
-                    if (item) {
-                        self.current = item;
-                        self.$dispatch('change', item);
-                    }
+                if (this.displayMember || this.valueMember) {
+                    $.extend(opts, {
+                        displayMember: this.displayMember,
+                        valueMember: this.valueMember
+                    });
                 }
-            });
 
-            this.$watch('current', (item) => {
-                jqxObj.jqxDropDownList('selectItem', item);
-            });
+                var jqxObj = this.jqxObj = el.jqxDropDownList(opts);
 
-            this.$watch('source', (data) => {
-                jqxObj.jqxDropDownList('source', data);
+                if (this.current) {
+                    jqxObj.jqxDropDownList('selectItem', this.current);
+                }
+
+                if (this.checkedIndexes && this.checkedIndexes.length > 0) {
+                    $.each(this.checkedIndexes, (i, index) => {
+                        jqxObj.jqxDropDownList('checkIndex', index);
+                    });
+                }
+
+                jqxObj.on('select', (event) => {
+                    if (event.args) {
+                        var item = event.args.item;
+                        if (item) {
+                            self.current = item;
+                            self.$emit('change', item);
+                        }
+                    }
+                });
+
+                this.$watch('current', (item) => {
+                    jqxObj.jqxDropDownList('selectItem', item);
+                });
+
+                this.$watch('source', (data) => {
+                    jqxObj.jqxDropDownList('source', data);
+                });
             });
         },
         beforeDestroy () {

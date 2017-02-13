@@ -109,7 +109,7 @@
              */
             setEdit (edit) {
                 this.isEdit = edit;
-                this.$dispatch('status-change', edit); // 状态变化事件
+                this.$emit('status-change', edit); // 状态变化事件
             },
             /**
              * 切换为编辑状态

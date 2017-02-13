@@ -1,7 +1,7 @@
 <template>
     <div class="nav" :style="{height: height, width: width}">
         <ul class="bh-nav bh-card bh-card-lv1" style="height: 100%">
-            <bh-nav-item v-for='item in compiledSource' :nav-item.sync='item' :active-item-id='activeItemId' @trigger="activeItem"></bh-nav-item>
+            <bh-nav-item v-for='item in compiledSource' :nav-item='item' :active-item-id='activeItemId' @trigger="activeItem"></bh-nav-item>
         </ul>
     </div>
 </template>
@@ -240,13 +240,16 @@
         //         this.source = hierarchy(this.source, this.pid);
         //     }
         // },
-        ready () {
+        mounted () {
             var vm = this;
-            var source = vm.source;
-            var cacheMap = vm.cacheMap = convertMap(vm.compiledSource);
-            activeMenuByUrl(source, vm.$router._currentTransition.to.path, cacheMap, vm);
-            vm.$router.afterEach((transition) => { // 监听路由变化
-                activeMenuByUrl(vm.source, transition.to.path, cacheMap, vm);
+
+            vm.$nextTick(() => {
+                var source = vm.source;
+                var cacheMap = vm.cacheMap = convertMap(vm.compiledSource);
+                activeMenuByUrl(source, vm.$router._currentTransition.to.path, cacheMap, vm);
+                vm.$router.afterEach((transition) => { // 监听路由变化
+                    activeMenuByUrl(vm.source, transition.to.path, cacheMap, vm);
+                });
             });
         },
         methods: {

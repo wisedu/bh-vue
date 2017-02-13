@@ -27,7 +27,7 @@
         });
 
         el.on('headerRoleChange', (e, text, $dom) => {
-            vm.$dispatch('role-change', e, text, $dom);
+            vm.$emit('role-change', e, text, $dom);
         });
     };
 
@@ -62,12 +62,14 @@
                 }
             }
         },
-        ready () {
-            _init(this);
+        mounted () {
+            this.$nextTick(() => {
+                _init(this);
 
-            this.$watch('sideMenus', (newVal, oldVal) => {
-                $.bhAsideNav.init(this.sideMenus);
-            });
+                this.$watch('sideMenus', (newVal, oldVal) => {
+                    $.bhAsideNav.init(this.sideMenus);
+                });
+            }); 
         }
     };
 </script>

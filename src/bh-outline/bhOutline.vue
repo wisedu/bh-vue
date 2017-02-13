@@ -74,7 +74,7 @@
                 _init(this);
             }
         },
-        ready () {
+        mounted () {
             this.$watch('formContainer', (newVal) => {
                 if (!newVal) {
                     return;

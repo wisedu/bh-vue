@@ -5,7 +5,7 @@
                 <component v-for='item in source' :is='compName' :item='item'></component>
             </div>
             <div class='pager'>
-                <bh-pagination :pagenum.sync='pageConf.pagenum' :pagesize='pageConf.pagesize' mode='advanced' :total-size.sync='pageConf.total' @page-change='gotoPage'></bh-pagination>
+                <bh-pagination :pagenum='pageConf.pagenum' :pagesize='pageConf.pagesize' mode='advanced' :total-size='pageConf.total' @page-change='gotoPage'></bh-pagination>
             </div>
         </template>
         <template v-else>
@@ -117,8 +117,10 @@
             this.compName = _getItemName();
             Vue.component(this.compName, this.itemComp);
         },
-        ready () {
-            _loadList(this);
+        mounted () {
+            this.$nextTick(() => {
+                _loadList(this);
+            });
         },
         components: {BhPagination}
     };

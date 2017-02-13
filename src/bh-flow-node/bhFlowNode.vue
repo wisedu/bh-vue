@@ -4,16 +4,16 @@
             <div class="scenes-cbrt-no">{{num}}</div>
         </div>
         <div class="scenes-cbrt-right">
-            <div v-if='type === "panel"' :class="panelCls" sc-cbrt-id="{{num}}">
+            <div v-if='type === "panel"' :class="panelCls" :sc-cbrt-id="num">
                 <h3 class="scenes-cbrt-title">{{title}}</h3>
-                <a href="javascript:void(0);" class="bh-tag bh-tag-{{className}} no-active">{{tag}}</a>
+                <a href="javascript:void(0);" class="'bh-tag bh-tag-' + className + ' no-active'">{{tag}}</a>
                 <div class="bh-text-caption bh-caption-default" v-html="caption"></div>
                 <div class="scenes-cbrt-toolbar" v-if='showExpand'>
                     <a href="javascript:void(0);" class="bh-btn-link" sc-cbrt-flag="switch" sc-cbrt-role="extend" @click='toggle'>
                         {{toggleText}}
                     </a>
                 </div>
-                <div v-el:container class="scenes-ci-container-block" :style='{height: currentHeight}' @transitionend='onAnimated'>
+                <div ref="container" class="scenes-ci-container-block" :style='{height: currentHeight}' @transitionend='onAnimated'>
                     <slot></slot>
                 </div>
             </div>
@@ -104,7 +104,11 @@
             toggle () {
                 this.expanded = !this.expanded;
                 this.currentHeight = this.expanded ? this.originHeight : 0;
-                this.$dispatch('toggle-flow-node', this.num, this.expanded);
+                if (this.expanded) {
+                    this.$parent.expand(this.num);
+                } else {
+                    this.$parent.collapse(this.num);
+                }
             },
             /**
              * 展开/收缩动画的回调方法
@@ -124,13 +128,40 @@
             hide () {
                 this.expanded = false;
                 this.currentHeight = 0;
-                this.$dispatch('toggle-flow-node', this.num, false);
+                this.$parent.collapse(this.num);
             }
         },
-        ready () {
+        mounted () {
+            const eventHub = this.$parent.eventHub;
+
+            eventHub.$on('expand-flow-node', (num) => {
+                this.expanded = (num === this.num);
+
+                if (this.expanded) {
+                    this.autoHide && (this.isShow = true);
+                    setTimeout(() => {
+                        this.currentHeight = this.originHeight;
+                    }, 0);
+                } else {
+                    this.currentHeight = 0;
+                }
+            });
+
+            eventHub.$on('collapse-flow-node', (num) => {
+                if (num === this.num) {
+                    this.hide();
+                }
+            });
+
+            eventHub.$on('hide-flow-node', (num) => {
+                if (num === this.num) {
+                    this.hide();
+                }
+            });
+
             this.$nextTick(() => {
-                if (this.$els.container) {
-                    var height = this.$els.container.offsetHeight;
+                if (this.$refs.container) {
+                    var height = this.$refs.container.offsetHeight;
                     this.originHeight = height ? height + 'px' : 'auto';
 
                     if (!this.expanded) {
@@ -142,30 +173,6 @@
                     this.isShow = !this.autoHide;
                 }
             });
-        },
-        events: {
-            'expand-flow-node' (num) {
-                this.expanded = (num === this.num);
-
-                if (this.expanded) {
-                    this.autoHide && (this.isShow = true);
-                    setTimeout(() => {
-                        this.currentHeight = this.originHeight;
-                    }, 0);
-                } else {
-                    this.currentHeight = 0;
-                }
-            },
-            'collapse-flow-node' (num) {
-                if (num === this.num) {
-                    this.hide();
-                }
-            },
-            'hide-flow-node' (num) {
-                if (num === this.num) {
-                    this.hide();
-                }
-            }
         }
     };
 </script>

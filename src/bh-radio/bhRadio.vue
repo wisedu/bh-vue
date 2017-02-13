@@ -17,7 +17,7 @@
      *
      * @example
      *     <caption>html</caption>
-     *     <bh-radio :items='fruits' :value.sync='selVal' dir='v' @change='radioChange'></bh-radio>
+     *     <bh-radio :items='fruits' :value='selVal' dir='v' @change='radioChange'></bh-radio>
      * @example
      *     <caption>javascript</caption>
      *     export default {
@@ -86,8 +86,15 @@
             }
         },
         methods: {
+            /**
+             * 获取当前选择值
+             * @return {String} 当前选择值
+             */
+            getValue () {
+                return this.value;
+            },
             onchange (e) {
-                this.$dispatch('change', this.value);
+                this.$emit('change', this.value);
             }
         }
     };

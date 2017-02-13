@@ -9,14 +9,17 @@
                 jqxObj: null
             };
         },
-        props: ['value'],
-        ready () {
-            // var self = this;
-            var el = $(this.$el);
+        props: ['url'],
+        mounted () {
+            var self = this;
 
-            this.jqxObj = el.fileupload({
-                autoUpload: true,
-                url: 'xxx.do'
+            self.$nextTick(() => {
+                var el = $(self.$el);
+
+                self.jqxObj = el.fileupload({
+                    autoUpload: true,
+                    url: this.url
+                });
             });
         }
     };

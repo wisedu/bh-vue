@@ -12,11 +12,10 @@
      *
      * @example
      *     <caption>html</caption>
-     *     <bh-datetime :value.sync='dtval' :options='dtoptions'></bh-datetime>
+     *     <bh-datetime :options='dtoptions'></bh-datetime>
      * @example
      *     <caption>javascript</caption>
      *     {
-     *         dtval: '',
      *         dtoptions: {
      *             min: new Date(),
      *             dateFormat: 'MM-dd ',
@@ -74,6 +73,13 @@
                 return $(this.$el).jqxDateTimeInput('getText');
             },
             /**
+             * 获取当前值
+             * @return {String} 当前选择的值
+             */
+            getValue () {
+                return this.value;
+            },
+            /**
              * 设置最小时间
              * @param {Date} min 最小时间
              */
@@ -88,41 +94,43 @@
                 $(this.$el).jqxDateTimeInput('setMaxDate', max);
             }
         },
-        ready () {
+        mounted () {
             var self = this;
 
             var options = self.options = $.extend({}, self.defaultOpts, self.options);
 
             var formatStr = options.showTime ? options.timeFormat : options.dateFormat;
 
-            var el = $(self.$el);
-            var jqObj = self.jqxObj = el.jqxDateTimeInput({
-                formatString: formatStr,
-                showTimeButton: options.showTime,
-                min: options.min,
-                max: options.max,
-                culture: options.culture,
-                placeHolder: options.placeHolder,
-                selectionMode: options.selectionMode,
-                showFooter: options.showFooter
-            });
+            self.$nextTick(() => {
+                var el = $(self.$el);
+                var jqObj = self.jqxObj = el.jqxDateTimeInput({
+                    formatString: formatStr,
+                    showTimeButton: options.showTime,
+                    min: options.min,
+                    max: options.max,
+                    culture: options.culture,
+                    placeHolder: options.placeHolder,
+                    selectionMode: options.selectionMode,
+                    showFooter: options.showFooter
+                });
 
-            setCurrent(jqObj, this.value);
-            el.jqxDateTimeInput({disabled: this.disabled});
+                setCurrent(jqObj, this.value);
+                el.jqxDateTimeInput({disabled: this.disabled});
 
-            jqObj.on('change', (event) => {
+                jqObj.on('change', (event) => {
+                    self.value = getCurrent(jqObj);
+                });
+
+                self.$watch('value', (val) => {
+                    setCurrent(jqObj, val);
+                });
+
+                self.$watch('disabled', (val) => {
+                    el.jqxDateTimeInput({disabled: val});
+                });
+
                 self.value = getCurrent(jqObj);
             });
-
-            self.$watch('value', (val) => {
-                setCurrent(jqObj, val);
-            });
-
-            self.$watch('disabled', (val) => {
-                el.jqxDateTimeInput({disabled: val});
-            });
-
-            self.value = getCurrent(jqObj);
         },
         beforeDestroy () {
             var el = $(this.$el);

@@ -11,7 +11,7 @@
      *
      * @example
      *     <caption>html</caption>
-     *     <bh-pagination :pagenum.sync='pager.pagenum' :pagesize='20' :total-size='pager.total' @page-change='gotoPage'></bh-pagination>
+     *     <bh-pagination :pagenum='pager.pagenum' :pagesize='20' :total-size='pager.total' @page-change='gotoPage'></bh-pagination>
      * @example
      *     <caption>javascript</caption>
      *     export default {
@@ -62,7 +62,6 @@
             },
             pagenum: {
                 type: Number,
-                twoWay: true,
                 default: 0
             },
             totalSize: {
@@ -70,31 +69,57 @@
                 default: 0
             }
         },
-        ready () {
+        methods: {
+            /**
+             * 获取当前的页码
+             * @return {Number} 当前的页码
+             */
+            getPagenum () {
+                return $(this.$el).pagination('getPagenum');
+            },
+            /**
+             * 获取每页大小
+             * @return {Number} 每页大小
+             */
+            getPagesize () {
+                return $(this.$el).pagination('getPagesize');
+            },
+            /**
+             * 获取记录总条数
+             * @return {Number} 记录总条数
+             */
+            getTotal () {
+                return $(this.$el).pagination('getTotal');
+            }
+        },
+        mounted () {
             var vm = this;
-            var el = $(vm.$el);
-            el.pagination({
-                mode: vm.mode,
-                pagesize: vm.pagesize,
-                pageSizeOptions: vm.pageSizeOptions,
-                selectedIndex: vm.selectedIndex,
-                pagenum: vm.pagenum,
-                totalSize: vm.totalSize
-            });
 
-            el.on('pagersearch', (e, pagenum, pagesize, total) => {
-                vm.$dispatch('page-change', pagenum, pagesize, total);
-            });
-
-            vm.$watch('totalSize', (newVal) => {
-                el.pagination('destroy');
+            vm.$nextTick(() => {
+                var el = $(vm.$el);
                 el.pagination({
                     mode: vm.mode,
                     pagesize: vm.pagesize,
                     pageSizeOptions: vm.pageSizeOptions,
                     selectedIndex: vm.selectedIndex,
                     pagenum: vm.pagenum,
-                    totalSize: newVal
+                    totalSize: vm.totalSize
+                });
+
+                el.on('pagersearch', (e, pagenum, pagesize, total) => {
+                    vm.$emit('page-change', pagenum, pagesize, total);
+                });
+
+                vm.$watch('totalSize', (newVal) => {
+                    el.pagination('destroy');
+                    el.pagination({
+                        mode: vm.mode,
+                        pagesize: vm.pagesize,
+                        pageSizeOptions: vm.pageSizeOptions,
+                        selectedIndex: vm.selectedIndex,
+                        pagenum: vm.pagenum,
+                        totalSize: newVal
+                    });
                 });
             });
         },

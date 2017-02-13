@@ -84,7 +84,7 @@
                 }
 
                 if(this.type === 'button') {
-                    this.$dispatch('clickitem', item);
+                    this.$emit('clickitem', item);
                     e.preventDefault();
                 }else{
                     if(!item.url){
@@ -94,11 +94,11 @@
                 }
             }
         },
-        ready () {
+        mounted () {
+            // TODO
         },
         beforeDestroy () {
-        },
-        computed: {
+            // TODO
         }
     };
 </script>

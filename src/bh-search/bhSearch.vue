@@ -15,7 +15,7 @@
      *
      * @example
      * <caption>html</caption>
-     * <bh-search @search='search' :value.sync='val' placeholder='随便输入，长度小于10' :maxlength='maxlength' :source='candidates'></bh-search>
+     * <bh-search @search='search' placeholder='随便输入，长度小于10' :maxlength='maxlength' :source='candidates'></bh-search>
      */
     
     /**
@@ -80,19 +80,22 @@
                 return _trim(this.value);
             },
             search () {
-                this.$dispatch('search', _trim(this.value));
+                this.$emit('search', _trim(this.value));
             }
         },
-        ready () {
-            // var self = this;
-            var el = $(this.$el);
+        mounted () {
+            var self = this;
 
-            this.jqxObj = el.jqxInput({
-                source: this.source
-            });
+            self.$nextTick(() => {
+                var el = $(self.$el);
 
-            this.$nextTick(() => {
-                el.find('input.jqx-input-group-addon').css('border-right-width', '1px');
+                self.jqxObj = el.jqxInput({
+                    source: self.source
+                });
+
+                self.$nextTick(() => {
+                    el.find('input.jqx-input-group-addon').css('border-right-width', '1px');
+                });
             });
         },
         beforeDestroy () {

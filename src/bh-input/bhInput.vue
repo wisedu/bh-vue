@@ -9,7 +9,7 @@
      *
      * @example
      *     <caption>html</caption>
-     *     <bh-input :value.sync='inputVal' placeholder='请输入问题'></bh-input>
+     *     <bh-input placeholder='请输入问题'></bh-input>
      */
     export default {
         data () {
@@ -24,22 +24,34 @@
          * @property {Boolean} [disabled=false] 是否禁用
          */
         props: ['value', 'placeholder', 'source', 'disabled'],
-        ready () {
-             var self = this;
-            var el = $(self.$el);
+        methods: {
+            /**
+             * 获取输入值
+             * @return {String} 输入的字符串
+             */
+            getValue () {
+                return this.value;
+            }
+        },
+        mounted () {
+            var self = this;
 
-            self.jqxObj = el.jqxInput({
-                placeHolder: self.placeholder,
-                source: self.source ? self.source : [],
-                disabled: self.disabled
-            });
+            self.$nextTick(() => {
+                var el = $(self.$el);
 
-            self.$watch('disabled', (newVal) => {
-                if(newVal) {
-                    self.jqxObj.jqxInput({disabled: true});
-                }else {
-                    self.jqxObj.jqxInput({disabled: false});
-                }
+                self.jqxObj = el.jqxInput({
+                    placeHolder: self.placeholder,
+                    source: self.source ? self.source : [],
+                    disabled: self.disabled
+                });
+
+                self.$watch('disabled', (newVal) => {
+                    if(newVal) {
+                        self.jqxObj.jqxInput({disabled: true});
+                    }else {
+                        self.jqxObj.jqxInput({disabled: false});
+                    }
+                });
             });
         },
         beforeDestroy () {

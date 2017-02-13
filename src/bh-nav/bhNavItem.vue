@@ -2,10 +2,10 @@
     <li class='bh-nav-item' :class="{'bh-active': navItem.id == activeItemId, 'bh-nav-dropdown': hasChildren, 'bh-open': expand}" menu-id='{{navItem.id}}'>
         <a href="javascript:void(0)" @click.stop='click'>
             <div>
-                <i v-if='navItem.icon' class="{{navItem.icon}}"></i>{{navItem.name}}
+                <i v-if='navItem.icon' :class="navItem.icon"></i>{{navItem.name}}
             </div>
         </a>
-        <ul class="bh-nav node-level-{{navItem.depth}}" v-if='hasChildren'>
+        <ul :class="'bh-nav node-level-' + navItem.depth" v-if='hasChildren'>
             <bh-nav-item v-for='child in navItem.children' :nav-item='child' :active-item-id='activeItemId'></bh-nav-item>
         </ul>
     </li>
@@ -45,7 +45,7 @@
                 this.expand = !this.expand;
             },
             trigger () {
-                this.$dispatch('trigger', this.navItem);
+                this.$emit('trigger', this.navItem);
             },
             click () {
                 var item = this.navItem;

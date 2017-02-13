@@ -10,7 +10,6 @@
      * @example
      *     <caption>html</caption>
      *     <bh-datatable root='a1' ref=dt1 :columns='columns' :pageable='true' :query-type='POST'
-     *     :selected-rows.sync='selectedRows' :checked-rows.sync='checkedRows'
      *     :checkable='true' url='/mock/datatable.json' :query-params='queryParams'
      *     :operations='operations' @edit='edit' @del='del' :callbacks='callbacks'></bh-datatable>
      * @example
@@ -18,8 +17,6 @@
      *     export default {
      *        data: function() {
      *          return {
-     *              selectedRows: [],
-     *              checkedRows: [],
      *              columns: [
      *                  { text: 'Name', dataField: 'name', width: 300},
      *                  { text: 'Beverage Type', dataField: 'type', width: 300 },
@@ -59,10 +56,10 @@
      *              console.log('delete row:', row);
      *          },
      *          getCurrent: function() {
-     *              console.log(this.selectedRows);
+     *              console.log(this.getSelectedRows());
      *          },
      *          getChecked: function() {
-     *              console.log(this.checkedRows);
+     *              console.log(this.getChecked());
      *          },
      *          search: function() {
      *              this.$refs.dt1.render();
@@ -285,7 +282,7 @@
          * @property {String} operations.title 操作列头名称
          * @property {Object[]} operations.items 操作按钮列表
          * @property {String} operations.items.title 操作按钮显示名称
-         * @property {String} operations.items.name 操作按钮标识，可在组件上监听此 dispatch 事件
+         * @property {String} operations.items.name 操作按钮标识，可在组件上监听此 emit 事件
          * @property {String} operations.items.type 操作按钮类型，指定'button'为按钮，否则为链接
          * @property {Object} [callbacks] 数据请求过程中的一些回调方法
          * @property {Function} callbacks.downloadComplete 请求数据结束时触发，参数为 data
@@ -474,7 +471,7 @@
 
                 vm.checkedRows.push(rowData);
                 vm.checkedIds.push(id);
-                vm.$dispatch('check-change', true, rowData);
+                vm.$emit('check-change', true, rowData);
             },
             /**
              * 根据主键id反选一行
@@ -487,7 +484,7 @@
                 if ($.inArray(id, vm.checkedIds) === -1) {
                     var params = {};
                     params[keyId] = id;
-                    vm.$dispatch('check-change', false, params);
+                    vm.$emit('check-change', false, params);
                     return;
                 }
 
@@ -496,10 +493,17 @@
                         var rowData = vm.checkedRows.splice(i, 1)[0];
                         vm.checkedIds.splice(i, 1);
                         setCheckStatus(vm);
-                        vm.$dispatch('check-change', false, rowData);
+                        vm.$emit('check-change', false, rowData);
                         return false;
                     }
                 });
+            },
+            /**
+             * 获取(通过鼠标点击)选择的行
+             * @return {Array} 所有选择的行
+             */
+            getSelectedRows () {
+                return this.selectedRows;
             },
             /**
              * 清空表格
@@ -509,92 +513,95 @@
                 el.jqxDataTable('clear');
             }
         },
-        ready () {
+        mounted () {
             var vm = this;
-            var el = $(vm.$el);
 
-            if (vm.checkable) { // 复选框为一列
-                vm.columns.unshift(getCheckColumn(vm));
-            }
+            vm.$nextTick(() => {
+                var el = $(vm.$el);
 
-            if (vm.operations && vm.operations.items && (vm.operations.items.length > 0)) {
-                vm.columns.push(getOptColumn(vm));
-            }
+                if (vm.checkable) { // 复选框为一列
+                    vm.columns.unshift(getCheckColumn(vm));
+                }
 
-            vm.jqxObj = el.jqxDataTable({
-                width: vm.width,
-                height: vm.height,
-                showHeader: vm.showHeader,
-                pageable: vm.pageable,
-                sortable: vm.sortable,
-                columnsReorder: vm.reorder,
-                columnsResize: vm.resize,
-                enableBrowserSelection: vm.enableBrowserSelection,
-                selectionMode: vm.selectionMode,
-                pagerMode: vm.pagerMode,
-                source: createAdapter(vm),
-                columns: vm.columns,
-                serverProcessing: true,
-                rendered () {
-                    // 数据加载完成，读取各列的checkbox，判断头部的checkbox是否要勾选
-                    setCheckStatus(vm);
+                if (vm.operations && vm.operations.items && (vm.operations.items.length > 0)) {
+                    vm.columns.push(getOptColumn(vm));
+                }
 
-                    vm.$dispatch('rendered');
-                },
-                ready () {
-                    var $table = el;
-                    var $tableContent = $table.find('table');
+                vm.jqxObj = el.jqxDataTable({
+                    width: vm.width,
+                    height: vm.height,
+                    showHeader: vm.showHeader,
+                    pageable: vm.pageable,
+                    sortable: vm.sortable,
+                    columnsReorder: vm.reorder,
+                    columnsResize: vm.resize,
+                    enableBrowserSelection: vm.enableBrowserSelection,
+                    selectionMode: vm.selectionMode,
+                    pagerMode: vm.pagerMode,
+                    source: createAdapter(vm),
+                    columns: vm.columns,
+                    serverProcessing: true,
+                    rendered () {
+                        // 数据加载完成，读取各列的checkbox，判断头部的checkbox是否要勾选
+                        setCheckStatus(vm);
 
-                    if (vm.checkable) {
-                        var $checkboxList = $tableContent.find('div.bh-checkbox');
-                        var isSelectAllFlag = true;
-                        $checkboxList.each(function () {
-                            var $itemCheckbox = $(this);
-                            if ($itemCheckbox.find('input[checked]').length === 0) {
-                                isSelectAllFlag = false;
-                                return false;
+                        vm.$emit('rendered');
+                    },
+                    ready () {
+                        var $table = el;
+                        var $tableContent = $table.find('table');
+
+                        if (vm.checkable) {
+                            var $checkboxList = $tableContent.find('div.bh-checkbox');
+                            var isSelectAllFlag = true;
+                            $checkboxList.each(function () {
+                                var $itemCheckbox = $(this);
+                                if ($itemCheckbox.find('input[checked]').length === 0) {
+                                    isSelectAllFlag = false;
+                                    return false;
+                                }
+                            });
+
+                            var $selectAllCheckbox = $table.find('div.selectAllCheckboxFlag').find('input');
+                            if (isSelectAllFlag) {
+                                $selectAllCheckbox.prop('checked', true).addClass('selectFlag');
+                            } else {
+                                $selectAllCheckbox.prop('checked', false).removeClass('selectFlag');
                             }
-                        });
 
-                        var $selectAllCheckbox = $table.find('div.selectAllCheckboxFlag').find('input');
-                        if (isSelectAllFlag) {
-                            $selectAllCheckbox.prop('checked', true).addClass('selectFlag');
-                        } else {
-                            $selectAllCheckbox.prop('checked', false).removeClass('selectFlag');
+                            // 初始化完成后，绑定checkbox的点击事件
+                            el.on('click', 'div.bh-checkbox', function (e) {
+                                var checkItem = $(e.currentTarget).find('input');
+                                var id = checkItem.data('id') + '';
+                                var isAdd = checkItem[0].checked;
+
+                                scenesTableContentCheckboxClick($(this).find('input'), el);
+                                if (isAdd) {
+                                    vm.checkById(id);
+                                } else {
+                                    vm.uncheckById(id);
+                                }
+                            });
                         }
 
-                        // 初始化完成后，绑定checkbox的点击事件
-                        el.on('click', 'div.bh-checkbox', function (e) {
-                            var checkItem = $(e.currentTarget).find('input');
-                            var id = checkItem.data('id') + '';
-                            var isAdd = checkItem[0].checked;
-
-                            scenesTableContentCheckboxClick($(this).find('input'), el);
-                            if (isAdd) {
-                                vm.checkById(id);
-                            } else {
-                                vm.uncheckById(id);
-                            }
-                        });
-                    }
-
-                    vm.selectedRows = getSelection(el);
-
-                    el.on('rowSelect', function (event) {
                         vm.selectedRows = getSelection(el);
-                    });
 
-                    el.on('click', '.opt-button', function () {
-                        var _this = $(this);
-                        var row = _this.attr('data-row');
-                        var name = _this.attr('data-name');
+                        el.on('rowSelect', function (event) {
+                            vm.selectedRows = getSelection(el);
+                        });
 
-                        var viewRows = getAll(el);
-                        vm.$dispatch(name, viewRows[row]);
-                    });
+                        el.on('click', '.opt-button', function () {
+                            var _this = $(this);
+                            var row = _this.attr('data-row');
+                            var name = _this.attr('data-name');
 
-                    vm.$dispatch('ready');
-                }
+                            var viewRows = getAll(el);
+                            vm.$emit(name, viewRows[row]);
+                        });
+
+                        vm.$emit('ready');
+                    }
+                });
             });
         },
         destory: function () {
