@@ -1,0 +1,865 @@
+
+2. Replace :selected-rows.sync='selectedRows' with :selected-rows='selectedRows', then $emit an event from the child component to trigger an update to selectedRows in the parent
+  Line 13: src/bh-datatable/bhDatatable.vue
+  Reason: v-bind.sync and v-bind.once have removed to enforce one-way down props, leaving side effects to more explicit component events
+  More info: http://vuejs.org/guide/migration.html#v-bind-with-once-and-sync-Modifiers
+
+3. Replace vm.$dispatch('check-change', true, rowData) to use a global event bus or vuex (see link below for implementation details)
+  Line 477: src/bh-datatable/bhDatatable.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+4. Replace vm.$dispatch('check-change', false, params) to use a global event bus or vuex (see link below for implementation details)
+  Line 490: src/bh-datatable/bhDatatable.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+5. Replace vm.$dispatch('check-change', false, rowData) to use a global event bus or vuex (see link below for implementation details)
+  Line 499: src/bh-datatable/bhDatatable.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+6. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 512: src/bh-datatable/bhDatatable.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+7. Replace vm.$dispatch('rendered') to use a global event bus or vuex (see link below for implementation details)
+  Line 542: src/bh-datatable/bhDatatable.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+8. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 544: src/bh-datatable/bhDatatable.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+9. Replace vm.$dispatch(name, viewRows[row]) to use a global event bus or vuex (see link below for implementation details)
+  Line 593: src/bh-datatable/bhDatatable.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+10. Replace vm.$dispatch('ready') to use a global event bus or vuex (see link below for implementation details)
+  Line 596: src/bh-datatable/bhDatatable.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+11. Replace :value.sync='dtval' with :value='dtval', then $emit an event from the child component to trigger an update to dtval in the parent
+  Line 15: src/bh-datetime/bhDatetime.vue
+  Reason: v-bind.sync and v-bind.once have removed to enforce one-way down props, leaving side effects to more explicit component events
+  More info: http://vuejs.org/guide/migration.html#v-bind-with-once-and-sync-Modifiers
+
+12. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 91: src/bh-datetime/bhDatetime.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+13. Replace :current.sync='dditem' with :current='dditem', then $emit an event from the child component to trigger an update to dditem in the parent
+  Line 14: src/bh-dropdown/bhDropdown.vue
+  Reason: v-bind.sync and v-bind.once have removed to enforce one-way down props, leaving side effects to more explicit component events
+  More info: http://vuejs.org/guide/migration.html#v-bind-with-once-and-sync-Modifiers
+
+14. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 142: src/bh-dropdown/bhDropdown.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+15. Replace self.$dispatch('change', item) to use a global event bus or vuex (see link below for implementation details)
+  Line 179: src/bh-dropdown/bhDropdown.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+16. Replace this.$dispatch('clickitem', item) to use a global event bus or vuex (see link below for implementation details)
+  Line 87: src/bh-dropdownmenu/bhDropdownmenu.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+17. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 97: src/bh-dropdownmenu/bhDropdownmenu.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+18. Replace this.$dispatch('status-change', edit) to use a global event bus or vuex (see link below for implementation details)
+  Line 112: src/bh-edit-panel/bhEditPanel.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+19. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 13: src/bh-fileupload/bhFileupload.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+20. Update sc-cbrt-id="{{num}}" to v-bind:sc-cbrt-id="num"
+  Line 7: src/bh-flow-node/bhFlowNode.vue
+  Reason: Interpolation within attributes has been removed
+  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+
+21. Update class="bh-tag bh-tag-{{className}} no-active" to v-bind:class="'bh-tag bh-tag-' + className + ' no-active'"
+  Line 9: src/bh-flow-node/bhFlowNode.vue
+  Reason: Interpolation within attributes has been removed
+  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+
+22. Update v-el:container to ref="container"
+  Line 16: src/bh-flow-node/bhFlowNode.vue
+  Reason: v-el and v-ref merged into ref attribute
+  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
+
+23. Replace this.$dispatch('toggle-flow-node', this.num, this.expanded) to use a global event bus or vuex (see link below for implementation details)
+  Line 107: src/bh-flow-node/bhFlowNode.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+24. Replace this.$dispatch('toggle-flow-node', this.num, false) to use a global event bus or vuex (see link below for implementation details)
+  Line 127: src/bh-flow-node/bhFlowNode.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+25. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 130: src/bh-flow-node/bhFlowNode.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+26. Update this.$els.container to this.$refs.container
+  Line 132: src/bh-flow-node/bhFlowNode.vue
+  Reason: v-el and v-ref merged into ref attribute
+  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
+
+27. Update this.$els.container to this.$refs.container
+  Line 133: src/bh-flow-node/bhFlowNode.vue
+  Reason: v-el and v-ref merged into ref attribute
+  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
+
+28. Replace vm.$dispatch('role-change', e, text, $dom) to use a global event bus or vuex (see link below for implementation details)
+  Line 30: src/bh-header/bhHeader.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+29. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 65: src/bh-header/bhHeader.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+30. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 19: src/bh-footer/bhFooter.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+31. Replace init with beforeCreate
+  Line 2: src/bh-header/skin.js
+  Reason: init lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#init
+
+32. Replace :value.sync='inputVal' with :value='inputVal', then $emit an event from the child component to trigger an update to inputVal in the parent
+  Line 12: src/bh-input/bhInput.vue
+  Reason: v-bind.sync and v-bind.once have removed to enforce one-way down props, leaving side effects to more explicit component events
+  More info: http://vuejs.org/guide/migration.html#v-bind-with-once-and-sync-Modifiers
+
+33. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 27: src/bh-input/bhInput.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+34. Replace :pagenum.sync='pageConf.pagenum' with :pagenum='pageConf.pagenum', then $emit an event from the child component to trigger an update to pageConf.pagenum in the parent
+  Line 8: src/bh-listview/bhListview.vue
+  Reason: v-bind.sync and v-bind.once have removed to enforce one-way down props, leaving side effects to more explicit component events
+  More info: http://vuejs.org/guide/migration.html#v-bind-with-once-and-sync-Modifiers
+
+35. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 120: src/bh-listview/bhListview.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+36. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 57: src/bh-loading/bhLoading.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+37. Replace :nav-item.sync='item' with :nav-item='item', then $emit an event from the child component to trigger an update to item in the parent
+  Line 4: src/bh-nav/bhNav.vue
+  Reason: v-bind.sync and v-bind.once have removed to enforce one-way down props, leaving side effects to more explicit component events
+  More info: http://vuejs.org/guide/migration.html#v-bind-with-once-and-sync-Modifiers
+
+38. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 243: src/bh-nav/bhNav.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+39. Update class="{{navItem.icon}}" to v-bind:class="navItem.icon"
+  Line 5: src/bh-nav/bhNavItem.vue
+  Reason: Interpolation within attributes has been removed
+  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+
+40. Update class="bh-nav node-level-{{navItem.depth}}" to v-bind:class="'bh-nav node-level-' + navItem.depth"
+  Line 8: src/bh-nav/bhNavItem.vue
+  Reason: Interpolation within attributes has been removed
+  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+
+41. Replace this.$dispatch('trigger', this.navItem) to use a global event bus or vuex (see link below for implementation details)
+  Line 48: src/bh-nav/bhNavItem.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+42. Replace init with beforeCreate
+  Line 73: src/bh-outline/bhOutline.vue
+  Reason: init lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#init
+
+43. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 77: src/bh-outline/bhOutline.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+44. Replace :pagenum.sync='pager.pagenum' with :pagenum='pager.pagenum', then $emit an event from the child component to trigger an update to pager.pagenum in the parent
+  Line 14: src/bh-pagination/bhPagination.vue
+  Reason: v-bind.sync and v-bind.once have removed to enforce one-way down props, leaving side effects to more explicit component events
+  More info: http://vuejs.org/guide/migration.html#v-bind-with-once-and-sync-Modifiers
+
+45. Delete twoWay: true, then $emit an event from the child component to trigger an update to the prop in the parent
+  Line 65: src/bh-pagination/bhPagination.vue
+  Reason: Two-way prop binding has been removed in favor of more explicit event-driven communication between parent and child
+  More info: http://vuejs.org/guide/migration.html#twoWay-Prop-Option
+
+46. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 73: src/bh-pagination/bhPagination.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+47. Replace vm.$dispatch('page-change', pagenum, pagesize, total) to use a global event bus or vuex (see link below for implementation details)
+  Line 86: src/bh-pagination/bhPagination.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+48. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 49: src/bh-panel/bhPanel.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+49. Replace :value.sync='selVal' with :value='selVal', then $emit an event from the child component to trigger an update to selVal in the parent
+  Line 20: src/bh-radio/bhRadio.vue
+  Reason: v-bind.sync and v-bind.once have removed to enforce one-way down props, leaving side effects to more explicit component events
+  More info: http://vuejs.org/guide/migration.html#v-bind-with-once-and-sync-Modifiers
+
+50. Replace this.$dispatch('change', this.value) to use a global event bus or vuex (see link below for implementation details)
+  Line 90: src/bh-radio/bhRadio.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+51. Replace :value.sync='val' with :value='val', then $emit an event from the child component to trigger an update to val in the parent
+  Line 18: src/bh-search/bhSearch.vue
+  Reason: v-bind.sync and v-bind.once have removed to enforce one-way down props, leaving side effects to more explicit component events
+  More info: http://vuejs.org/guide/migration.html#v-bind-with-once-and-sync-Modifiers
+
+52. Replace this.$dispatch('search', _trim(this.value) to use a global event bus or vuex (see link below for implementation details)
+  Line 83: src/bh-search/bhSearch.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+53. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 86: src/bh-search/bhSearch.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+54. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 12: src/bh-sidemenus/bhSidemenus.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+55. Update v-ref:sf to ref="sf"
+  Line 15: src/bh-step-flow/bhStepFlow.vue
+  Reason: v-el and v-ref merged into ref attribute
+  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
+
+56. Replace this.$broadcast('expand-flow-node', num) to use a global event bus or vuex (see link below for implementation details)
+  Line 34: src/bh-step-flow/bhStepFlow.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+57. Replace this.$broadcast('collapse-flow-node', num) to use a global event bus or vuex (see link below for implementation details)
+  Line 41: src/bh-step-flow/bhStepFlow.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+58. Replace this.$broadcast('hide-flow-node', num) to use a global event bus or vuex (see link below for implementation details)
+  Line 48: src/bh-step-flow/bhStepFlow.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+59. Replace activate with beforeRouteEnter in the component
+  Line 105: src/bh-step-wizard/bhStepWizard.vue
+  Reason: The activate router lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration-vue-router.html#activate
+
+60. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 127: src/bh-step-wizard/bhStepWizard.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+61. Replace self.$dispatch('change', step) to use a global event bus or vuex (see link below for implementation details)
+  Line 139: src/bh-step-wizard/bhStepWizard.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+62. Replace :toggled.sync='aaaa' with :toggled='aaaa', then $emit an event from the child component to trigger an update to aaaa in the parent
+  Line 18: src/bh-switch/bhSwitch.vue
+  Reason: v-bind.sync and v-bind.once have removed to enforce one-way down props, leaving side effects to more explicit component events
+  More info: http://vuejs.org/guide/migration.html#v-bind-with-once-and-sync-Modifiers
+
+63. Replace this.$dispatch('toggle', e.target.checked) to use a global event bus or vuex (see link below for implementation details)
+  Line 65: src/bh-switch/bhSwitch.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+64. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 96: src/bh-tabs/bhTabs.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+65. Replace self.$dispatch('selected', selectedTab) to use a global event bus or vuex (see link below for implementation details)
+  Line 108: src/bh-tabs/bhTabs.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+66. Replace self.$dispatch('unselected', selectedTab) to use a global event bus or vuex (see link below for implementation details)
+  Line 113: src/bh-tabs/bhTabs.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+67. Replace :value.sync='val' with :value='val', then $emit an event from the child component to trigger an update to val in the parent
+  Line 12: src/bh-textarea/bhTextarea.vue
+  Reason: v-bind.sync and v-bind.once have removed to enforce one-way down props, leaving side effects to more explicit component events
+  More info: http://vuejs.org/guide/migration.html#v-bind-with-once-and-sync-Modifiers
+
+68. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 27: src/bh-textarea/bhTextarea.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+69. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 24: src/bh-timepicker/bhTimepicker.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+70. Replace vm.$dispatch('ready') to use a global event bus or vuex (see link below for implementation details)
+  Line 25: src/bh-timepicker/bhTimepicker.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+71. Replace vm.$dispatch('change', startTimeStr, endTimeStr) to use a global event bus or vuex (see link below for implementation details)
+  Line 28: src/bh-timepicker/bhTimepicker.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+72. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 118: src/bh-timepicker/bhTimepicker.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+73. Replace this.$dispatch('toggle', this.toggled) to use a global event bus or vuex (see link below for implementation details)
+  Line 63: src/bh-toggle/bhToggle.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+74. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 66: src/bh-toggle/bhToggle.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+75. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 73: src/bh-tooltip/bhTooltip.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+76. Update v-el:treeroot to ref="treeroot"
+  Line 2: src/bh-tree/bhTree.vue
+  Reason: v-el and v-ref merged into ref attribute
+  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
+
+77. Replace :selected-item.sync='selItem' with :selected-item='selItem', then $emit an event from the child component to trigger an update to selItem in the parent
+  Line 13: src/bh-tree/bhTree.vue
+  Reason: v-bind.sync and v-bind.once have removed to enforce one-way down props, leaving side effects to more explicit component events
+  More info: http://vuejs.org/guide/migration.html#v-bind-with-once-and-sync-Modifiers
+
+78. Replace self.$dispatch('select', item) to use a global event bus or vuex (see link below for implementation details)
+  Line 90: src/bh-tree/bhTree.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+79. Update vm.$els.treeroot to vm.$refs.treeroot
+  Line 112: src/bh-tree/bhTree.vue
+  Reason: v-el and v-ref merged into ref attribute
+  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
+
+80. Replace self.$dispatch('select', items[0]) to use a global event bus or vuex (see link below for implementation details)
+  Line 126: src/bh-tree/bhTree.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+81. Replace self.$dispatch('initialized') to use a global event bus or vuex (see link below for implementation details)
+  Line 127: src/bh-tree/bhTree.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+82. Replace vm.$dispatch(target.data('action') to use a global event bus or vuex (see link below for implementation details)
+  Line 183: src/bh-tree/bhTree.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+83. Update vm.$els.treeroot to vm.$refs.treeroot
+  Line 188: src/bh-tree/bhTree.vue
+  Reason: v-el and v-ref merged into ref attribute
+  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
+
+84. Update vm.$els.treeroot to vm.$refs.treeroot
+  Line 195: src/bh-tree/bhTree.vue
+  Reason: v-el and v-ref merged into ref attribute
+  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
+
+85. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 407: src/bh-tree/bhTree.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+86. Update v-el:linkfile to ref="linkfile"
+  Line 4: src/bh-uploader/bhUploader.vue
+  Reason: v-el and v-ref merged into ref attribute
+  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
+
+87. Update v-el:buttonfile to ref="buttonfile"
+  Line 7: src/bh-uploader/bhUploader.vue
+  Reason: v-el and v-ref merged into ref attribute
+  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
+
+88. Replace vm.$dispatch('submiting', data) to use a global event bus or vuex (see link below for implementation details)
+  Line 40: src/bh-uploader/bhUploader.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+89. Replace vm.$dispatch('done', data) to use a global event bus or vuex (see link below for implementation details)
+  Line 48: src/bh-uploader/bhUploader.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+90. Replace vm.$dispatch('failed', data) to use a global event bus or vuex (see link below for implementation details)
+  Line 52: src/bh-uploader/bhUploader.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+91. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 81: src/bh-uploader/bhUploader.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+92. Update this.$els.linkfile to this.$refs.linkfile
+  Line 82: src/bh-uploader/bhUploader.vue
+  Reason: v-el and v-ref merged into ref attribute
+  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
+
+93. Replace {{{title}}} with v-html="title" on a containing element
+  Line 4: src/bh-window/bhWindow.vue
+  Reason: HTML interpolation with {{{ }}} has been removed
+  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
+
+94. Update class="bh-btn {{btn.className}}" to v-bind:class="'bh-btn ' + btn.className"
+  Line 11: src/bh-window/bhWindow.vue
+  Reason: Interpolation within attributes has been removed
+  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+
+95. Replace :is-open.sync='dlg.show' with :is-open='dlg.show', then $emit an event from the child component to trigger an update to dlg.show in the parent
+  Line 29: src/bh-window/bhWindow.vue
+  Reason: v-bind.sync and v-bind.once have removed to enforce one-way down props, leaving side effects to more explicit component events
+  More info: http://vuejs.org/guide/migration.html#v-bind-with-once-and-sync-Modifiers
+
+96. Replace self.$dispatch('created') to use a global event bus or vuex (see link below for implementation details)
+  Line 142: src/bh-window/bhWindow.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+97. Replace self.$dispatch('close') to use a global event bus or vuex (see link below for implementation details)
+  Line 155: src/bh-window/bhWindow.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+98. Replace self.$dispatch('open') to use a global event bus or vuex (see link below for implementation details)
+  Line 166: src/bh-window/bhWindow.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+99. Replace init with beforeCreate
+  Line 212: src/bh-window/bhWindow.vue
+  Reason: init lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#init
+
+100. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 243: src/bh-window/bhWindow.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+101. Update class="wizard-content-{{item.stepId}}" to v-bind:class="'wizard-content-' + item.stepId"
+  Line 4: src/bh-wizard/bhWizard.vue
+  Reason: Interpolation within attributes has been removed
+  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+
+102. Refactor keep-alive attribute to a <keep-alive></keep-alive> wrapper component
+  Line 5: src/bh-wizard/bhWizard.vue
+  Reason: keep-alive is now a wrapper element, rather than an attribute
+  More info: http://vuejs.org/guide/migration.html#keep-alive-Attribute
+
+103. Replace :current.sync="current" with :current="current", then $emit an event from the child component to trigger an update to current in the parent
+  Line 16: src/bh-wizard/bhWizard.vue
+  Reason: v-bind.sync and v-bind.once have removed to enforce one-way down props, leaving side effects to more explicit component events
+  More info: http://vuejs.org/guide/migration.html#v-bind-with-once-and-sync-Modifiers
+
+104. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 59: src/bh-wizard/bhWizard.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+105. Update class="bh-btn bh-btn-{{item.primary?'primary':'default'}} waves-effect" to v-bind:class="'bh-btn bh-btn-' + item.primary?'primary':'default' + ' waves-effect'"
+  Line 3: src/button-list/buttonList.vue
+  Reason: Interpolation within attributes has been removed
+  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+
+106. Update class="iconfont icon-{{item.icon}}" to v-bind:class="'iconfont icon-' + item.icon"
+  Line 4: src/button-list/buttonList.vue
+  Reason: Interpolation within attributes has been removed
+  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+
+107. Replace this.$dispatch(click) to use a global event bus or vuex (see link below for implementation details)
+  Line 27: src/button-list/buttonList.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+108. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 111: src/calendar/calendar.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+109. Replace vm.$dispatch('item-click', target) to use a global event bus or vuex (see link below for implementation details)
+  Line 130: src/calendar/calendar.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+110. Replace vm.$dispatch('next-month', month) to use a global event bus or vuex (see link below for implementation details)
+  Line 134: src/calendar/calendar.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+111. Replace vm.$dispatch('last-month', month) to use a global event bus or vuex (see link below for implementation details)
+  Line 137: src/calendar/calendar.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+112. Replace vm.$dispatch('month-change', month) to use a global event bus or vuex (see link below for implementation details)
+  Line 140: src/calendar/calendar.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+113. Replace vm.$dispatch('today', month) to use a global event bus or vuex (see link below for implementation details)
+  Line 143: src/calendar/calendar.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+114. Update v-ref:choose to ref="choose"
+  Line 10: src/comp-choose/compChoose.vue
+  Reason: v-el and v-ref merged into ref attribute
+  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
+
+115. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 56: src/comp-choose/compChoose.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+116. Replace {{{item.title}}} with v-html="item.title" on a containing element
+  Line 4: src/comp-tab/compTab.vue
+  Reason: HTML interpolation with {{{ }}} has been removed
+  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation
+
+117. Refactor keep-alive attribute to a <keep-alive></keep-alive> wrapper component
+  Line 7: src/comp-tab/compTab.vue
+  Reason: keep-alive is now a wrapper element, rather than an attribute
+  More info: http://vuejs.org/guide/migration.html#keep-alive-Attribute
+
+118. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 43: src/comp-tab/compTab.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+119. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 101: src/direct-upload/directUpload.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+120. Replace vm.$dispatch('add', data) to use a global event bus or vuex (see link below for implementation details)
+  Line 125: src/direct-upload/directUpload.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+121. Replace vm.$dispatch('submit', data) to use a global event bus or vuex (see link below for implementation details)
+  Line 128: src/direct-upload/directUpload.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+122. Replace vm.$dispatch('done', data) to use a global event bus or vuex (see link below for implementation details)
+  Line 131: src/direct-upload/directUpload.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+123. Replace vm.$dispatch('fail', data) to use a global event bus or vuex (see link below for implementation details)
+  Line 134: src/direct-upload/directUpload.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+124. Check Vue.directive('bh-loading') to make sure its syntax has been updated and for anything beyond simple DOM manipulations, refactor to a component
+  Line 75: src/directives/loading.js
+  Reason: Directives have been vastly reduced in scope and components are preferred in most use cases
+  More info: http://vuejs.org/guide/migration.html#Custom-Directives
+
+125. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 89: src/emap-avatarupload/emapAvatarupload.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+126. Replace vm.$dispatch('submit', token) to use a global event bus or vuex (see link below for implementation details)
+  Line 105: src/emap-avatarupload/emapAvatarupload.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+127. Update data-id={{id}} to v-bind:data-id="id"
+  Line 34: src/emap-card/emapCard.vue
+  Reason: Interpolation within attributes has been removed
+  More info: http://vuejs.org/guide/migration.html#Interpolation-within-Attributes
+
+128. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 73: src/emap-card/emapCard.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+129. Update v-ref:list to ref="list"
+  Line 14: src/emap-datatable/emapDatatable.vue
+  Reason: v-el and v-ref merged into ref attribute
+  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
+
+130. Replace vm.$dispatch('expand') to use a global event bus or vuex (see link below for implementation details)
+  Line 171: src/emap-datatable/emapDatatable.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+131. Replace vm.$dispatch('collapse') to use a global event bus or vuex (see link below for implementation details)
+  Line 175: src/emap-datatable/emapDatatable.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+132. Replace vm.$dispatch(vm.readyName, vm) to use a global event bus or vuex (see link below for implementation details)
+  Line 180: src/emap-datatable/emapDatatable.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+133. Replace vm.$dispatch(name, vm.cachedMap[row] || vm.getDataByRow(row) to use a global event bus or vuex (see link below for implementation details)
+  Line 223: src/emap-datatable/emapDatatable.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+134. Replace vm.$dispatch(eventFuncName, row) to use a global event bus or vuex (see link below for implementation details)
+  Line 232: src/emap-datatable/emapDatatable.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+135. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 289: src/emap-datatable/emapDatatable.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+136. Replace init with beforeCreate
+  Line 303: src/emap-datatable/emapDatatable.vue
+  Reason: init lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#init
+
+137. Update v-ref:ddt to ref="ddt"
+  Line 12: src/emap-dd-table/emapDdTable.vue
+  Reason: v-el and v-ref merged into ref attribute
+  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
+
+138. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 67: src/emap-dd-table/emapDdTable.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+139. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 92: src/emap-dd-tree/emapDdTree.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+140. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 82: src/emap-editor/emapEditor.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+141. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 58: src/emap-field/emapField.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+142. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 99: src/emap-fileupload/emapFileupload.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+143. Replace vm.$dispatch('add', data) to use a global event bus or vuex (see link below for implementation details)
+  Line 113: src/emap-fileupload/emapFileupload.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+144. Replace vm.$dispatch('submit', data) to use a global event bus or vuex (see link below for implementation details)
+  Line 116: src/emap-fileupload/emapFileupload.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+145. Replace vm.$dispatch('done', data) to use a global event bus or vuex (see link below for implementation details)
+  Line 119: src/emap-fileupload/emapFileupload.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+146. Replace vm.$dispatch('fail', data) to use a global event bus or vuex (see link below for implementation details)
+  Line 122: src/emap-fileupload/emapFileupload.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+147. Replace this.$dispatch('change', event) to use a global event bus or vuex (see link below for implementation details)
+  Line 221: src/emap-form/emapForm.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+148. Replace this.$dispatch('inited') to use a global event bus or vuex (see link below for implementation details)
+  Line 224: src/emap-form/emapForm.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+149. Replace init with beforeCreate
+  Line 258: src/emap-form/emapForm.vue
+  Reason: init lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#init
+
+150. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 283: src/emap-form/emapForm.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+151. Refactor keep-alive attribute to a <keep-alive></keep-alive> wrapper component
+  Line 18: src/emap-grid/emapGrid.vue
+  Reason: keep-alive is now a wrapper element, rather than an attribute
+  More info: http://vuejs.org/guide/migration.html#keep-alive-Attribute
+
+152. Replace vm.$dispatch('grid:switch', type) to use a global event bus or vuex (see link below for implementation details)
+  Line 69: src/emap-grid/emapGrid.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+153. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 98: src/emap-imageupload/emapImageupload.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+154. Replace vm.$dispatch('add', data) to use a global event bus or vuex (see link below for implementation details)
+  Line 115: src/emap-imageupload/emapImageupload.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+155. Replace vm.$dispatch('submit', data) to use a global event bus or vuex (see link below for implementation details)
+  Line 118: src/emap-imageupload/emapImageupload.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+156. Replace vm.$dispatch('done', data) to use a global event bus or vuex (see link below for implementation details)
+  Line 121: src/emap-imageupload/emapImageupload.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+157. Replace vm.$dispatch('fail', data) to use a global event bus or vuex (see link below for implementation details)
+  Line 124: src/emap-imageupload/emapImageupload.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+158. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 14: src/emap-linkage/emapLinkage.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+159. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 52: src/emap-search-adv/emapSearchAdv.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+160. Replace vm.$dispatch('search', params) to use a global event bus or vuex (see link below for implementation details)
+  Line 66: src/emap-search-adv/emapSearchAdv.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+161. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 57: src/emap-search/emapSearch.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+162. Replace vm.$dispatch('search', params) to use a global event bus or vuex (see link below for implementation details)
+  Line 72: src/emap-search/emapSearch.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+163. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 136: src/emap-upload/emapUpload.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+164. Replace vm.$dispatch('add', data) to use a global event bus or vuex (see link below for implementation details)
+  Line 160: src/emap-upload/emapUpload.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+165. Replace vm.$dispatch('submit', data) to use a global event bus or vuex (see link below for implementation details)
+  Line 163: src/emap-upload/emapUpload.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+166. Replace vm.$dispatch('done', data) to use a global event bus or vuex (see link below for implementation details)
+  Line 166: src/emap-upload/emapUpload.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+167. Replace vm.$dispatch('fail', data) to use a global event bus or vuex (see link below for implementation details)
+  Line 169: src/emap-upload/emapUpload.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+168. Update v-ref:ee to ref="ee"
+  Line 13: src/package.json
+  Reason: v-el and v-ref merged into ref attribute
+  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
+
+169. Update v-ref:ee to ref="ee"
+  Line 87: src/README.md
+  Reason: v-el and v-ref merged into ref attribute
+  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref
+
+170. Replace this.$dispatch(searchEvent) to use a global event bus or vuex (see link below for implementation details)
+  Line 36: src/simple-search/simpleSearch.vue
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+171. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 42: src/utils/pageUtil.js
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+172. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 316: src/utils/pageUtil.js
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready
+
+173. Replace vm.$dispatch('confirm-text', text) to use a global event bus or vuex (see link below for implementation details)
+  Line 409: src/utils/pageUtil.js
+  Reason: $dispatch and $broadcast have been removed because the pattern doesn't scale well
+  More info: http://vuejs.org/guide/migration.html#dispatch-and-broadcast
+
+174. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 112: src/ztree/ztree.vue
+  Reason: ready lifecycle hook has been removed
+  More info: http://vuejs.org/guide/migration.html#ready

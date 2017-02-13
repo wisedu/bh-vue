@@ -65,7 +65,7 @@
              * @inner
              */
             change: function (e) {
-                this.$dispatch('change', {value: this.value, checked: e.target.checked, el: this.$el, extra: this.extra});
+                this.$emit('change', {value: this.value, checked: e.target.checked, el: this.$el, extra: this.extra});
             }
         }
     };

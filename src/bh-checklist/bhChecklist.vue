@@ -5,9 +5,10 @@
             :in-group='true'
             :extra='item'
             v-for='item in source'
-            :value.sync='item[valueMember]'
+            :value='item[valueMember]'
             :disabled='item.disabled'
-            :ischeck.sync='item[checkMember]'>
+            :ischeck='item[checkMember]'
+            @change='itemChange'>
             {{item[displayMember]}}
         </bh-checkbox>
     </div>
@@ -21,7 +22,7 @@
      *
      * @example
      *     <caption>html</caption>
-     *     <bh-checklist v-ref:chklist1 display-member='label' :source='fruits' dir='h'></bh-checklist>
+     *     <bh-checklist ref=chklist1 display-member='label' :source='fruits' dir='h'></bh-checklist>
      */
 
     import BhCheckbox from '../bh-checkbox/bhCheckbox';
@@ -75,6 +76,17 @@
                 return $.grep(vm.source, (item) => {
                     return item[vm.checkMember];
                 });
+            },
+            itemChange (data) {
+                if (!data.extra) {
+                    return;
+                }
+
+                var vm = this;
+                extra[vm.checkMember] = data.checked;
+                extra[vm.valueMember] = data.value;
+
+                vm.$emit('change', data);
             }
         },
         components: {BhCheckbox}

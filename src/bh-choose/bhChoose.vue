@@ -1,14 +1,13 @@
 <template>
     <div class='bh-choose'>
         <div class="side left bh-pull-left" :style='{width: leftWidth}'>
-            <bh-search :show-button='false' :value.sync='searchVal' :placeholder='placeholder' @search='search' class='bh-mb-8'></bh-search>
+            <bh-search ref='searchBox' :show-button='false' :placeholder='placeholder' @search='search' class='bh-mb-8'></bh-search>
             <div class="left-list">
                 <bh-datatable
-                    v-ref:bhchooselefttable
+                    ref=bhchooselefttable
                     :id='id'
                     :checkable='true'
                     :height='height'
-                    :checked-rows.sync='checkedRows'
                     :show-header='showHeader'
                     :url='leftSourceUrl'
                     :page-number-field='pageNumberField'
@@ -30,7 +29,7 @@
             <div class="title">{{rightTitle}}</div>
             <div class="right-list" :style='{height: height + "px"}'>
                 <bh-datatable
-                    v-ref:bhchooserighttable
+                    ref=bhchooserighttable
                     :id='id'
                     :url='rightSourceUrl'
                     :localdata='localdata'
@@ -60,7 +59,7 @@
      *
      * @example
      *     <caption>html</caption>
-     *     <bh-choose v-ref:choose1
+     *     <bh-choose ref=choose1
      *         left-source-url='/mock/datatable.json' :leftcells-renderer='leftcellsRenderer'
      *         right-source-url='/mock/datatable2.json' :rightcells-renderer='leftcellsRenderer'>
      *     </bh-choose>
@@ -95,8 +94,7 @@
     export default {
         data () {
             return {
-                checkedRows: [],
-                searchVal: '',
+                // checkedRows: [],
                 operations: {
                     title: '操作',
                     width: 100,
@@ -111,7 +109,7 @@
         computed: {
             queryParams () {
                 var params = this.leftParams || {};
-                params[this.localSearchField] = this.searchVal;
+                params[this.localSearchField] = this.$refs.searchBox.getValue();
                 return params;
             },
             columns () {
@@ -259,7 +257,7 @@
                     vm.$refs.bhchooserighttable.addRow(rowData);
                 }
 
-                this.$dispatch('change');
+                this.$emit('change');
             },
             /**
              * 左侧列表渲染完成事件
@@ -267,7 +265,7 @@
              */
             leftListRendered () {
                 var vm = this;
-                vm.$dispatch('left-ready');
+                vm.$emit('left-ready');
                 setTimeout(() => {
                     vm.$refs.bhchooselefttable.setChecked(vm.$refs.bhchooserighttable.getTotalRecords(), vm.id);
                 }, 0);

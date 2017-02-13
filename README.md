@@ -1,4 +1,4 @@
-# 基于jqwidget和EMAP封装的Vue组件
+# 基于jqwidget和EMAP封装的Vue组件 （基于vue2.0）
 
 演示页面：[https://wisedu.github.io/bh-vue-demo](https://wisedu.github.io/bh-vue-demo)
 
@@ -139,3 +139,14 @@ npm run pack
 ```
 ### 与设计相关备注（由于设计规范等原因与其不一致地方的记录）：
 1，bh-choose组件中，左侧待选区域没有labels选择功能（部分页面的设计有，此处需设计统一）。
+
+### vue2.0 升级相关：
+安装升级工具：
+```
+npm install -g vue-migration-helper
+```
+执行升级检查：
+```
+npm run mig
+```
+查看检查结果：migration.txt 并根据结果进行修改。

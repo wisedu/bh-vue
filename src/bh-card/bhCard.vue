@@ -1,5 +1,5 @@
 <template>
-    <div class="bh-card bh-card-lv{{level}}">
+    <div :class="'bh-card bh-card bh-card-lv' + level">
         <slot></slot>
     </div>
 </template>

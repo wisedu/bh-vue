@@ -9,7 +9,7 @@
      *
      * @example
      *     <caption>html</caption>
-     *     <bh-datatable root='a1' v-ref:dt1 :columns='columns' :pageable='true' :query-type='POST'
+     *     <bh-datatable root='a1' ref=dt1 :columns='columns' :pageable='true' :query-type='POST'
      *     :selected-rows.sync='selectedRows' :checked-rows.sync='checkedRows'
      *     :checkable='true' url='/mock/datatable.json' :query-params='queryParams'
      *     :operations='operations' @edit='edit' @del='del' :callbacks='callbacks'></bh-datatable>
