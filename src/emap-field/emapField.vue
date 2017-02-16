@@ -35,7 +35,7 @@
          * @property {Boolean} [options.dialogsInBody=false] 弹出框是否显示在页面body区域，而非编辑器区域
          * @property {Boolean} [options.disableDragAndDrop=true] 是否禁止拖放
          */
-        props: ["value","disable","model"],
+        props: ["value","disable","model","required"],
         computed: {
             // value: {
             //     get: function(){
@@ -57,6 +57,7 @@
         },
         ready () {
             var self = this;
+            this.model["form.required"] = this.required;
 
             var model = WIS_EMAP_SERV.convertModel([this.model], "form");
             var field_html = WIS_EMAP_INPUT.renderPlaceHolder(model[0]);
