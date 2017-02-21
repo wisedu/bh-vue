@@ -120,6 +120,12 @@
             }
         },
 
+        watch:{
+            'data':function(newVal){
+                $.fn.zTree.init($(this.$el), this._setting, newVal)
+            }
+        },
+
         methods: {
             _load(treeNode, inited){
                 $.ajax({
@@ -150,6 +156,11 @@
                 this.$emit('on-expand', treeNode, event, treeId)
 
                 if (this.extraSetting.url) {
+                    if(treeNode._loaded){
+                        return
+                    }
+                    treeNode._loaded = true
+
                     Vue.nextTick(()=> {
                         this._load(treeNode)
                     })
