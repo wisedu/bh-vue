@@ -48,12 +48,14 @@
 
         ready() {
             var self = this
-
             var el = $(this.$el)
+
             el.jqxTabs({
                 width: '100%'
             })
+
             this.initTabContent(0)
+
             el.on('tabclick', function (event) {
                 var tabIndex = event.args.item;
                 self.initTabContent(tabIndex)
