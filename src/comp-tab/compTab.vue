@@ -4,13 +4,13 @@
             <li v-for="item in tabs">{{{item.title}}}</li>
         </ul>
         <div v-for="item in tabs" class="bh-mt-16">
-            <component :is="item.showComponent" keep-alive></component>
+            <component :is="item.showComponent"></component>
         </div>
     </div>
 </template>
 <style scoped lang="sass">
 </style>
-<script>
+<script  type="text/ecmascript-6">
     /**
      * compTab控件
      * @module compTab
@@ -40,24 +40,34 @@
             return {}
         },
 
+        created(){
+            this.tabs.forEach((tab, index)=> {
+                this.$set('tabs[' + index + '].showComponent', '')
+            })
+        },
+
         ready() {
             var self = this
-            this.tabs.forEach(function (tab, index) {
-                self.$set('tabs[' + index + '].showComponent', '')
-            })
 
             var el = $(this.$el)
             el.jqxTabs({
-                width: '100%',
-                initTabContent: function (tab) {
-                    self.tabs[tab].showComponent = self.tabs[tab].component
-                }
+                width: '100%'
             })
-
-            el.on('selected', function (event) {
-                var selectedTab = event.args.item;
-                self.$emit('selected', selectedTab);
+            this.initTabContent(0)
+            el.on('tabclick', function (event) {
+                var tabIndex = event.args.item;
+                self.initTabContent(tabIndex)
             });
+        },
+
+        methods:{
+            initTabContent(tabIndex){
+                this.tabs[tabIndex].showComponent = ''
+                this.$nextTick(function () {
+                    this.tabs[tabIndex].showComponent = this.tabs[tabIndex].component
+                    this.$emit('selected', tabIndex);
+                })
+            }
         }
     }
 </script>
