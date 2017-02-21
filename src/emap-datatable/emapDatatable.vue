@@ -183,6 +183,8 @@
         opts.rendered = ()=>{
             var rows = el.jqxDataTable('getRows');
 
+            vm.$emit('rendered')
+
             rows.forEach(function (item, index) {
                 vm.cachedMap[index] = item;
             })
