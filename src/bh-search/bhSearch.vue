@@ -17,7 +17,7 @@
      * <caption>html</caption>
      * <bh-search @search='search' :value.sync='val' placeholder='随便输入，长度小于10' :maxlength='maxlength' :source='candidates'></bh-search>
      */
-    
+
     /**
      * 去除字符串两端空格
      */
@@ -55,71 +55,67 @@
             },
             'source': {
                 default: () => []
-            },
-            'placeholder': {
-                default: '输入要搜索的关键字'
-            },
-            'btnText': {
-                default: '搜索'
-            },
-            'maxlength': {
-                type: Number,
-                default: 20
-            },
-            'minlength': {
-                type: Number,
-                default: 0
-            }
         },
-        methods: {
-            /**
-             * 获取输入值
-             * @return {String} 经过trim处理的输入字符串
-             */
-            getValue () {
-                return _trim(this.value);
-            },
-            search () {
-                this.$dispatch('search', _trim(this.value));
-            }
+        'placeholder': {
+            default: '输入要搜索的关键字'
         },
-        ready () {
-            // var self = this;
-            var el = $(this.$el);
-
-            this.jqxObj = el.jqxInput({
-                source: this.source
-            });
-
-            this.$nextTick(() => {
-                el.find('input.jqx-input-group-addon').css('border-right-width', '1px');
-            });
+        'btnText': {
+            default: '搜索'
         },
-        beforeDestroy () {
-            var el = $(this.$el);
-            el.jqxInput('destroy');
+        'maxlength': {
+            type: Number,
+            default: 20
+        },
+        'minlength': {
+            type: Number,
+            default: 0
         }
+    },
+    methods: {
+        /**
+         * 获取输入值
+         * @return {String} 经过trim处理的输入字符串
+         */
+        getValue () {
+            return _trim(this.value);
+        },
+        search () {
+            this.$dispatch('search', _trim(this.value));
+        }
+    },
+    ready () {
+        // var self = this;
+        var el = $(this.$el);
+
+        this.jqxObj = el.jqxInput({
+            source: this.source
+        });
+
+        this.$nextTick(() => {
+            el.find('input.jqx-input-group-addon').css('border-right-width', '1px');
+    });
+    },
+    beforeDestroy () {
+        var el = $(this.$el);
+        el.jqxInput('destroy');
+    }
     };
 </script>
 
 <style scoped>
-    @icon-color: #999;
-
     .search-box {
-        display: -webkit-flex;
-        display: flex;
+        display: block;
         position: relative;
     }
     .search-box input {
-        text-indent: 33px;
-        flex-grow: 1;
+        padding-left: 33px;
         width: auto;
     }
     .search-box .icon-search {
         left: 0;
         position: absolute;
         padding: 5px 6px;
-        color: @icon-color;
+        color: #999;
     }
     .search-box a {
         border: none;
