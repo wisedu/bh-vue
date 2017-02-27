@@ -26,11 +26,30 @@
      */
 
     var getCurrent = (dtObj) => {
-        return dtObj.jqxDateTimeInput('getDate');
+        if(dtObj.jqxDateTimeInput('selectionMode') !== 'range') {
+            return dtObj.jqxDateTimeInput('getDate');
+        } else {
+            let range = dtObj.jqxDateTimeInput('getRange');
+            let rtn = [];
+            rtn[0] = moment(range.from).format('YYYY-MM-DD HH:mm:ss');
+            rtn[1] = moment(range.to).format('YYYY-MM-DD HH:mm:ss');
+            return rtn;
+        }
     };
 
     var setCurrent = (dtObj, val) => {
-        dtObj.jqxDateTimeInput('setDate', val);
+        let old = getCurrent(dtObj);
+
+        if(dtObj.jqxDateTimeInput('selectionMode') !== 'range') {
+            if(old == val) return;
+            dtObj.jqxDateTimeInput('setDate', val);
+        } else {
+            if(!$.isArray(val) || val.length < 2) {
+                val = [];
+            }
+            if(old[0] === val[0] && old[1] === val[1]) return;
+            dtObj.jqxDateTimeInput('setRange', val[0], val[1]);
+        }
     };
 
     export default {
@@ -56,7 +75,7 @@
          * @property {String} [options.culture=zh-CN] 多语言设置
          * @property {String} [options.placeHolder] 输入提示文字
          * @property {String} [options.dateFormat=yyyy-MM-dd] 日期格式
-         * @property {String} [options.timeFormat=yyyy-MM-dd hh:mm] 包含时间的日期格式
+         * @property {String} [options.timeFormat=yyyy-MM-dd HH:mm] 包含时间的日期格式
          * @property {Boolean} [options.showTime=true] 是否同时设置时间
          * @property {Date} [options.min=Date(1900, 1, 1)] 最小日期
          * @property {Date} [options.max=Date(2100, 1, 1)] 最大日期
@@ -72,6 +91,14 @@
              */
             getText () {
                 return $(this.$el).jqxDateTimeInput('getText');
+            },
+            /**
+             * 当selectMode为range时，设置初始值的方法
+             * @param {Date} date1 起始时间
+             * @param {Date} date2 结束时间
+             */
+            setRange (date1, date2) {
+                return $(this.$el).jqxDateTimeInput('setRange', date1, date2);
             },
             /**
              * 设置最小时间
@@ -106,7 +133,6 @@
                 selectionMode: options.selectionMode,
                 showFooter: options.showFooter
             });
-
             setCurrent(jqObj, this.value);
             el.jqxDateTimeInput({disabled: this.disabled});
 
@@ -121,8 +147,7 @@
             self.$watch('disabled', (val) => {
                 el.jqxDateTimeInput({disabled: val});
             });
-
-            self.value = getCurrent(jqObj);
+            //self.value = getCurrent(jqObj);
         },
         beforeDestroy () {
             var el = $(this.$el);

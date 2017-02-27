@@ -1,10 +1,14 @@
-module.exports = function (url, params, pageNum, pageSize) {
+module.exports = function (url, params, pageConf) {
+    //pageConf.pagenum, pageConf.pagesize
     let page = {
-        pageNumber: pageNum + 1,
-        pageSize: pageSize || 10
+        pageNumber: pageConf.pageNum + 1,
+        pageSize: pageConf.pageSize || 10
     };
 
-    let queryParams = $.extend({}, page, params);
+    let queryParams = $.extend({}, params);
+    if(pageConf.enable) {
+        queryParams = $.extend({}, page, params);
+    }
 
     return new Promise((resolve, reject) => {
         BH_UTILS.doAjax(url, queryParams, 'POST').done((response) => {

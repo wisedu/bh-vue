@@ -1,3 +1,4 @@
+import BhBreadcrumb from './bh-breadcrumb/bhBreadcrumb';
 import BhButton from './bh-button/bhButton';
 import BhCard from './bh-card/bhCard';
 import BhCheckbox from './bh-checkbox/bhCheckbox';
@@ -61,6 +62,7 @@ import http from './utils/http.js';
 import storage from './utils/storage.js';
 
 module.exports = {
+BhBreadcrumb,
 BhButton,
 BhCard,
 BhCheckbox,

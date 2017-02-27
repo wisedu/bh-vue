@@ -43,6 +43,10 @@ export default {
                 if (vm) {
                     vm.$compile($section[0]); // 重新扫描动态插入的组件
 
+                    if (title) {
+                        vm.$compile($header[0]); // 重新扫描动态插入的组件
+                    }
+
                     if (footer) {
                         vm.$compile($footer[0]); // 重新扫描动态插入的组件
                     }
@@ -316,6 +320,10 @@ export default {
             ready ($header, $section, $footer) {
                 if (vm) {
                     vm.$compile($section[0]); // 重新扫描动态插入的组件
+
+                    if (title) {
+                        vm.$compile($header[0]); // 重新扫描动态插入的组件
+                    }
 
                     if (footer) {
                         vm.$compile($footer[0]); // 重新扫描动态插入的组件

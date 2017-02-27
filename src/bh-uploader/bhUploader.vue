@@ -14,9 +14,8 @@
      * 简单的文件上传组件，选择文件直接上传
      * @module BhUploader
      *
-     * @fires submiting -文件开始上传之前触发，参数可参考文档(https://github.com/blueimp/jQuery-File-Upload/wiki/Options)的 add callback
-     * @fires done - 文件上传成功后触发，，参数可参考文档(https://github.com/blueimp/jQuery-File-Upload/wiki/Options)的 done callback
-     * @fires failed - 文件上传失败后触发，，参数可参考文档(https://github.com/blueimp/jQuery-File-Upload/wiki/Options)的 fail callback
+     * @fires done - 文件上传成功后触发，参数可参考文档(https://github.com/blueimp/jQuery-File-Upload/wiki/Options)的 done callback
+     * @fires failed - 文件上传失败后触发，参数可参考文档(https://github.com/blueimp/jQuery-File-Upload/wiki/Options)的 fail callback
      */
 
     /**
@@ -36,8 +35,13 @@
             autoUpload: true,
             dataType: 'json',
             add (e, data) {
-                // console.log(data);
-                vm.$dispatch('submiting', data);
+                let canSubmit = true;
+
+                // 若前置校验显示返回 false，则不进行提交操作
+                if (vm.callbacks && vm.callbacks.beforeSubmit && (vm.callbacks.beforeSubmit(e, data) === false)) {
+                    return;
+                }
+
                 data.submit();
             },
             submit (e, data) {
@@ -66,6 +70,8 @@
          * @property {String} url 文件上传地址
          * @property {String} [type=link] 按钮类型，支持 'link' / 'button'
          * @property {String} [text=选择文件] 按钮文字
+         * @property {Object} [callbacks] 各种回调事件
+         * @property {Function} [callbacks.beforeSubmit] 提交之前的处理，若显式返回false则不提交
          */
         props: {
             url: String,
@@ -76,7 +82,8 @@
             text: {
                 type: String,
                 default: '选择文件'
-            }
+            },
+            callbacks: Object
         },
         ready () {
             this.elInput = this.type === 'link' ? this.$els.linkfile : this.$els.buttonfile;

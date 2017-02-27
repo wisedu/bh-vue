@@ -4,7 +4,7 @@
             <div class='list-area'>
                 <component v-for='item in source' :is='compName' :item='item'></component>
             </div>
-            <div class='pager'>
+            <div v-if="pageConf.enable" class='pager'>
                 <bh-pagination :pagenum.sync='pageConf.pagenum' :pagesize='pageConf.pagesize' mode='advanced' :total-size.sync='pageConf.total' @page-change='gotoPage'></bh-pagination>
             </div>
         </template>
@@ -59,6 +59,7 @@
     };
 
     const _pageConf = {
+        enable: true,
         pagenum: START_PAGE,
         pagesize: 10,
         mode: 'advanced',
@@ -67,7 +68,7 @@
 
     const _loadList = (vm) => {
         let pageConf = vm.pageConf;
-        getList(vm.pagePath, vm.params, pageConf.pagenum, pageConf.pagesize).then((response) => {
+        getList(vm.pagePath, vm.params, pageConf).then((response) => {
             if (response.datas) {
                 let datas = response.datas;
                 pageConf.total = datas.totalSize;
@@ -76,6 +77,9 @@
                 pageConf.total = 0;
                 vm.source = [];
             }
+            vm.$nextTick(()=>{
+            	vm.$dispatch('listview-inited');
+            })
         });
     };
 
@@ -88,6 +92,7 @@
         /**
          * @property {String} pagePath 获取列表的url地址，返回的数组路径为 [datas>rows]
          * @property {Object} [pager] 分页参数
+         * @property {String} [pager.enable] 是否分页，默认true
          * @property {String} [pager.pagenum] 当前页码
          * @property {String} [pager.pagesize] 每页条数
          * @property {Object} [params] 查询参数
@@ -110,6 +115,9 @@
             reload () {
                 this.pageConf.pagenum = START_PAGE;
                 _loadList(this);
+            },
+            getListLength () {
+                return this.source.length;
             }
         },
         created () {
