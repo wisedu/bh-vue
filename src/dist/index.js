@@ -1,5 +1,9 @@
 'use strict';
 
+var _BhBreadcrumb = require('./BhBreadcrumb');
+
+var _BhBreadcrumb2 = _interopRequireDefault(_BhBreadcrumb);
+
 var _BhButton = require('./BhButton');
 
 var _BhButton2 = _interopRequireDefault(_BhButton);
@@ -247,6 +251,7 @@ var _storage2 = _interopRequireDefault(_storage);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 module.exports = {
+  BhBreadcrumb: _BhBreadcrumb2.default,
   BhButton: _BhButton2.default,
   BhCard: _BhCard2.default,
   BhCheckbox: _BhCheckbox2.default,

@@ -373,6 +373,12 @@
                 $(this.$el).jqxDataTable('render');
             },
             /**
+             * 重新加载数据
+             */
+            reload () {
+                $(this.$el).jqxDataTable('source', createAdapter(this));
+            },
+            /**
              * 刷新列表
              */
             refresh () {

@@ -1,4 +1,5 @@
 {
+"BhBreadcrumb": ["src/bh-breadcrumb/bhBreadcrumb"],
 "BhButton": ["src/bh-button/bhButton"],
 "BhCard": ["src/bh-card/bhCard"],
 "BhCheckbox": ["src/bh-checkbox/bhCheckbox"],
