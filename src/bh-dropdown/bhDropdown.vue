@@ -153,6 +153,8 @@
                     var selectedItem = this.getSelectedItem();
                     $(this.$el).jqxDropDownList('unselectItem', selectedItem);
                 }
+
+                this.current = null
             },
             /**
              * 清除所有元素
