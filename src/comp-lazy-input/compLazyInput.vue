@@ -49,6 +49,7 @@
     }
 
     /***
+     * @property {String} placeholder placeholder
      * @property {Object} options 初始化参数
      * @property {String} options.url 请求数据url
      * @property {String} [options.displayMember=name] displayMember
@@ -69,6 +70,10 @@
             },
             current: {
                 type: Object
+            },
+
+            placeholder:{
+                type:String
             }
         },
 
