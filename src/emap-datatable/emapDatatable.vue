@@ -83,7 +83,8 @@
     var _defaultOpts = {
         height: null, // fix scrollbar defect
         checkable: false,
-        operations: null
+        operations: null,
+        colHasMinWidth: false
     };
 
     var _getOptItem = (row, item) => {
@@ -284,6 +285,7 @@
          * @property {Boolean} options.lazyInit 是否延迟控件实例初始化，为true则需要使用init方法触发控件初始化。
          * @property {String} [options.readyName='ready'] 初始化完成后触发的事件名称
          * @property {Function} [options.getRows] 从服务器返回结果里获取rows的方法,参数为服务端返回数据，返回值为rows数组，默认为从result.datas.rows中获取
+         * @property {Boolean} [options.colHasMinWidth] 列宽是否有默认最小值100px
          */
         props: {
             options: Object

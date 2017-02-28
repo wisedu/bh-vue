@@ -38,6 +38,8 @@ import BhWizard from './bh-wizard/bhWizard';
 import ButtonList from './button-list/buttonList';
 import Calendar from './calendar/calendar';
 import CompChoose from './comp-choose/compChoose';
+import CompLazyInput from './comp-lazy-input/compLazyInput';
+import CompListview from './comp-listview/compListview';
 import CompTab from './comp-tab/compTab';
 import DirectUpload from './direct-upload/directUpload';
 import EmapAvatarupload from './emap-avatarupload/emapAvatarupload';
@@ -102,6 +104,8 @@ BhWizard,
 ButtonList,
 Calendar,
 CompChoose,
+CompLazyInput,
+CompListview,
 CompTab,
 DirectUpload,
 EmapAvatarupload,

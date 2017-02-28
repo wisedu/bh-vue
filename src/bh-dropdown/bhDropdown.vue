@@ -38,6 +38,28 @@
         });
     };
 
+    /**
+     * 设置当前选择的对象，转换为用索引设置，防止诡异的问题
+     */
+    var _setCurrentItem = (vm, item) => {
+        let source = vm.source;
+        let valueMember = vm.valueMember;
+        for (let i = 0, len = source.length; i < len; i++) {
+            var temp = source[i];
+            if (typeof item === 'object') {
+                if (temp[valueMember] === item[valueMember]) {
+                    vm.jqxObj.jqxDropDownList('selectIndex', i);
+                    return;
+                }
+            } else {
+                if (temp === item) {
+                    vm.jqxObj.jqxDropDownList('selectIndex', i);
+                    return;
+                }
+            }
+        }
+    };
+
     export default {
         data () {
             return {
@@ -162,7 +184,8 @@
             var jqxObj = this.jqxObj = el.jqxDropDownList(opts);
 
             if (this.current) {
-                jqxObj.jqxDropDownList('selectItem', this.current);
+                _setCurrentItem(this, this.current);
+                // jqxObj.jqxDropDownList('selectItem', this.current);
             }
 
             if (this.checkedIndexes && this.checkedIndexes.length > 0) {
@@ -182,7 +205,8 @@
             });
 
             this.$watch('current', (item) => {
-                jqxObj.jqxDropDownList('selectItem', item);
+                _setCurrentItem(this, this.current);
+                // jqxObj.jqxDropDownList('selectItem', item);
             });
 
             this.$watch('source', (data) => {

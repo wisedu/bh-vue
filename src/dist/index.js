@@ -160,6 +160,14 @@ var _CompChoose = require('./CompChoose');
 
 var _CompChoose2 = _interopRequireDefault(_CompChoose);
 
+var _CompLazyInput = require('./CompLazyInput');
+
+var _CompLazyInput2 = _interopRequireDefault(_CompLazyInput);
+
+var _CompListview = require('./CompListview');
+
+var _CompListview2 = _interopRequireDefault(_CompListview);
+
 var _CompTab = require('./CompTab');
 
 var _CompTab2 = _interopRequireDefault(_CompTab);
@@ -291,6 +299,8 @@ module.exports = {
   ButtonList: _ButtonList2.default,
   Calendar: _Calendar2.default,
   CompChoose: _CompChoose2.default,
+  CompLazyInput: _CompLazyInput2.default,
+  CompListview: _CompListview2.default,
   CompTab: _CompTab2.default,
   DirectUpload: _DirectUpload2.default,
   EmapAvatarupload: _EmapAvatarupload2.default,

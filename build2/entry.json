@@ -39,6 +39,8 @@
 "ButtonList": ["src/button-list/buttonList"],
 "Calendar": ["src/calendar/calendar"],
 "CompChoose": ["src/comp-choose/compChoose"],
+"CompLazyInput": ["src/comp-lazy-input/compLazyInput"],
+"CompListview": ["src/comp-listview/compListview"],
 "CompTab": ["src/comp-tab/compTab"],
 "DirectUpload": ["src/direct-upload/directUpload"],
 "EmapAvatarupload": ["src/emap-avatarupload/emapAvatarupload"],
