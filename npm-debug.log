@@ -62,9 +62,10 @@
 21 silly publish   readmeFilename: 'README.md',
 21 silly publish   author: { name: 'wisedu' },
 21 silly publish   license: 'ISC',
-21 silly publish   gitHead: 'e12e3adb6b1fa43cf5e62f21879c402f2d28c2b5',
+21 silly publish   dependencies: { store2: '^2.5.0' },
+21 silly publish   gitHead: 'a38b1dd6a7ea6bccbc75c9f4b3a7f1f1e2633ce6',
 21 silly publish   _id: 'bh-vue@1.0.0',
-21 silly publish   _shasum: '40325942a42a8c3a9e62c381f809c083a8d0a620',
+21 silly publish   _shasum: 'eb80df74a8ab90604d1be0b8f8e8b8717733a647',
 21 silly publish   _from: '.' }
 22 verbose getPublishConfig undefined
 23 silly mapToRegistry name bh-vue
@@ -83,22 +84,22 @@
 29 silly publish uploading C:\Users\qtx\AppData\Roaming\npm-cache\bh-vue\1.0.0\package.tgz
 30 verbose request uri https://registry.npmjs.org/bh-vue
 31 verbose request sending authorization for write operation
-32 info attempt registry request try #1 at 17:12:06
+32 info attempt registry request try #1 at 17:12:23
 33 verbose request using bearer token for auth
-34 verbose request id 045e91b2375ab882
+34 verbose request id 1526052f4d4938c7
 35 http request PUT https://registry.npmjs.org/bh-vue
 36 http 403 https://registry.npmjs.org/bh-vue
 37 verbose headers { 'content-type': 'application/json',
 37 verbose headers   'cache-control': 'max-age=300',
 37 verbose headers   'content-length': '95',
 37 verbose headers   'accept-ranges': 'bytes',
-37 verbose headers   date: 'Sun, 05 Feb 2017 09:12:21 GMT',
+37 verbose headers   date: 'Tue, 28 Feb 2017 09:12:09 GMT',
 37 verbose headers   via: '1.1 varnish',
 37 verbose headers   connection: 'keep-alive',
-37 verbose headers   'x-served-by': 'cache-nrt6130-NRT',
+37 verbose headers   'x-served-by': 'cache-nrt6135-NRT',
 37 verbose headers   'x-cache': 'MISS',
 37 verbose headers   'x-cache-hits': '0',
-37 verbose headers   'x-timer': 'S1486285919.367125,VS0,VE22468',
+37 verbose headers   'x-timer': 'S1488273127.350197,VS0,VE1889',
 37 verbose headers   vary: 'Accept-Encoding' }
 38 verbose request invalidating C:\Users\qtx\AppData\Roaming\npm-cache\registry.npmjs.org\bh-vue on PUT
 39 error publish Failed PUT 403

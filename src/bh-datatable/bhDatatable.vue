@@ -52,10 +52,10 @@
      *          }
      *      },
      *      methods: {
-     *          edit: function(row) {
+     *          edit: function(row, rowNum) {
      *              console.log('edit row:', row);
      *          },
-     *          del: function(row) {
+     *          del: function(row, rowNum) {
      *              console.log('delete row:', row);
      *          },
      *          getCurrent: function() {
@@ -216,6 +216,7 @@
         var title = opts.title;
 
         return {
+            width: opts.width,
             text: title,
             cellsAlign: 'center',
             align: 'center',
@@ -285,7 +286,7 @@
          * @property {String} operations.title 操作列头名称
          * @property {Object[]} operations.items 操作按钮列表
          * @property {String} operations.items.title 操作按钮显示名称
-         * @property {String} operations.items.name 操作按钮标识，可在组件上监听此 dispatch 事件
+         * @property {String} operations.items.name 操作按钮标识，可在组件上监听此 dispatch 事件，事件参数为当前行绑定的值和行号
          * @property {String} operations.items.type 操作按钮类型，指定'button'为按钮，否则为链接
          * @property {Object} [callbacks] 数据请求过程中的一些回调方法
          * @property {Function} callbacks.downloadComplete 请求数据结束时触发，参数为 data
@@ -463,6 +464,13 @@
                 });
             },
             /**
+             * 根据指定行的位置索引删除行
+             * @param  {String} rowNum 指定行的位置索引
+             */
+            deleteByRowNum (rowNum) {
+                $(this.$el).jqxDataTable('deleteRow', rowNum);
+            },
+            /**
              * 根据主键id选中一行
              * @param  {String} rowId 指定的主键id
              */
@@ -596,7 +604,7 @@
                         var name = _this.attr('data-name');
 
                         var viewRows = getAll(el);
-                        vm.$dispatch(name, viewRows[row]);
+                        vm.$dispatch(name, viewRows[row], row);
                     });
 
                     vm.$dispatch('ready');
