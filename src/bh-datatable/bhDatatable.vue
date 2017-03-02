@@ -604,7 +604,7 @@
                         var name = _this.attr('data-name');
 
                         var viewRows = getAll(el);
-                        vm.$dispatch(name, viewRows[row], row);
+                        vm.$dispatch(name, viewRows[row], parseInt(row));
                     });
 
                     vm.$dispatch('ready');
