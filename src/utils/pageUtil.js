@@ -217,8 +217,9 @@ export default {
     hideWindow () {
         let jqDom = $('.bh-pageutil-window');
         if (jqDom.length > 0) {
-            jqDom.off('click').off('close').off('open').off('created');
+            jqDom.jqxWindow('close');
             jqDom.jqxWindow('destroy');
+            jqDom.off('click').off('close').off('open').off('created');
             jqDom.remove();
         }
     },
