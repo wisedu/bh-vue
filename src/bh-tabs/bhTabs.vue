@@ -56,6 +56,7 @@
          * @property {String} width 宽度，默认为 '100%'
          * @property {String} height 高度，默认为 'auto'
          * @property {String} position tab头部的位置，默认为 'top', 可选 'top'/'bottom'
+         * @property {Function} [unselecting]取消选择时的处理，若显式返回false可以取消当前的切换操作
          */
         props: {
             width: {
@@ -66,7 +67,8 @@
             },
             position: {
                 default: 'top'
-            }
+            },
+            unselecting: Function
         },
         methods: {
             /**
@@ -111,6 +113,13 @@
             el.on('unselected', function (event) {
                 var selectedTab = event.args.item;
                 self.$dispatch('unselected', selectedTab);
+            });
+
+            el.on('unselecting', function (event) {
+                var selectedTab = event.args.item;
+                if (self.unselecting && self.unselecting(selectedTab) === false) {
+                    event.cancel = true;
+                }
             });
         },
         beforeDestroy () {
