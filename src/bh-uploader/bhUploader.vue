@@ -120,7 +120,12 @@
             _init.call(this);
         },
         beforeDestroy () {
-            $(this.elInput).fileupload('destroy');
+            let elInput = this.type === 'link' ? this.$els.linkfile : this.$els.buttonfile;
+            try {
+                $(elInput).fileupload('destroy');
+            } catch (e) {
+                console.warn('destroy fileupload failed !');
+            }
         }
     };
 </script>

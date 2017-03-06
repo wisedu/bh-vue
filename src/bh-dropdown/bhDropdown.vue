@@ -34,7 +34,16 @@
         return new $.jqx.dataAdapter({
             url: vm.url,
             root: vm.root,
+            type: vm.type,
             datatype: 'json'
+        }, {
+            contentType: vm.contentType,
+            formatData: function (data) {
+                if(vm.type.toLowerCase() === 'post') {
+                    return JSON.stringify(data);
+                }
+                return data;
+            }
         });
     };
 
@@ -97,6 +106,14 @@
                 default: undefined
             },
             url: String,
+            type: {
+                type: String,
+                default: 'GET'
+            },
+            contentType: {
+                type: String,
+                default: 'application/json'
+            },
             root: String,
             checkable: {
                 type: Boolean,
