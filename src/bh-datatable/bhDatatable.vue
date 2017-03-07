@@ -74,42 +74,59 @@
     var checkBoxWidth = 34;
 
     /**
+     * 增加 options 处理，与emapDatatable统一，同时兼容之前分开定义配置项的写法
+     */
+    const OPT_NAMES = ['id', 'width', 'showHeader', 'checkable', 'pageable', 'enableBrowserSelection', 'selectionMode', 'pagerMode', 'pageNumberField', 'pageSizeField', 'sortable', 'reorder', 'resize', 'url', 'contentType', 'localdata', 'root', 'columns', 'queryType', 'queryParams', 'operations', 'callbacks'];
+
+    // jqxDatatable 不允许传入未预先定义的属性，需要做一次清理
+    const EXTRA_OPT_NAMES = ['id', 'checkable', 'pageable', 'pageNumberField', 'pageSizeField', 'reorder', 'resize', 'url', 'contentType', 'localdata', 'root', 'queryType', 'queryParams', 'operations', 'callbacks'];
+
+    var _makeOpts = (vm) => {
+        let options = vm.options || {};
+        return $.extend(options, OPT_NAMES.reduce((ret, item) => {
+            ret[item] = options[item] !== undefined ? options[item] : vm[item];
+            return ret;
+        }, {}));
+    };
+
+    /**
      * 创建 data adapter，为渲染做准备
      * @param  {Object} vm view modal
      */
     var createAdapter = (vm) => {
-        var callbacks = vm.callbacks;
+        var opts = vm.opts;
+        var callbacks = opts.callbacks;
 
         var source = {
             dataType: 'json',
-            type: vm.queryType,
-            id: vm.id
+            type: opts.queryType,
+            id: opts.id
         };
 
-        if (vm.url) {
-            source.url = vm.url;
-            source.root = vm.root;
+        if (opts.url) {
+            source.url = opts.url;
+            source.root = opts.root;
         } else {
-            source.localdata = vm.localdata || [];
+            source.localdata = opts.localdata || [];
         }
 
         return new $.jqx.dataAdapter(source, {
-            contentType: vm.contentType,
+            contentType: opts.contentType,
             formatData: function (data) {
-                if (vm.pageable) {
-                    data[vm.pageNumberField] = data.pagenum + 1;
-                    data[vm.pageSizeField] = data.pagesize;
+                if (opts.pageable) {
+                    data[opts.pageNumberField] = data.pagenum + 1;
+                    data[opts.pageSizeField] = data.pagesize;
                 }
 
-                if (vm.pageNumberField !== 'pagenum') {
+                if (opts.pageNumberField !== 'pagenum') {
                     delete data.pagenum;
                 }
-                if (vm.pageSizeField !== 'pagesize') {
+                if (opts.pageSizeField !== 'pagesize') {
                     delete data.pagesize;
                 }
 
                 // data.sortdatafield && data.sortorder --- 指定排序使用的参数
-                $.extend(data, vm.queryParams);
+                $.extend(data, opts.queryParams);
                 return JSON.stringify(data);
             },
             beforeSend: (xhr) => {
@@ -127,6 +144,7 @@
 
     var getCheckColumn = (vm) => {
         var $table = $(vm.$el);
+        var opts = vm.opts;
 
         return {
             text: 'checkbox', dataField: 'checkbox', width: checkBoxWidth + 'px',
@@ -163,7 +181,7 @@
                 // 给table每一行添加checkbox
                 var checkBox = '<div class="bh-checkbox"><label><input type="checkbox" @checked value="" data-id="@dataId" data-row=@dataRow><i class="bh-choice-helper"></i></label>';
 
-                checkBox = checkBox.replace('@dataId', rowData[vm.id]).replace('@dataRow', row);
+                checkBox = checkBox.replace('@dataId', rowData[opts.id]).replace('@dataRow', row);
 
                 if (rowData.checkbox) {
                     checkBox = checkBox.replace('@checked', 'checked');
@@ -212,11 +230,12 @@
     };
 
     var getOptColumn = (vm) => {
-        var opts = vm.operations;
-        var title = opts.title;
+        var opts = vm.opts;
+        var operations = opts.operations;
+        var title = operations.title;
 
         return {
-            width: opts.width,
+            width: operations.width,
             text: title,
             cellsAlign: 'center',
             align: 'center',
@@ -226,7 +245,7 @@
             dataField: null,
             cellsRenderer: function (row, column, value) {
                 // render custom column.
-                var items = opts.items;
+                var items = operations.items;
                 var html = '';
                 $.each(items, (i, item) => {
                     html += getOptItem(row, item);
@@ -245,7 +264,8 @@
     };
 
     var setCheckStatus = (vm) => {
-        if (vm.checkable) {
+        var opts = vm.opts;
+        if (opts.checkable) {
             $(vm.$el).find('div.bh-checkbox input[data-id]').each(function () {
                 var _this = $(this);
                 _this[0].checked = ($.inArray(_this.attr('data-id'), vm.checkedIds) > -1);
@@ -256,11 +276,13 @@
     export default {
         data () {
             return {
-                checkedIds: []
+                checkedIds: [],
+                opts: {} // 统一参数形式
             };
         },
         /**
          * @property {String} [id=id] 记录唯一标识名称
+         * @property {Object} [options] 与emapDatatable保持统一，可以在此参数中设置所有其他参数如 width，优先级较高（比如同时设置 options.width 和 width，width 会被覆盖）
          * @property {String} [width='100%'] 表格宽度
          * @property {Boolean} [showHeader=true] 是否显示表头
          * @property {Boolean} [checkable=false] 是否显示第一列为复选框进行多选
@@ -297,6 +319,7 @@
             'id': {
                 default: 'id'
             },
+            'options': Object,
             'width': {
                 default: '100%'
             },
@@ -398,7 +421,8 @@
              * @return {Object}    行数据
              */
             getRowById (id) {
-                var keyId = this.id;
+                let opts = this.opts;
+                var keyId = opts.id;
                 var rows = this.getTotalRecords();
                 for (var i = 0, len = rows.length; i < len; i++) {
                     if (rows[i][keyId] == id) {
@@ -413,15 +437,6 @@
              * @return {Array} 复选框选择的所有行
              */
             getChecked () {
-                // var idKey = this.id;
-                // var el = $(this.$el);
-                // var checkedIds = el.find('div.bh-checkbox input[data-id]:checked').map(function(item) {
-                //     return $(this).attr('data-id');
-                // });
-
-                // return $.grep(el.jqxDataTable('getRows'), function(item) {
-                //     return $.inArray(item[idKey] + '', checkedIds) >= 0;
-                // });
                 return this.checkedRows;
             },
             setChecked (checkedItems, itemId) {
@@ -453,7 +468,8 @@
              * @param  {String} rowId 指定的主键id
              */
             deleteRowById (rowId) {
-                var keyId = this.id;
+                let opts = this.opts;
+                var keyId = opts.id;
                 var el = $(this.$el);
                 var viewRows = getAll(el);
                 $.each(viewRows, (i, rowData) => {
@@ -476,6 +492,7 @@
              */
             checkById (id) {
                 var vm = this;
+                let opts = vm.opts;
                 var rowData = vm.getRowById(id);
 
                 if (!rowData) {
@@ -496,7 +513,8 @@
              */
             uncheckById (id) {
                 var vm = this;
-                var keyId = this.id;
+                let opts = vm.opts;
+                var keyId = opts.id;
 
                 if ($.inArray(id, vm.checkedIds) === -1) {
                     var params = {};
@@ -525,30 +543,22 @@
         },
         ready () {
             var vm = this;
+            var opts = vm.opts = _makeOpts(vm);
             var el = $(vm.$el);
 
-            if (vm.checkable) { // 复选框为一列
-                vm.columns.unshift(getCheckColumn(vm));
+            if (opts.checkable) { // 复选框为一列
+                opts.columns.unshift(getCheckColumn(vm));
             }
 
-            if (vm.operations && vm.operations.items && (vm.operations.items.length > 0)) {
-                vm.columns.push(getOptColumn(vm));
+            if (opts.operations && opts.operations.items && (opts.operations.items.length > 0)) {
+                opts.columns.push(getOptColumn(vm));
             }
 
-            vm.jqxObj = el.jqxDataTable({
-                width: vm.width,
-                height: vm.height,
-                showHeader: vm.showHeader,
-                pageable: vm.pageable,
-                sortable: vm.sortable,
-                columnsReorder: vm.reorder,
-                columnsResize: vm.resize,
-                enableBrowserSelection: vm.enableBrowserSelection,
-                selectionMode: vm.selectionMode,
-                pagerMode: vm.pagerMode,
-                source: createAdapter(vm),
-                columns: vm.columns,
+            let tableOptions = $.extend({}, opts, {
+                columnsReorder: opts.reorder,
+                columnsResize: opts.resize,
                 serverProcessing: true,
+                source: createAdapter(vm),
                 rendered () {
                     // 数据加载完成，读取各列的checkbox，判断头部的checkbox是否要勾选
                     setCheckStatus(vm);
@@ -559,7 +569,7 @@
                     var $table = el;
                     var $tableContent = $table.find('table');
 
-                    if (vm.checkable) {
+                    if (opts.checkable) {
                         var $checkboxList = $tableContent.find('div.bh-checkbox');
                         var isSelectAllFlag = true;
                         $checkboxList.each(function () {
@@ -596,6 +606,7 @@
 
                     el.on('rowSelect', function (event) {
                         vm.selectedRows = getSelection(el);
+                        vm.$dispatch('row-select', vm.selectedRows);
                     });
 
                     el.on('click', '.opt-button', function () {
@@ -610,6 +621,13 @@
                     vm.$dispatch('ready');
                 }
             });
+
+            // 删除多余属性
+            EXTRA_OPT_NAMES.forEach(item => {
+                delete tableOptions[item];
+            });
+
+            vm.jqxObj = el.jqxDataTable(tableOptions);
         },
         destory: function () {
             var el = $(this.$el);
