@@ -3,9 +3,9 @@
         <a v-if='type === "link"' class="bh-file-upload" href="javascript:void(0)">
             <input v-el:linkfile class='file-input' type="file"/>{{text}}
         </a>
-        <button v-if='type === "button"' type='button' class='bh-btn bh-btn-primary bh-btn-large waves-effect'>
+        <div v-if='type === "button"' type='button' class='bh-btn bh-btn-primary bh-btn-large waves-effect'>
             <input v-el:buttonfile class='file-input' type="file"/>{{text}}
-        </button>
+        </div>
     </div>
 </template>
 
