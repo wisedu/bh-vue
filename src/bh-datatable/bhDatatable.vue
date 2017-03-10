@@ -76,10 +76,10 @@
     /**
      * 增加 options 处理，与emapDatatable统一，同时兼容之前分开定义配置项的写法
      */
-    const OPT_NAMES = ['id', 'width', 'showHeader', 'checkable', 'pageable', 'enableBrowserSelection', 'selectionMode', 'pagerMode', 'pageNumberField', 'pageSizeField', 'sortable', 'reorder', 'resize', 'url', 'contentType', 'localdata', 'root', 'columns', 'queryType', 'queryParams', 'operations', 'callbacks'];
+    const OPT_NAMES = ['id', 'width', 'height', 'showHeader', 'checkable', 'pageable', 'enableBrowserSelection', 'selectionMode', 'pagerMode', 'pageNumberField', 'pageSizeField', 'sortable', 'reorder', 'resize', 'url', 'contentType', 'localdata', 'root', 'columns', 'queryType', 'queryParams', 'operations', 'callbacks'];
 
     // jqxDatatable 不允许传入未预先定义的属性，需要做一次清理
-    const EXTRA_OPT_NAMES = ['id', 'checkable', 'pageable', 'pageNumberField', 'pageSizeField', 'reorder', 'resize', 'url', 'contentType', 'localdata', 'root', 'queryType', 'queryParams', 'operations', 'callbacks'];
+    const EXTRA_OPT_NAMES = ['id', 'checkable', 'pageNumberField', 'pageSizeField', 'reorder', 'resize', 'url', 'contentType', 'localdata', 'root', 'queryType', 'queryParams', 'operations', 'callbacks'];
 
     var _makeOpts = (vm) => {
         let options = vm.options || {};
@@ -272,6 +272,9 @@
             });
         }
     };
+
+    // 默认中文设置
+    var localization = null;
 
     export default {
         data () {
@@ -542,6 +545,11 @@
             }
         },
         ready () {
+            // 由于当前框架的js引入时机问题，无法在js载入时成功设置，~退而求其次
+            if (!localization && typeof Globalize != 'undefined') {
+                localization = Globalize.culture("zh-CN");
+            }
+
             var vm = this;
             var opts = vm.opts = _makeOpts(vm);
             var el = $(vm.$el);
@@ -559,6 +567,7 @@
                 columnsResize: opts.resize,
                 serverProcessing: true,
                 source: createAdapter(vm),
+                localization: localization,
                 rendered () {
                     // 数据加载完成，读取各列的checkbox，判断头部的checkbox是否要勾选
                     setCheckStatus(vm);
