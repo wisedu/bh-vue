@@ -1,16 +1,16 @@
 <template>
-  <div></div>
+    <div></div>
 </template>
 <script>
-  /**
-   * compChoose控件
-   * @module compChoose
-   * @example
-   *     <caption>html</caption>
-   *     <comp-choose :options="options" v-ref:choose></comp-choose>
-   * @example
-   *     <caption>javascript</caption>
-   *    export default {
+    /**
+     * compChoose控件
+     * @module compChoose
+     * @example
+     *     <caption>html</caption>
+     *     <comp-choose :options="options" v-ref:choose></comp-choose>
+     * @example
+     *     <caption>javascript</caption>
+     *    export default {
    *     data: function () {
    *       return {
    *         options: {
@@ -39,56 +39,58 @@
    *       }
    *     }
    */
-  export default {
-    /**
-     * @property {Object} options 构造bhchoose的选项设置
-     * @property {String} options.leftSourceUrl 左侧表格数据源
-     * @property {String} options.id 左侧表格数据源的主键名称
-     * @property {String} [options.placeholder] 搜索框placeholder信息
-     * @property {Object} [options.params] 左侧表格带入参数
-     * @property {String} [options.type] 左侧表格ajax请求类型 post或get
-     * @property {Boolean} [options.multiSelect] 是否需要多选 默认为true
-     * @property {number} [options.maxSelect] 支持多选时 设置最多选中的条数
-     * @property {String} [options.rightcellsRenderer] 左侧表格渲染方法
-     * @property {String} [options.leftcellsRenderer] 右侧表格渲染方法
-     */
-    props: ['options'],
-    ready(){
-      var options = this.options
-      this.win = $.bh_choose({
-        insertContainer: $(this.$el),
-        leftSourceUrl: options.leftSourceUrl,
-        leftSourceAction: options.leftSourceAction,
-        placeholder: options.placeholder || '搜索应用名称',
-        id: options.id,
-        type: options.type || 'post',
-        params: options.params,
-        multiSelect: options.multiSelect,//是否支持多选
-        maxSelect: options.maxSelect,//设置最多显示的条数
-        rightcellsRenderer: options.rightcellsRenderer,
-        leftcellsRenderer: options.leftcellsRenderer
-      });
+    export default {
+        /**
+         * @property {Object} options 构造bhchoose的选项设置
+         * @property {String} options.leftSourceUrl 左侧表格数据源
+         * @property {String} options.id 左侧表格数据源的主键名称
+         * @property {String} [options.placeholder] 搜索框placeholder信息
+         * @property {Object} [options.params] 左侧表格带入参数
+         * @property {String} [options.type] 左侧表格ajax请求类型 post或get
+         * @property {String} [options.searchKeyName] 搜索时传入后台的参数名称 默认值为SEARCHKEY
+         * @property {Boolean} [options.multiSelect] 是否需要多选 默认为true
+         * @property {number} [options.maxSelect] 支持多选时 设置最多选中的条数
+         * @property {String} [options.rightcellsRenderer] 左侧表格渲染方法
+         * @property {String} [options.leftcellsRenderer] 右侧表格渲染方法
+         */
+        props: ['options'],
+        ready(){
+            var options = this.options
+            this.win = $.bh_choose({
+                insertContainer: $(this.$el),
+                leftSourceUrl: options.leftSourceUrl,
+                leftSourceAction: options.leftSourceAction,
+                placeholder: options.placeholder || '搜索应用名称',
+                id: options.id,
+                type: options.type || 'post',
+                params: options.params,
+                searchKeyName: options.searchKeyName || 'SEARCHKEY',
+                multiSelect: options.multiSelect,//是否支持多选
+                maxSelect: options.maxSelect,//设置最多显示的条数
+                rightcellsRenderer: options.rightcellsRenderer,
+                leftcellsRenderer: options.leftcellsRenderer
+            });
 
-      this.win.show();
-    },
+            this.win.show();
+        },
 
-    methods: {
-      /**
-       * 获取选中记录
-       * @return {Array} 右侧选中的记录
-       */
-      getSelectedRecords(){
-        return this.win.getSelectedRecords()
-      },
+        methods: {
+            /**
+             * 获取选中记录
+             * @return {Array} 右侧选中的记录
+             */
+            getSelectedRecords(){
+                return this.win.getSelectedRecords()
+            },
 
-      /**
-       * 刷新左侧表格
-       * @param {Object} 传入的参数
-       */
-      reloadLeftTable(params){
-        this.win.options.params = params
-        this.win.reloadLeftTable()
-      }
+            /**
+             * 刷新左侧表格
+             * @param {Object} 传入的参数
+             */
+            reloadLeftTable(params){
+                this.win.options.params = params
+                this.win.reloadLeftTable()
+            }
+        }
     }
-  }
 </script>
