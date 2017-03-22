@@ -45,7 +45,7 @@
             dtObj.jqxDateTimeInput('setDate', val);
         } else {
             if(!$.isArray(val) || val.length < 2) {
-                val = [];
+                return;
             }
             if(old[0] === val[0] && old[1] === val[1]) return;
             dtObj.jqxDateTimeInput('setRange', val[0], val[1]);

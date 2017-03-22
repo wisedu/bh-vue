@@ -107,9 +107,12 @@ export function promiseReq (url, params, processFunc) {
 /* 增加loading动画 ---added by zsl 2016-12-19 --- */
 /*------------start------------- */
 let _enableLoading = false;
-export function enableLoading () {
-	if(_enableLoading) return;
+export function enableLoading (options) {
+    if(_enableLoading) return;
 
+    let defaultOps = {uniqueMask: true};
+    options = $.extend({}, defaultOps, options);
+    
 	let requestCount = 0;
 	let beginRequest = function () {
 		requestCount++;
@@ -136,16 +139,20 @@ export function enableLoading () {
 		  'left': 0,
 		  'top': 0
 		});
-		//隐藏其它遮罩层
-		$('.jqx-window-modal').hide();
+        //隐藏其它遮罩层
+        if(options.uniqueMask === true) {
+            $('.jqx-window-modal').hide();    
+        }
 	};
 	let endRequest = function () {
 		requestCount--;
 		if(requestCount < 1 && $('#jqxLoader').length > 0) {
 			//关闭loading组件
 			$('#jqxLoader').jqxLoader('close');
-			//还原其它遮罩层
-			$('.jqx-window-modal').show();
+            //还原其它遮罩层
+            if(options.uniqueMask === true) {
+                $('.jqx-window-modal').show();    
+            }
 		}
 	};
 	Vue.http.interceptors.push((request, next) => {
