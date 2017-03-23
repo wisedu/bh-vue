@@ -572,6 +572,12 @@
                     // 数据加载完成，读取各列的checkbox，判断头部的checkbox是否要勾选
                     setCheckStatus(vm);
 
+                    // 渲染结束后给单元格增加 title，防止字符串被截断
+                    el.find('.jqx-grid-cell').each(function() {
+                        var cell = $(this);
+                        cell.attr('title', cell.text());
+                    });
+
                     vm.$dispatch('rendered');
                 },
                 ready () {
