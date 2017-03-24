@@ -69,9 +69,16 @@
             getValue () {
                 return getCurrent(this.dtObj);
             },
+            /**
+             * 设置日期值
+             * @param {String} val 要设置的日期字符串
+             */
             setValue (val) {
                 return setCurrent(this.dtObj, val);
             },
+            /**
+             * 清空已选日期
+             */
             clear () {
                 return setCurrent(this.dtObj, null);
             }
