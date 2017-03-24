@@ -7,6 +7,7 @@
 "BhChoose": ["src/bh-choose/bhChoose"],
 "BhDatatable": ["src/bh-datatable/bhDatatable"],
 "BhDatetime": ["src/bh-datetime/bhDatetime"],
+"BhDatetimepicker": ["src/bh-datetimepicker/bhDatetimepicker"],
 "BhDropdown": ["src/bh-dropdown/bhDropdown"],
 "BhDropdownmenu": ["src/bh-dropdownmenu/bhDropdownmenu"],
 "BhEditPanel": ["src/bh-edit-panel/bhEditPanel"],

@@ -32,6 +32,10 @@ var _BhDatetime = require('./BhDatetime');
 
 var _BhDatetime2 = _interopRequireDefault(_BhDatetime);
 
+var _BhDatetimepicker = require('./BhDatetimepicker');
+
+var _BhDatetimepicker2 = _interopRequireDefault(_BhDatetimepicker);
+
 var _BhDropdown = require('./BhDropdown');
 
 var _BhDropdown2 = _interopRequireDefault(_BhDropdown);
@@ -267,6 +271,7 @@ module.exports = {
   BhChoose: _BhChoose2.default,
   BhDatatable: _BhDatatable2.default,
   BhDatetime: _BhDatetime2.default,
+  BhDatetimepicker: _BhDatetimepicker2.default,
   BhDropdown: _BhDropdown2.default,
   BhDropdownmenu: _BhDropdownmenu2.default,
   BhEditPanel: _BhEditPanel2.default,

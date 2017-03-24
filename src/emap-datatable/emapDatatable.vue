@@ -270,6 +270,7 @@
          * @property {Boolean} [options.columnsResize=true] 是否支持拖动列头改变大小
          * @property {Boolean} [options.colHasMinWidth=true] 列宽是否有默认最小值100px
          * @property {Function} [options.beforeSend] 发送数据请求之前触发的回调
+         * @property {Function} [options.downloadComplete] 请求数据成功返回时的回调，若此方法返回false则表示请求失败。参数为 (data, status, xhr)
          * @property {Boolean} [options.schema=true] 是否启用schema，为 true则必须定义contextPath;未定义contextPath时,schema 不生效
          * @property {String} options.contextPath 请求上下文
          * @property {Number} options.minLineNum 表格最小行数

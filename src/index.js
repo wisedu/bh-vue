@@ -6,6 +6,7 @@ import BhChecklist from './bh-checklist/bhChecklist';
 import BhChoose from './bh-choose/bhChoose';
 import BhDatatable from './bh-datatable/bhDatatable';
 import BhDatetime from './bh-datetime/bhDatetime';
+import BhDatetimepicker from './bh-datetimepicker/bhDatetimepicker';
 import BhDropdown from './bh-dropdown/bhDropdown';
 import BhDropdownmenu from './bh-dropdownmenu/bhDropdownmenu';
 import BhEditPanel from './bh-edit-panel/bhEditPanel';
@@ -72,6 +73,7 @@ BhChecklist,
 BhChoose,
 BhDatatable,
 BhDatetime,
+BhDatetimepicker,
 BhDropdown,
 BhDropdownmenu,
 BhEditPanel,
