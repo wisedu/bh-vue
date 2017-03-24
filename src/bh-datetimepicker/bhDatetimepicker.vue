@@ -58,7 +58,9 @@
             };
         },
         /**
-         * @property {Object} options 参数配置（请参考 bootstrap-datetimepicker 官方文档）
+         * @property {String} [value=null] 当前日期值（twoway）
+         * @property {Boolean} [disabled=false] 是否禁用
+         * @property {Object} [options=null] 参数配置（请参考 bootstrap-datetimepicker 官方文档）
          */
         props: ['value', 'disabled', 'options'],
         methods: {
