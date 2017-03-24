@@ -31,6 +31,8 @@
          * @property {Object} uploadParam - 上传附加参数
          * @property {String} deleteUrl - 删除url
          * @property {Object} deleteParam - 删除附加参数
+         * @property {Boolean} readonly - 是否只读，默认false
+         * @property {Array} editButtons - 功能按钮，默认['download', 'preview', 'delete', 'reupload']
          */
         props: {
             'ftype': {
@@ -88,6 +90,16 @@
             'deleteParam': {
                 type: Object,
                 default: {}
+            },
+            'readonly': {
+                type: Boolean,
+                default: false
+            },
+            'editButtons': {
+                type: Array,
+                default: () => {
+                	return ['download', 'preview', 'delete', 'reupload'];
+                }
             }
         },
         methods: {
@@ -105,6 +117,8 @@
             var type = $.isArray(this.ftype) ? this.ftype : [this.ftype];
 
             el.directUpload({
+            	readonly: this.readonly,
+                editButtons: this.editButtons,
                 type: type,
                 storeId: this.storeId,
                 size: this.size,
