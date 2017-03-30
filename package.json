@@ -1,6 +1,6 @@
 {
   "name": "bh-vue",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "vue components based on jqxwidget and EMAP",
   "devDependencies": {
     "babel-core": "^6.9.0",
