@@ -161,6 +161,29 @@
                 return $(this.$el).jqxDropDownList('checkItem', item);
             },
             /**
+             * 取消选择项【多选模式】
+             * @param  {String/Object} item 列表中某一个元素，若为string，则当成value处理
+             */
+            uncheckItem (item) {
+                if (typeof item !== 'object') {
+                    item = $(this.$el).jqxDropDownList('getItemByValue', item);
+                }
+
+                return $(this.$el).jqxDropDownList('uncheckItem', item);
+            },
+            /**
+             * 全选
+             */
+            checkAll () {
+                return $(this.$el).jqxDropDownList('checkAll');
+            },
+            /**
+             * 取消全选
+             */
+            uncheckAll () {
+                return $(this.$el).jqxDropDownList('uncheckAll');
+            },
+            /**
              * 重置列表为未选择状态
              */
             reset () {

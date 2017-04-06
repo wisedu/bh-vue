@@ -136,7 +136,7 @@
             setCurrent(jqObj, this.value);
             el.jqxDateTimeInput({disabled: this.disabled});
 
-            jqObj.on('change', (event) => {
+            jqObj.on('valueChanged', (event) => {
                 self.value = getCurrent(jqObj);
             });
 
