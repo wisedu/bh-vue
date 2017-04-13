@@ -41,7 +41,7 @@
 
     var _callBsMethods = function(vm, method) {
         let bsElem = _getBsElem(vm);
-        let func = bsElem.data('DateTimePicker')[method];
+        let func = bsElem.data('DateTimePicker') && bsElem.data('DateTimePicker')[method];
 
         if (!func || (typeof func !== 'function')) {
             console.warn('no method in bootstrap-datetimepicker:' + method);

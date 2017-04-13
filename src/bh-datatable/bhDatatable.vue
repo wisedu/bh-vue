@@ -107,7 +107,7 @@
             source.url = opts.url;
             source.root = opts.root;
         } else {
-            source.localdata = vm.localdata || options.localdata || [];
+            source.localdata = vm.localdata || opts.localdata || [];
         }
 
         return new $.jqx.dataAdapter(source, {
