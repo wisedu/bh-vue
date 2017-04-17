@@ -76,17 +76,52 @@
     /**
      * 增加 options 处理，与emapDatatable统一，同时兼容之前分开定义配置项的写法
      */
-    const OPT_NAMES = ['id', 'width', 'height', 'showHeader', 'checkable', 'pageable', 'enableBrowserSelection', 'selectionMode', 'pagerMode', 'pageNumberField', 'pageSizeField', 'sortable', 'reorder', 'resize', 'url', 'contentType', 'localdata', 'root', 'columns', 'queryType', 'queryParams', 'operations', 'callbacks'];
+    const OPT_NAMES = ['id', 'width', 'height', 'showHeader', 'checkable', 'pageable', 'enableBrowserSelection', 'selectionMode', 'pagerMode', 'pageNumberField', 'pageSizeField', 'sortable', 'reorder', 'resize', 'url', 'contentType', 'localdata', 'root', 'columns', 'queryType', 'queryParams', 'operations', 'callbacks', 'colHasMinWidth'];
 
     // jqxDatatable 不允许传入未预先定义的属性，需要做一次清理
-    const EXTRA_OPT_NAMES = ['id', 'checkable', 'pageNumberField', 'pageSizeField', 'reorder', 'resize', 'url', 'contentType', 'localdata', 'root', 'queryType', 'queryParams', 'operations', 'callbacks'];
+    const EXTRA_OPT_NAMES = ['id', 'checkable', 'pageNumberField', 'pageSizeField', 'reorder', 'resize', 'url', 'contentType', 'localdata', 'root', 'queryType', 'queryParams', 'operations', 'callbacks', 'colHasMinWidth'];
+
+    const DEFAULT_OPTS = {
+        colHasMinWidth: true
+    };
 
     var _makeOpts = (vm) => {
-        let options = vm.options || {};
+        let defOpts = $.extend({}, DEFAULT_OPTS);
+        let options = vm.options ? $.extend(defOpts, vm.options) : defOpts;
+
         return $.extend(options, OPT_NAMES.reduce((ret, item) => {
             ret[item] = options[item] !== undefined ? options[item] : vm[item];
             return ret;
         }, {}));
+    };
+
+    /**
+     * 渲染之前替换掉单元格内容中的 '<', '>'
+     */
+    var _preventXss = (options) => {
+        if (!options || !options.columns) {
+            return options;
+        }
+
+        let columns = options.columns;
+        columns.forEach(column => {
+            let oldRenderer = column.cellsRenderer;
+            column.cellsRenderer = (function (renderer) {
+                return function (row, column, value, rowData) {
+                    let result = value;
+                    if (value && (typeof value === 'string')) {
+                        result = value.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                    }
+                    if (renderer) {
+                        result = renderer(row, column, result, rowData);
+                    }
+                    if (typeof result === 'number') {
+                        result = result + '';
+                    }
+                    return result;
+                };
+            })(oldRenderer);
+        });
     };
 
     /**
@@ -552,6 +587,7 @@
 
             var vm = this;
             var opts = vm.opts = _makeOpts(vm);
+            _preventXss(opts);
             var el = $(vm.$el);
 
             if (opts.checkable) { // 复选框为一列
@@ -573,7 +609,7 @@
                     setCheckStatus(vm);
 
                     // 渲染结束后给单元格增加 title，防止字符串被截断
-                    el.find('.jqx-grid-cell').each(function() {
+                    el.find('.jqx-grid-cell').each(function () {
                         var cell = $(this);
                         cell.attr('title', cell.text());
                     });

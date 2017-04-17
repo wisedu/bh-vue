@@ -34,7 +34,7 @@ let _rows = (data) => {
 // 列表数据
 let _datas = (data) => {
     data = _code(data);
-    if (data && data.datas) {
+    if (data && data.datas !== undefined) {
         return data.datas;
     } else {
         return [];
