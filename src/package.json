@@ -1,6 +1,6 @@
 {
   "name": "bh-vue",
-  "version": "1.6.36",
+  "version": "1.6.37",
   "description": "vue components based on jqxwidget and EMAP",
   "main": "index.js",
   "scripts": {

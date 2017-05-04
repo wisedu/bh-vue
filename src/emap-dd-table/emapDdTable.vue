@@ -37,7 +37,7 @@
          * @property {String} [options.displayMember=name] 显示名称
          * @property {Array} [options.hideMember] 要隐藏的元素数组
          * @property {String} [options.width=300] 宽度设置
-         * @property {Function} [options.formatData] 对请求返回的数据做格式化处理，参数为请求url返回的数据对象
+         * @property {Function} [options.formatData] 对请求参数做自定义处理，比如附加其他参数
          */
         props: {
             options: Object

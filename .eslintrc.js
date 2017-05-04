@@ -4,7 +4,7 @@ module.exports = {
   extends: 'standard',
   // required to lint *.vue files
   plugins: [
-    'html'
+    'vuefix'
   ],
   "env": {
     "browser": true //执行环境 浏览器
@@ -29,5 +29,6 @@ module.exports = {
     "semi": [2, "always"],
     "eqeqeq": [1, "allow-null"],
     "new-cap": [1, { "newIsCap": false, "capIsNew": false }],
+    "comma-dangle": ["error", "never"]
   }
 }

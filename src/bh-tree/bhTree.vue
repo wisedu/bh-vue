@@ -120,10 +120,19 @@
             if( ! items.length > 0 ) {
                 return;
             }
-            selectItem(el, items[0]);
 
-            self.selectedItem = items[0];
-            self.$dispatch('select', items[0]);
+            let _item = items[0];
+            if(vm.defaultSelectLeaf === true) {
+                vm.source.forEach((item) => {
+                    if(item.selected === true) {
+                        _item = item;
+                    }
+                })
+            }
+            selectItem(el, _item);
+
+            self.selectedItem = _item;
+            self.$dispatch('select', _item);
             self.$dispatch('initialized');
         })
     };
@@ -304,6 +313,10 @@
                 }
             },
             defaultSelect: {
+                type: Boolean,
+                default: false
+            },
+            defaultSelectLeaf: {
                 type: Boolean,
                 default: false
             }

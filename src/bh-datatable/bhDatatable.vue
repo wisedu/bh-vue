@@ -95,6 +95,10 @@
         }, {}));
     };
 
+    var _isNumber = (n) => {
+        return typeof n === 'number' || (typeof n === 'object' && Object.prototype.toString.call(n) === '[object Number]');
+    };
+
     /**
      * 渲染之前替换掉单元格内容中的 '<', '>'
      */
@@ -115,7 +119,8 @@
                     if (renderer) {
                         result = renderer(row, column, result, rowData);
                     }
-                    if (typeof result === 'number') {
+
+                    if (_isNumber(result)) {
                         result = result + '';
                     }
                     return result;

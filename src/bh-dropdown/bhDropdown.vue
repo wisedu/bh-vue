@@ -51,6 +51,10 @@
      * 设置当前选择的对象，转换为用索引设置，防止诡异的问题
      */
     var _setCurrentItem = (vm, item) => {
+        if (item === null || item === undefined) {
+            return;
+        }
+
         let source = vm.source;
         let valueMember = vm.valueMember;
         for (let i = 0, len = source.length; i < len; i++) {
