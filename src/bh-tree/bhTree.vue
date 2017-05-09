@@ -378,8 +378,10 @@
              */
             addTo (item, elem) {
                 //return $(this.$el).jqxTree('addBefore', item, elem);
-                return $(this.$el).jqxTree('addTo', item, elem, false);
-
+                let el = $(this.$el);
+                let ret = el.jqxTree('addTo', item, elem, false);
+                el.jqxTree('render');
+                return ret;
             },
             /**
              * 在元素之后增加新节点
