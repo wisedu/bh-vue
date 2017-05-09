@@ -69,7 +69,7 @@
         }
 
         $.each(item, (i, node) => {
-            el.jqxTree('removeItem', node);
+            el.jqxTree('removeItem', node.element);
         });
 
         el.jqxTree('render');
@@ -104,6 +104,13 @@
                 item: item,
                 checked: args.checked
             });
+        });
+
+        el.on('expand', function (event) {
+            var args = event.args;
+            var item = getItem(el, args.element);
+
+            self.$dispatch('expand', item);
         });
     };
 
@@ -145,6 +152,7 @@
 
         let root = $(vm.$el);
         root.addClass('has-opt').on('mouseenter', '.jqx-tree-item', function(event) {
+            // debugger;
             root.find('.opt-panel').remove(); // 先清一把
             let target = $(event.target);
             let li = target.parent();
@@ -187,6 +195,7 @@
             //移除事件
             root.find('.opt-panel').parent().find('.jqx-tree-item').css('padding-right', '').removeClass('bh-str-cut');
             root.find('.opt-panel').remove();
+            $(this).removeClass('edit-tree-item-hover');
         }).on('click', '.opt-btn', function(event) {
             let target = $(event.target);
             vm.$dispatch(target.data('action'), target.data('item'));
@@ -214,10 +223,15 @@
     };
 
     var prepareSource = (vm) => {
+        return preprocessSource(vm, vm.source);
+    };
+
+
+    var preprocessSource = (vm, dataSource) => {
         var fields = vm.fields;
 
         if ($.isEmptyObject(fields)) {
-            return vm.source;
+            return dataSource;
         }
 
         var params = $.extend({}, vm.defaultFields, fields);
@@ -243,7 +257,7 @@
             datatype: 'array',
             id: params.id,
             datafields: dataFields,
-            localdata: vm.source
+            localdata: dataSource
         };
         var dataAdapter = new $.jqx.dataAdapter(source);
         dataAdapter.dataBind();
@@ -409,13 +423,32 @@
                 return getSelectedItem($(this.$el));
             },
             /**
+             * 获取当前选择节点
+             */
+            getItem (item) {
+                return getItem($(this.$el), item);
+            },
+            /**
              * 更新节点
              * @param  {Object} item 元素节点
              * @param  {Object} newItem 更新后的元素数据
              */
             updateItem (item, newItem) {
                 return $(this.$el).jqxTree('updateItem', item, newItem);
+            },
+            preprocessSource (source) {
+                return preprocessSource(this, source);
+            },
+            getPrevItem (item) {
+                return $(this.$el).jqxTree('getPrevItem', item.element);
+            },
+            getNextItem (item) {
+                return $(this.$el).jqxTree('getNextItem', item.element);
             }
+            // ,
+            // addTo (item, parentItem) {
+            //     return $(this.$el).jqxTree('addTo', item, parentItem.element);
+            // }
         },
         ready () {
             var self = this;
