@@ -64,7 +64,8 @@
                     max: undefined,
                     placeHolder: '',
                     selectionMode: 'default',
-                    showFooter: false
+                    showFooter: false,
+                    selectionOpen: false
                 },
                 jqxObj: null
             };
@@ -81,6 +82,7 @@
          * @property {Date} [options.max=Date(2100, 1, 1)] 最大日期
          * @property {String} [options.selectionMode=default] 日期格式，可选 'none'/'default'/'range'
          * @property {Boolean} [options.showFooter=false] 是否显示底部区域
+         * @property {Boolean} [options.selectionOpen=false] 是否在点击input时弹出日期选择框
          * @property {Boolean} [disabled=false] 是否禁用
          */
         props: ['value', 'options', 'disabled'],
@@ -138,6 +140,22 @@
 
             jqObj.on('valueChanged', (event) => {
                 self.value = getCurrent(jqObj);
+            });
+
+            if (options.selectionOpen) {
+                // 点击 input 框自动弹出日期选择
+                el.on("click", function (e) {
+                    e.stopPropagation();
+                    var disabled = el.jqxDateTimeInput('disabled');
+                    if (!disabled) el.jqxDateTimeInput('open');
+                });
+            }
+
+            // 清除输入的 非数字
+            el.on('input', function () {
+                if (isNaN(parseInt(el.val()))) {
+                    el.val('');
+                }
             });
 
             self.$watch('value', (val) => {

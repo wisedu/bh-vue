@@ -96,7 +96,7 @@
     };
 
     var _isNumber = (n) => {
-        return typeof n === 'number' || (typeof n === 'object' && Object.prototype.toString.call(n) === '[object Number]');
+        return (typeof n === 'number') || (typeof n === 'object' && Object.prototype.toString.call(n) === '[object Number]') || (n instanceof Number);
     };
 
     /**

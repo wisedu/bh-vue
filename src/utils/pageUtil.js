@@ -196,6 +196,9 @@ export default {
 
         jqDom.on('close', (event) => {
             close && close(event.target);
+            jqDom.jqxWindow('destroy');
+            jqDom.off('click').off('close').off('open').off('created');
+            jqDom.remove();
         });
         // 点击按钮事件触发
         let self = this;
