@@ -380,11 +380,12 @@ export default {
      * @param  {String}   content  信息内容
      * @param  {Function} callback 点击确认按钮的回调
      * @param {Object} [options] 附加参数，支持自定义按钮和标题文字
+     * @param {Function} callbackCancel 点击取消按钮的回调
      * @param {String} options.title 标题文字，默认获取多语言 Vue.t('basic.alert')
      * @param {String} options.ok 确定按钮的文字，默认获取多语言 Vue.t('basic.ok')
      * @param {String} options.cancel 取消按钮的文字，默认获取多语言 Vue.t('basic.cancel')
      */
-    confirm (content, callback, options) {
+    confirm (content, callback, options, callbackCancel) {
         let title = (!Vue.t || Vue.t('basic.alert') === 'basic.alert') ? '警告' : Vue.t('basic.alert');
         let ok = (!Vue.t || Vue.t('basic.ok') === 'basic.ok') ? '确定' : Vue.t('basic.ok');
         let cancel = (!Vue.t || Vue.t('basic.cancel') === 'basic.cancel') ? '取消' : Vue.t('basic.cancel');
@@ -398,13 +399,14 @@ export default {
             title: opts.title,
             buttons: [{
                 text: opts.ok,
-                className: 'bh-btn-primary'
+                className: 'bh-btn-primary',
+                callback:callback
             }, {
                 text: opts.cancel,
-                className: 'bh-btn-default'
+                className: 'bh-btn-default',
+                callback:callbackCancel
             }],
-            content: content,
-            callback: callback
+            content: content
         });
     },
     /**
