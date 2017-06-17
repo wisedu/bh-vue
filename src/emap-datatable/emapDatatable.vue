@@ -213,6 +213,11 @@
             delete data.filterslength;
             delete data.sortdatafield;
             delete data.sortorder;
+
+            if (opts.method === 'GET' || opts.method === 'get') {
+                return data
+            }
+
             return JSON.stringify(data);
         };
 

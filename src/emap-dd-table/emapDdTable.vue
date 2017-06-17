@@ -58,6 +58,13 @@
                 $(this.$el).emapDropdownTable('getValue', val);
             },
             /**
+             * 获取当前选择的元素对象
+             * @return {Object} 当前选择的元素对象
+             */
+            getSelectedItem () {
+                return $(this.$el).jqxComboBox('getSelectedItem');
+            },
+            /**
              * 销毁
              */
             destroy () {
