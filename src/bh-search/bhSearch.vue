@@ -1,9 +1,20 @@
 <template>
-    <div class="search-box">
+    <div class="bh-advancedQuery" style='overflow: hidden'>
+        <div class="bh-advancedQuery-quick">
+            <div class="bh-advancedQuery-inputGroup bh-clearfix" style="padding-bottom: 8px;background: #fff;">
+                <div class="bh-advancedQuery-quick-search-wrap">
+                    <input type="text" v-model="value" class="bh-form-control" @keyup.enter="search" :maxlength="maxlength" :minlength="minlength" :placeholder="placeholder">
+                    <i class="iconfont icon-search" style="position: absolute;left: 6px;top: 6px;"></i>
+                </div>
+                <a v-if='showButton' class="bh-btn bh-btn bh-btn-primary bh-btn-small" bh-advanced-query-role="easySearchBtn" href="javascript:void(0);" @click='search'>{{btnText}}</a>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="search-box">
         <input type="text" v-model="value" class="bh-form-control" @keyup.enter="search" :maxlength="maxlength" :minlength="minlength" :placeholder='placeholder'>
         <i class="iconfont icon-search"></i>
         <a v-if='showButton' class="bh-btn bh-btn-primary bh-btn-small j-search-btn" href="javascript:void(0);" @click='search'>{{btnText}}</a>
-    </div>
+    </div> -->
 </template>
 
 <script>
@@ -17,7 +28,7 @@
      * <caption>html</caption>
      * <bh-search @search='search' :value.sync='val' placeholder='随便输入，长度小于10' :maxlength='maxlength' :source='candidates'></bh-search>
      */
-    
+
     /**
      * 去除字符串两端空格
      */
@@ -84,11 +95,11 @@
         ready () {
             // var self = this;
             var el = $(this.$el);
-            this.jqxObj = el.jqxInput({
-                source: this.source
-            });
+            // this.jqxObj = el.jqxInput({
+            //     source: this.source
+            // });
             this.$nextTick(() => {
-                el.find('input.jqx-input-group-addon').css('border-right-width', '1px');
+                el.find('.jqx-input-group-addon').css('border', 'none');
             });
         },
         beforeDestroy () {
@@ -99,7 +110,7 @@
 </script>
 
 <style scoped>
-    @icon-color: #999;
+    /* @icon-color: #999;
     .search-box {
         display: -webkit-flex;
         display: flex;
@@ -119,5 +130,5 @@
     .search-box a {
         border: none;
         margin-left: -1px;
-    }
+    } */
 </style>
