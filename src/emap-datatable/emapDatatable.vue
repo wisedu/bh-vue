@@ -228,7 +228,7 @@
             var row = _this.attr('data-row');
             var name = _this.attr('data-name');
 
-            vm.$dispatch(name, vm.cachedMap[row] || vm.getDataByRow(row), parseInt(row));
+            vm.$dispatch(name, vm.cachedMap[row] || vm.getDataByRow(row), parseInt(row), e);
         });
 
         eventList.forEach(function (eventName) {

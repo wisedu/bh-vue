@@ -50,7 +50,7 @@
             autoUpload: true,
             dataType: 'json',
             add (e, data) {
-                let canSubmit = true;
+                // let canSubmit = true;
 
                 // 校验文件类型
                 const fileType = vm.fileType;
@@ -112,8 +112,15 @@
                 type: String,
                 default: '选择文件'
             },
-            callbacks: Object,
-
+            callbacks: Object
+        },
+        methods: {
+            /**
+             * 触发点击按钮
+             */
+            triggerClick () {
+                $(this.elInput).click()
+            }
         },
         ready () {
             this.elInput = this.type === 'link' ? this.$els.linkfile : this.$els.buttonfile;
