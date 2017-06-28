@@ -65,7 +65,9 @@
          */
         data: () => ({
             bShowImgPanel: false,
-            imgTypes: ['.png', 'jpg', 'jpeg']
+            editorWrapper: null,
+            lastRange: null, // 图片插入时焦点不对的问题
+            imgTypes: ['.bmp', '.jpg', '.png', '.tiff', '.gif', '.pcx', '.tga', '.exif', '.fpx', '.svg', '.psd', '.cdr', '.pcd', '.dxf', '.ufo', '.eps', '.ai', '.raw', '.wmf']
         }),
         props: {
             options: Object
@@ -111,7 +113,10 @@
                 return this.wrapper().summernote('isEmpty');
             },
             wrapper() {
-                return $(this.$els.editor);
+                if (!this.editorWrapper) {
+                    this.editorWrapper = $(this.$els.editor)
+                }
+                return this.editorWrapper;
             },
             uploadImage (context) {
                 if (!this.options.imgDownload) {
@@ -135,16 +140,28 @@
                 return button.render();
             },
             imgDone (data) { // 图片上传成功
-                console.log(data)
+                // console.log(data)
                 let options = this.options;
                 let result = data.result;
                 let fileId = result && result.id;
                 let fileName = data && data.files && data.files[0].name;
 
                 if (fileId) {
+                    let origin = location.origin
                     let wrapper = this.wrapper();
-                    let url = `${options.imgDownload}/${fileId}`;
-                    wrapper.summernote('insertImage', url, fileName);
+                    let url = `${origin}${options.imgDownload}/${fileId}`;
+                    // console.log(document.activeElement)
+                    // let editor = $('.note-editable').get(0)
+                    // let lastChild = editor.
+                    // wrapper.summernote('restoreRange')
+                    // console.log(this.lastRange)
+                    if (this.lastRange) {
+                        let selection = window.getSelection()
+                        selection.removeAllRanges()
+                        selection.addRange(this.lastRange)
+                    }
+
+                    this.$nextTick(() => wrapper.summernote('insertImage', url, fileName))
                 }
 
                 this.bShowImgPanel = false
@@ -160,10 +177,14 @@
         },
         ready () {
             let wrapper = this.wrapper()
+            let self = this
             wrapper.summernote($.extend({}, DEFAULT_OPTS, this.options, {
                 callbacks: {
-                    onImageUpload (files) {
-                        console.log(files)
+                    onBlur () {
+                        self.lastRange = window.getSelection().getRangeAt(0)
+                    },
+                    onFocus () {
+                        // self.lastRange = null
                     }
                 },
                 buttons: {

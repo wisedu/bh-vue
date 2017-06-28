@@ -47,6 +47,7 @@
 
         let options = {
             url: vm.url,
+            // fileInput: input,
             autoUpload: true,
             dataType: 'json',
             add (e, data) {
@@ -120,19 +121,39 @@
              */
             triggerClick () {
                 $(this.elInput).click()
+            },
+            getEl () {
+                return this.elInput ? this.elInput : this.elInput = this.type === 'link' ? $(this.$els.linkfile) : $(this.$els.buttonfile);
+            },
+            dispose () {
+                let elInput = this.getEl()
+                try {
+                    elInput.fileupload('destroy');
+                } catch (e) {
+                    console.warn('destroy fileupload failed !');
+                }
             }
+            // setUrl () {
+            //     alert('seturl')
+            //     let elInput = this.getEl()
+            //     elInput.fileupload('option', 'url', this.url);
+            // }
         },
         ready () {
-            this.elInput = this.type === 'link' ? this.$els.linkfile : this.$els.buttonfile;
+            this.elInput = this.getEl()
             _init.call(this);
+
+            // this.$watch('url', newUrl => {
+            //     this.$nextTick(() => {
+            //         let elInput = this.getEl()
+            //         this.dispose();
+            //         _init.call(this);
+            //         // elInput.fileupload('option', 'url', newUrl);
+            //     })
+            // })
         },
         beforeDestroy () {
-            let elInput = this.type === 'link' ? this.$els.linkfile : this.$els.buttonfile;
-            try {
-                $(elInput).fileupload('destroy');
-            } catch (e) {
-                console.warn('destroy fileupload failed !');
-            }
+            this.dispose();
         }
     };
 </script>
