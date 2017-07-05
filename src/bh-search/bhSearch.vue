@@ -3,7 +3,7 @@
         <div class="bh-advancedQuery-quick">
             <div class="bh-advancedQuery-inputGroup bh-clearfix" style="padding-bottom: 8px;background: #fff;">
                 <div class="bh-advancedQuery-quick-search-wrap">
-                    <input type="text" v-model="value" class="bh-form-control" @keyup.enter="search" :maxlength="maxlength" :minlength="minlength" :placeholder="placeholder">
+                    <input type="text" v-el:inputbox v-model="value" class="bh-form-control" @keyup.enter="search" :maxlength="maxlength" :minlength="minlength" :placeholder="placeholder">
                     <i class="iconfont icon-search" style="position: absolute;left: 6px;top: 6px;"></i>
                 </div>
                 <a v-if='showButton' class="bh-btn bh-btn bh-btn-primary bh-btn-small" bh-advanced-query-role="easySearchBtn" href="javascript:void(0);" @click='search'>{{btnText}}</a>
@@ -100,6 +100,10 @@
             // });
             this.$nextTick(() => {
                 el.find('.jqx-input-group-addon').css('border', 'none');
+
+                if (window.$ && $.prototype.placeholder) {
+                    $(this.$els.inputbox).placeholder()
+                }
             });
         },
         beforeDestroy () {
