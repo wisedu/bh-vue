@@ -96,8 +96,9 @@
     };
 
     var _getOptColumn = (vm) => {
+        let isLast = typeof vm.options.operations.colIndex === 'undefined'
         return {
-            colIndex: 'last',
+            colIndex: isLast ? 'last' : vm.options.operations.colIndex,
             type: 'tpl',
             column: {
                 width: vm.options.operations.width,
@@ -143,7 +144,8 @@
         var el = $(vm.$el);
 
         var opts = $.extend({customColumns: []}, _defaultOpts, vm.options);
-        var customColumns = opts.customColumns;
+        // 解决多个组件共享自定义列的问题
+        var customColumns = opts.customColumns = $.extend([], opts.customColumns);
         var operations = opts.operations;
 
         vm.hiddenColumns = opts.hiddenColumns;
@@ -168,11 +170,11 @@
         opts.operations = undefined;
         opts.lazyInit = undefined;
         // 监听行展开、收缩事件
-        el.off('rowExpand').on('rowExpand', function() {
+        el.off('rowExpand').on('rowExpand', function () {
             vm.$dispatch('expand');
         });
 
-        el.off('rowCollapse').on('rowCollapse', function() {
+        el.off('rowCollapse').on('rowCollapse', function () {
             vm.$dispatch('collapse');
         });
 
@@ -181,7 +183,7 @@
             vm.$dispatch(vm.readyName, vm);
         };
 
-        opts.rendered = ()=>{
+        opts.rendered = ()=> {
             var rows = el.jqxDataTable('getRows');
 
             vm.$emit('rendered')

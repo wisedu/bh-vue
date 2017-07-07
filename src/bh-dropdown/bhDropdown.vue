@@ -205,8 +205,18 @@
              */
             clear () {
                 $(this.$el).jqxDropDownList('clear');
+            },
+            /**
+             * 多选模式下选择item,value为字符串
+             */
+            checkMultiItems(value){
+                let valueArray=value.split(',')
+                valueArray.forEach(item=>{
+                    $(this.$el).jqxDropDownList('checkItem', item);
+                })
             }
-        },
+
+    },
         ready () {
             var self = this;
             var el = $(this.$el);
