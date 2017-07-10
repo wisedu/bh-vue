@@ -52,7 +52,6 @@
             dataType: 'json',
             add (e, data) {
                 // let canSubmit = true;
-
                 // 校验文件类型
                 const fileType = vm.fileType;
                 if (fileType && fileType.length > 0 && data.files && data.files.length > 0) {
@@ -62,11 +61,18 @@
                     }
                 }
 
+                // 校验文件大小
+                if(vm.maxSize && data.originalFiles && data.originalFiles[0]['size'] && data.originalFiles[0]['size'] > vm.maxSize) {
+                    vm.$dispatch('esize', {data, msg: `文件超出限制大小(${vm.maxSize / 1000}K)`});
+                    return;
+                }
+
                 // 若前置校验显示返回 false，则不进行提交操作
                 if (vm.callbacks && vm.callbacks.beforeSubmit && (vm.callbacks.beforeSubmit(e, data) === false)) {
                     return;
                 }
 
+                vm.currentData = data
                 data.submit();
             },
             submit (e, data) {
@@ -82,6 +88,10 @@
             }
         };
 
+        if (vm.maxSize) {
+            options.maxFileSize = vm.maxSize
+        }
+
         input.fileupload(options);
 
         return true;
@@ -89,12 +99,14 @@
 
     export default {
         data: () => ({
+            currentData: null, // 当前正在上传的对象，可取消（abort）
             elInput: null // 当前file input的dom元素
         }),
         /**
          * @property {String} url 文件上传地址
          * @property {String} [type=link] 按钮类型，支持 'link' / 'button'
          * @property {Array} [fileType=[]] 支持的所有文件类型，如 ['.txt', '.pdf']
+         * @property {Number} [maxSize] 限制上传文件大小（byte）
          * @property {String} [text=选择文件] 按钮文字
          * @property {Object} [callbacks] 各种回调事件
          * @property {Function} [callbacks.beforeSubmit] 提交之前的处理，若显式返回false则不提交
@@ -109,6 +121,7 @@
                 type: Array,
                 default: []
             },
+            maxSize: Number,
             text: {
                 type: String,
                 default: '选择文件'
@@ -121,6 +134,12 @@
              */
             triggerClick () {
                 $(this.elInput).click()
+            },
+            /**
+             * 取消上传
+             */
+            cancelUpload () {
+                this.currentData && this.currentData.abort()
             },
             getEl () {
                 return this.elInput ? this.elInput : this.elInput = this.type === 'link' ? $(this.$els.linkfile) : $(this.$els.buttonfile);
