@@ -18,15 +18,19 @@
      */
     export default {
         /**
-         * @property {String} [storeId=file] 上传文件的类型
          * @property {String/Array} [ftype=['jpg', 'png', 'jpeg']] 上传文件的类型限制
-         * @property {Number} [size=2048] 文件大小限制(Kb)
-         * @property {Number} [limit=5] 上传数量限制
          * @property {String/Number} [width=200] 展示图片的宽度
          * @property {String/Number} [height=150] 展示图片的高度
-         * @property {Boolean} [multiple=false] 是否支持多文件
-         * @property {String} buttonType - 按钮类型，block和button
-         * @property {String} displayType - 显示类型，file和image
+         * @property {Number} [limit=5] 上传数量限制
+         * @property {Number} [size=2048] 文件大小限制(Kb)
+         * @property {Boolean} [multiple=false] 是否支持多文件选择
+         * @property {String} [buttonType=button] - 按钮类型，block和button
+         * @property {String} [displayType=image] - 显示类型，file和image
+         * @property {String} [storeId=file] 上传文件的类型
+         * @property {Array} imagesUrl - 已上传图片url的数组，用于对原有图片的展示
+            支持两种方式设置原有数据：
+            1,直接存储图片地址。格式：['http://图片1地址', 'http://图片2地址']
+            2,存储对象：id为图片id，fileUrl代表图片路径。格式[{id: '001', fileUrl: 'htt...'}]
          * @property {String} uploadUrl - 上传url
          * @property {Object} uploadParam - 上传附加参数
          * @property {String} deleteUrl - 删除url
