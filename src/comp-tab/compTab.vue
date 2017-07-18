@@ -35,7 +35,7 @@
         /**
          * @property {Array} tabs tab项配置
          */
-        props: ['name', 'tabs'],
+        props: ['name', 'tabs','currentIndex'],
         data: function () {
             return {}
         },
@@ -51,10 +51,15 @@
             var el = $(this.$el)
 
             el.jqxTabs({
-                width: '100%'
-            })
+                width: '100%',
+                selectedItem:this.currentIndex || 0,
 
-            this.initTabContent(0)
+            })
+            if(this.currentIndex){
+                this.initTabContent(parseInt(this.currentIndex))
+            }else{
+                this.initTabContent(0)
+            }
 
             el.on('tabclick', function (event) {
                 var tabIndex = event.args.item;
