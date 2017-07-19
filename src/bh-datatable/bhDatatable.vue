@@ -45,8 +45,9 @@
      *                  }]
      *              },
      *              callbacks: {
-     *                  downloadComplete: function(data) {
-     *                      console.log('download complete:', data);
+     *                  downloadComplete: function(data, status, source) {
+     *                      // 需要分页的时候要设置 totalRecords，否则分页显示不对
+     *                      source.totalRecords = parseInt(data.datas.totalSize);
      *                  }
      *              }
      *          }
@@ -440,7 +441,7 @@
                 $(this.$el).jqxDataTable('render');
             },
             /**
-             * 重新加载数据
+             * 重新加载数据，修改 localdata 之后要调用此方法才会刷新列表
              */
             reload () {
                 $(this.$el).jqxDataTable('source', createAdapter(this));
