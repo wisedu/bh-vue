@@ -215,6 +215,7 @@
                 var el = $(this.$el);
                 var datamodel = WIS_EMAP_SERV.getModel(opts.pagePath, opts.modelName, 'form', opts.queryParams, {'content-type': 'json'});
                 opts.data = datamodel;
+                this.$dispatch('beforeinit',opts.data);
                 el.emapForm(opts);
                 this.reloadValidate();
                 el.on('_formChange',  (event) =>{
