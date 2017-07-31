@@ -14,7 +14,7 @@
  * storage.has('user'[, true]); // check whether key 'user' exists
  * storage.clear([true]) // clear all saved data
  */
-import store from 'store2';
+import store from './store2';
 
 const _localStore = store; // 本地存储
 

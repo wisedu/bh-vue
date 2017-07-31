@@ -1,11 +1,11 @@
 <template>
-    <div class="bh-dropdown bh-l-inline" bh-dropdown-role="bhDropdown">
-        <button class="bh-btn bh-btn-default waves-effect" type="button" bh-dropdown-role="bhDropdownBtn">
+    <div class="bh-dropdown bh-l-inline" :class="{'bh-dropdown-primary':isDropPrimary}" bh-dropdown-role="bhDropdown">
+        <button class="bh-btn bh-btn-default waves-effect" :class="btnColor" type="button" bh-dropdown-role="bhDropdownBtn">
             <i class='iconfont icon-{{icon}}'></i>
             {{title}}
         </button>
         <ul class="bh-dropdown-menu" bh-dropdown-role="bhDropdownMenu">
-            <li v-for="item in source" :class="{'bh-disabled': item.disable}" >
+            <li v-for="item in source" :class="{'bh-disabled': item.disable}">
                 <a :href="type==='button' ? '#' : item.url" @click="click">{{item[displayMember]}}</a>
             </li>
 
@@ -43,10 +43,18 @@
 
 
     export default {
+        computed: {
+            btnColor(){
+                var classObj = {}
+                classObj['bh-btn-' + this.buttonColor] = true;
+                return classObj;
+            },
+            isDropPrimary(){
+                return this.buttonColor === 'primary'
+            }
+        },
         data () {
-            return {
-
-            };
+            return {};
         },
         /**
          * @property {String} title 外部按钮显示文字
@@ -55,6 +63,7 @@
          * @property {String} [valueMember] 取值字段的名称
          * @property {String} [type] 下拉按钮类型，分button和link两种类型，为button时表示普通按钮，单击触发clickitem事件；为link时表示超链接，单击跳转到相应url
          * @property {String} [icon] 外部按钮左侧显示的图标，默认不显示
+         * @property {String}[buttonColor]button的颜色
          */
         props: {
             title: String,
@@ -72,22 +81,23 @@
             },
             icon: {
                 default: ''
-            }
+            },
+            buttonColor: ''
         },
         methods: {
             click (e) {
                 let index = $(e.target).parent('li').index();
                 let item = this.source[index];
-                if(item.disable === true){
+                if (item.disable === true) {
                     e.preventDefault();
                     return;
                 }
 
-                if(this.type === 'button') {
+                if (this.type === 'button') {
                     this.$dispatch('clickitem', item);
                     e.preventDefault();
-                }else{
-                    if(!item.url){
+                } else {
+                    if (!item.url) {
                         console.error('bh-dropdownmenu error: url must be given when the type is not button');
                     }
                     window.location.href = item.url;
@@ -97,8 +107,6 @@
         ready () {
         },
         beforeDestroy () {
-        },
-        computed: {
         }
     };
 </script>
