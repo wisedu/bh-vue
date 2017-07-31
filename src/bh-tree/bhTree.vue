@@ -7,7 +7,7 @@
      * 树
      *
      * @module BhTree
-     * @fires check-change - 选择的元素列表发生变化(需要支持多选:checkboxes = true)
+     * @fires check-change - 选择的元素列表发生变化(需要支持多选: checkboxes = true)
      * @fires select - 当前元素发生变化(鼠标点击)
      * @example
      *     <bh-tree v-ref:tree3 :source='treeData' :selected-item.sync='selItem'></bh-tree>
