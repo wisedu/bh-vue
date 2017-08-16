@@ -197,22 +197,29 @@
             rendered: function (element, align, height) {
                 // 头部的checkbox点击事件的绑定
                 element.on('click', 'input', (e) => {
+                    var newChecked = e.target.checked; // 当前状态为选中 or not
                     var $tableContent = $table.find('table');
                     var $checkboxList = $tableContent.find('div.bh-checkbox');
 
                     var $input = $(this);
-                    if ($input.hasClass('selectFlag')) {
+                    if (!newChecked) {
                         // 全部取消处理
                         $input.prop('checked', false).removeClass('selectFlag');
                         $checkboxList.each(function () {
                             $(this).find('input').prop('checked', false);
                         });
+
+                        vm.checkedRows = [];
+                        vm.checkedIds = [];
                     } else {
                         // 全部选中处理
                         $input.prop('checked', true).addClass('selectFlag');
                         $checkboxList.each(function () {
                             $(this).find('input').prop('checked', true);
                         });
+
+                        vm.checkedRows = vm.getTotalRecords();
+                        vm.checkedIds = vm.checkedRows.map(row => row[vm.id]);
                     }
                     e.stopPropagation();
                 });
@@ -301,7 +308,7 @@
     };
 
     var getAll = (el) => {
-        return el.jqxDataTable('getRows');
+        return $.extend(true, [], el.jqxDataTable('getRows'));
     };
 
     var setCheckStatus = (vm) => {
@@ -457,7 +464,7 @@
              * @return {Array} 数据列表
              */
             getTotalRecords () {
-                return $(this.$el).jqxDataTable('getRows');
+                return getAll($(this.$el));
             },
             /**
              * 根据主键keyId获取对应的行数据
@@ -646,12 +653,12 @@
 
                         // 初始化完成后，绑定checkbox的点击事件
                         el.on('click', 'div.bh-checkbox', function (e) {
+                            let newValue = e.target.checked;
                             var checkItem = $(e.currentTarget).find('input');
                             var id = checkItem.data('id') + '';
-                            var isAdd = checkItem[0].checked;
 
                             scenesTableContentCheckboxClick($(this).find('input'), el);
-                            if (isAdd) {
+                            if (newValue) {
                                 vm.checkById(id);
                             } else {
                                 vm.uncheckById(id);
