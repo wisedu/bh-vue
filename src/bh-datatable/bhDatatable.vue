@@ -599,7 +599,7 @@
             }
 
             var vm = this;
-            var opts = vm.opts = _makeOpts(vm);
+            var opts = vm.opts =  $.extend(true,{}, _makeOpts(vm));   // 修复一个页面出现多个此组件时，出现多个操作列
             _preventXss(opts);
             var el = $(vm.$el);
 
