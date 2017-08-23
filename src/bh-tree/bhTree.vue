@@ -130,11 +130,13 @@
 
             let _item = items[0];
             if(vm.defaultSelectLeaf === true) {
-                vm.source.forEach((item) => {
-                    if(item.selected === true) {
-                        _item = item;
+                //后台返回第一个选中的节点
+                for(var i = 0; i < items.length; i++) {
+                    if(items[i].hasItems === false) {
+                        _item = items[i];
+                        break;
                     }
-                })
+                }
             }
             selectItem(el, _item);
 

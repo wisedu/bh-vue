@@ -20,7 +20,7 @@
          * @property {int} [level=1] 层级(类似z-index),数值越大越靠近顶部
          */
         props: {
-              level: {
+            level: {
                 default: 1
             }
         }

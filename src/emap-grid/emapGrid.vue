@@ -40,7 +40,7 @@
         'card': 'EmapCard'
     };
 
-    const DEFAULT_OPTS = {pageSize: [10, 12]};
+    const DEFAULT_OPTS = {pageSize: [10, 12], schema: false};
 
     // 组件参数预处理
     const _getCompOpts = (type, options) => {
@@ -147,6 +147,9 @@
             getGrid () {
                 return this.$refs.grid;
             }
+        },
+        beforeDestroy () {
+            this.$refs.grid && this.$refs.grid.$destroy();
         },
         components: {EmapDatatable, EmapCard}
     };
