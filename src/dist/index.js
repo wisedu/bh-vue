@@ -48,6 +48,10 @@ var _BhEditPanel = require('./BhEditPanel');
 
 var _BhEditPanel2 = _interopRequireDefault(_BhEditPanel);
 
+var _BhExcelUpload = require('./BhExcelUpload');
+
+var _BhExcelUpload2 = _interopRequireDefault(_BhExcelUpload);
+
 var _BhFileupload = require('./BhFileupload');
 
 var _BhFileupload2 = _interopRequireDefault(_BhFileupload);
@@ -275,6 +279,7 @@ module.exports = {
   BhDropdown: _BhDropdown2.default,
   BhDropdownmenu: _BhDropdownmenu2.default,
   BhEditPanel: _BhEditPanel2.default,
+  BhExcelUpload: _BhExcelUpload2.default,
   BhFileupload: _BhFileupload2.default,
   BhFlowNode: _BhFlowNode2.default,
   BhFooter: _BhFooter2.default,

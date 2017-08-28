@@ -10,6 +10,7 @@ import BhDatetimepicker from './bh-datetimepicker/bhDatetimepicker';
 import BhDropdown from './bh-dropdown/bhDropdown';
 import BhDropdownmenu from './bh-dropdownmenu/bhDropdownmenu';
 import BhEditPanel from './bh-edit-panel/bhEditPanel';
+import BhExcelUpload from './bh-excel-upload/bhExcelUpload';
 import BhFileupload from './bh-fileupload/bhFileupload';
 import BhFlowNode from './bh-flow-node/bhFlowNode';
 import BhFooter from './bh-footer/bhFooter';
@@ -77,6 +78,7 @@ BhDatetimepicker,
 BhDropdown,
 BhDropdownmenu,
 BhEditPanel,
+BhExcelUpload,
 BhFileupload,
 BhFlowNode,
 BhFooter,

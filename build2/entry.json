@@ -11,6 +11,7 @@
 "BhDropdown": ["src/bh-dropdown/bhDropdown"],
 "BhDropdownmenu": ["src/bh-dropdownmenu/bhDropdownmenu"],
 "BhEditPanel": ["src/bh-edit-panel/bhEditPanel"],
+"BhExcelUpload": ["src/bh-excel-upload/bhExcelUpload"],
 "BhFileupload": ["src/bh-fileupload/bhFileupload"],
 "BhFlowNode": ["src/bh-flow-node/bhFlowNode"],
 "BhFooter": ["src/bh-footer/bhFooter"],

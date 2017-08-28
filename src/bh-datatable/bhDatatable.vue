@@ -599,7 +599,11 @@
             }
 
             var vm = this;
-            var opts = vm.opts =  $.extend(true,{}, _makeOpts(vm));   // 修复一个页面出现多个此组件时，出现多个操作列
+            let queryParams = vm.opts.query
+            var opts = vm.opts =  _makeOpts(vm);   // 修复一个页面出现多个此组件时，出现多个操作列, 造成无法传入 queryParams 的 bug
+
+            opts.columns = $.extend(true, {}, vm.options.columns);
+
             _preventXss(opts);
             var el = $(vm.$el);
 
