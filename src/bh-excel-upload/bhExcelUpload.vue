@@ -7,12 +7,13 @@
 <script>
     /**
      * 表格导入组件
-     * @module BhExcelPanel
+     * @module BhExcelUpload
      *
      * @example
      * <caption>html</caption>
      * <bh-excel-upload :options='options'></bh-excel-upload>
-     *
+     * 
+     * @example
      * <caption>javascript</caption>
      * export default {
      *   data: () => ({
