@@ -21,6 +21,8 @@
      *           btnText: '导入Excel',
      *           filetype: ['.xls'], // 支持的文件类型，默认为 ['.xls', '.xlsx']
      *           url: 'http://172.16.7.75:8000/bh-vue/excelimport/upload', // 上传路径
+     *           beforeSubmit (e, data) { // 上传之前对数据进行处理
+     *           },
      *           onFileUploaded (e, data) {
      *               console.log(data); // 可以在此处保存data返回的 token，假如有的话
      *           },
@@ -50,6 +52,7 @@
     import adapter from './uploadAdapter';
 
     const ADAPTER_NAME = '__BH_EXCEL_UPLOAD_ADAPTER__'; // emap必须全局注册插件，so ...
+    const NOOP = function() {};
 
     window[ADAPTER_NAME] = window[ADAPTER_NAME] || adapter;
 
@@ -65,6 +68,7 @@
          * @property {String} [btnText=导入] 上传按钮文字
          * @property {String} [filetype=['.xls', '.xlsx']] 支持文件格式
          * @property {Function} [onFileUploaded] 文件上传后的回调
+         * @property {Function} [beforeSubmit] 上传之前对数据进行处理
          * @property {Function} doCheck 文件校验处理，返回 promise，格式见示例
          * @property {Function} doImport 文件导入处理，返回 promise，格式见示例
          * @property {Function} downloadErrorFile 导入错误文件下载处理
@@ -76,15 +80,26 @@
                 required: true,
                 default () {
                     return {
-                        btnText: '导入',
-                        filetype: ['.xls', '.xlsx']
+                        doCheck: NOOP,
+                        doImport: NOOP,
+                        downloadErrorFile: NOOP,
+                        downloadTmplFile: NOOP
                     };
                 }
             }
         },
         methods: {
             doImport () {
-                let opts = $.extend({adaptor: ADAPTER_NAME}, this.options);
+                let opts = this.options
+                if (!opts.filetype) {
+                    opts.filetype = ['.xls', '.xlsx']
+                }
+
+                if (!opts.btnText) {
+                    opts.btnText = '导入'
+                }
+
+                opts = $.extend({adaptor: ADAPTER_NAME}, opts);
                 const iv = $.emapImport2(opts);
 
                 this.iv = iv;

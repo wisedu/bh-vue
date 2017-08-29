@@ -18,7 +18,7 @@ const _checkFileType = function (fileName, types) {
 const noop = () => {};
 
 module.exports = {
-    init: function (view, options, downTplData) {
+    init: function (panel, options, downTplData, view) {
         // view related callbacks
         var onUploading = options.onUploading;
         var onUploaded = options.onUploaded;
@@ -44,7 +44,7 @@ module.exports = {
             return;
         }
 
-        var input = view.find('input[type=file]');
+        var input = panel.find('input[type=file]');
 
         function check (data) {
             onChecking();
@@ -60,27 +60,27 @@ module.exports = {
 
         options = {
             url: url,
-            autoUpload: true,
+            autoUpload: false,
             dataType: 'json',
             add: function (e, data) {
-                onUploading(data.files && data.files[0], data);
-
                 // 校验文件类型
                 if (filetype && filetype.length > 0 && data.files && data.files.length > 0) {
                     if (!_checkFileType(data.files[0].name, filetype)) {
                         onError && onError({data: data, etype: 'format', msg: '不支持的文件格式'});
                         // TODO: emapImport2 需要提供此方法入口
                         view.renderUploadFormatError && view.renderUploadFormatError();
-                        return;
+                        return false;
                     }
                 }
 
                 // 若前置校验显示返回 false，则不进行提交操作
                 if (beforeSubmit && (beforeSubmit(e, data) === false)) {
-                    return;
+                    return false;
                 }
 
-                data.submit();
+                onUploading(data.files && data.files[0], data);
+                return true;
+                // data.submit(); // this process is done in import2.js, not good
             },
             done: function (e, data) {
                 onUploaded({isSuccess: true, data: data, e: e});
