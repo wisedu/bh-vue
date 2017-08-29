@@ -22,9 +22,11 @@
      *           filetype: ['.xls'], // 支持的文件类型，默认为 ['.xls', '.xlsx']
      *           url: 'http://172.16.7.75:8000/bh-vue/excelimport/upload', // 上传路径
      *           beforeSubmit (e, data) { // 上传之前对数据进行处理
+     *               data.formData = {a: 1, b: 2};
      *           },
-     *           onFileUploaded (e, data) {
-     *               console.log(data); // 可以在此处保存data返回的 token，假如有的话
+     *           onFileUploaded (e, data) { // 校验返回结果或保存data返回的 token(假如有的话)
+     *               console.log(data);
+     *               return data.result.code === '0';
      *           },
      *           doCheck (data) {
      *               // 模拟数据校验处理，可以自定义请求和返回格式，只要 resolve 按格式提供就行
@@ -67,8 +69,8 @@
          * @property {String} url 文件上传请求路径
          * @property {String} [btnText=导入] 上传按钮文字
          * @property {String} [filetype=['.xls', '.xlsx']] 支持文件格式
-         * @property {Function} [onFileUploaded] 文件上传后的回调
-         * @property {Function} [beforeSubmit] 上传之前对数据进行处理
+         * @property {Function} [onFileUploaded] 文件上传后的回调，*需要根据上传结果返回 boolean 值
+         * @property {Function} [beforeSubmit] 上传之前对数据进行处理，格式见示例
          * @property {Function} doCheck 文件校验处理，返回 promise，格式见示例
          * @property {Function} doImport 文件导入处理，返回 promise，格式见示例
          * @property {Function} downloadErrorFile 导入错误文件下载处理
@@ -108,7 +110,13 @@
         ready () {
         },
         beforeDestroy () {
-            this.iv && this.iv.close();
+            let iv = this.iv
+            if (!iv) {
+                return
+            }
+
+            iv.close && iv.close();
+            iv.destroy && iv.destroy();
         },
         components: {BhButton}
     };
