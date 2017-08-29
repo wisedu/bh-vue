@@ -15,7 +15,7 @@ const _checkFileType = function (fileName, types) {
     return $.inArray(ext, types) > -1;
 };
 
-const noop = () => {};
+const noop = function () {};
 
 module.exports = {
     init: function (panel, options, downTplData, view) {
@@ -83,9 +83,9 @@ module.exports = {
                 // data.submit(); // this process is done in import2.js, not good
             },
             done: function (e, data) {
-                onUploaded({isSuccess: true, data: data, e: e});
-                onFileUploaded && onFileUploaded(e, data);
-                check(data);
+                var ret = onFileUploaded ? onFileUploaded(e, data) : true;
+                onUploaded({isSuccess: ret, data: data, e: e});
+                ret && check(data);
             },
             fail: function (e, data) {
                 onUploaded({isSuccess: false});
