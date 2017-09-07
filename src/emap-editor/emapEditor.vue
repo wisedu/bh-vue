@@ -149,7 +149,13 @@
                 if (fileId) {
                     let origin = location.origin
                     let wrapper = this.wrapper();
-                    let url = `${origin}${options.imgDownload}/${fileId}`;
+                    var url = '';
+                    if(!!result.fileUrl){
+                        url = result.fileUrl;
+                    }else{
+                        url = `${origin}${options.imgDownload}/${fileId}`;
+                    }
+                    
                     // console.log(document.activeElement)
                     // let editor = $('.note-editable').get(0)
                     // let lastChild = editor.
