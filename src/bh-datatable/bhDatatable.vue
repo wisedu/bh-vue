@@ -168,6 +168,12 @@
 
                 // data.sortdatafield && data.sortorder --- 指定排序使用的参数
                 $.extend(data, opts.queryParams);
+
+                const type = source.type
+                if (type === 'get' || type === 'GET') {
+                    return data;
+                }
+
                 return JSON.stringify(data);
             },
             beforeSend: (xhr) => {
