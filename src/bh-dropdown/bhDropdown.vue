@@ -125,7 +125,15 @@
             },
             checkedIndexes: Array,
             width: Number,
-            height: Number
+            height: Number,
+            filterable:{
+                type:Boolean,
+                default:false
+            },
+            filterPlaceHolder:{
+                type:String,
+                default:"请选择"
+            }   
         },
         methods: {
             /**
@@ -227,7 +235,9 @@
                 placeHolder: this.placeholder,
                 width: this.width,
                 height: this.height,
-                checkboxes: this.checkable
+                checkboxes: this.checkable,
+                filterable:this.filterable,
+                filterPlaceHolder:this.filterPlaceHolder
             };
 
             if (this.displayMember || this.valueMember) {
