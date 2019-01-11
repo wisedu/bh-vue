@@ -62,6 +62,7 @@
                 leftSourceAction: options.leftSourceAction,
                 placeholder: options.placeholder || '搜索应用名称',
                 id: options.id,
+                rightLocalData: options.rightLocalData,
                 type: options.type || 'post',
                 params: options.params,
                 searchKeyName: options.searchKeyName || 'SEARCHKEY',
